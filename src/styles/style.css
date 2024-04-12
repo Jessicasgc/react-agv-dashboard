@@ -1,0 +1,141 @@
+:root {
+    --primary: #BB86FC;
+    --primary-variant: #3700B3;
+    --secondary: #03DAC6;
+    --background: #143363;
+    --surface: #121212;
+    --error: #CF6679;
+    --warning: #F39C12;
+    --on-background: #FFFFFF;
+    --on-background-grey: #c7c7c7;
+    --on-surface: #FFFFFF;
+  }
+  
+  [data-theme="light"] {
+    --background: #7ee1dd;
+    --suface: #FFFFFF;
+    --on-background: #333333;
+    --on-background-grey: #6d6d6d;
+    --on-surface: #333333;
+  }
+  
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  a {
+    color: var(--on-background);
+  }
+  
+  
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  
+  .app-container {
+    color: var(--on-background);
+    background-color: var(--background);
+    min-height: 100vh;
+    transition: all ease-in-out 0.5s;
+  }
+  
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    border-bottom: 1px solid var(--on-background);
+  }
+  
+  header h1 {
+    flex: 1;
+    
+  }
+  
+  header .navigation ul li {
+    display: inline-block;
+    font-size: 24px;
+    margin: 0 8px;
+  }
+  
+  main {
+    margin: 0 auto;
+    padding: 32px 0;
+    width: 90%;
+    max-width: 1200px;
+  }
+
+  .error{
+    color: var(--error);
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  [data-placeholder]:empty::before {
+    content: attr(data-placeholder);
+    color: var(--on-background-grey)
+  }
+
+  .toggle-theme {
+    font-size: 36px;
+  }
+  
+  .toggle-locale {
+    font-size: 28px;
+  }
+
+  .container {
+    background-color: transparent;
+    border: none;
+    color: rgb(0, 0, 0); /* White text */
+    padding: 15px 32px; /* Padding */
+    text-align: center; /* Center text */
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; /* Font size */
+    margin: 4px 2px; /* Margin */
+    cursor: pointer; /* Cursor style */
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  /* Custom dropdown styles */
+.add-task_dropdown {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--on-background-grey); /* Use theme color for border */
+  border-radius: 5px;
+  background-color: var(--surface); /* Use theme color for background */
+  color: var(--on-surface); /* Use theme color for text color */
+  position: relative;
+  appearance: none; /* Remove default arrow */
+  -webkit-appearance: none; /* Remove default arrow for webkit browsers */
+  -moz-appearance: none; /* Remove default arrow for Mozilla Firefox */
+}
+
+/* Custom dropdown arrow */
+.add-task_dropdown::after {
+  content: '\25BC'; /* Downward arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--on-background); /* Use theme color for arrow color */
+}
+
+/* Custom dropdown option styles */
+.add-task_dropdown option {
+  background-color: var(--surface);
+  color: var(--on-surface);
+}
+
+/* Custom dropdown focus styles */
+.add-task_dropdown:focus {
+  outline: none;
+  border-color: var(--primary); /* Change border color on focus */
+}
