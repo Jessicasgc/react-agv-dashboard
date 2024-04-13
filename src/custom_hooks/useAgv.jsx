@@ -6,7 +6,7 @@ function useAgv(id) {
  const [loading, setLoading] = React.useState(true);
 
  React.useEffect(() => {
-    getAGVById(id).then((agv) => {
+    getAGVById(id).then(({agv}) => {
       setAgv(agv);
       setLoading(false);
     })

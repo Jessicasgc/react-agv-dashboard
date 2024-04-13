@@ -42,7 +42,7 @@ function AddTask({ addTask }) {
             >
                 <option value=''>Select Taking Out Station</option>
                 {/* Map over the stations array to populate the dropdown options */}
-                {stations.map(station => (
+                {stations && stations.map((station) => (
                     <option key={station.id} value={station.id}>
                         {station.station_code}
                     </option>
@@ -57,7 +57,7 @@ function AddTask({ addTask }) {
             >
                 <option value=''>Select Turning In Station</option>
                 {/* Map over the stations array to populate the dropdown options */}
-                {stations.map(station => (
+                {stations && stations.map(station => (
                     <option key={station.id} value={station.id}>
                         {station.station_code}
                     </option>
@@ -73,7 +73,7 @@ function AddTask({ addTask }) {
             >
                 <option value=''>Select Item</option>
                 {/* Map over the items array to populate the dropdown options */}
-                {items.map(item => (
+                {items && items.map(item => (
                     <option key={item.id} value={item.id}>
                         {item.code}
                     </option>

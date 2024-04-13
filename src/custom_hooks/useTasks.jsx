@@ -6,8 +6,8 @@ function useTasks() {
   const [tasks, setTasks] = React.useState([]);
 
   React.useEffect(() => {
-    getTasks().then((tasks) => {
-      setTasks(tasks);
+    getTasks().then(({task}) => {
+      setTasks(task);
       setLoading(false);
     });
 

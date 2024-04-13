@@ -1,16 +1,17 @@
-import useWaitingTasks from '../../custom_hooks/useWaitingTasks';
+//import useWaitingTasks from '../../custom_hooks/useWaitingTasks';
 import Task from './Task';
+import PropTypes from 'prop-types';
 
-function WaitingTaskList(){
-    const [tasks, loading] = useWaitingTasks();
+function WaitingTaskList({tasks}){
+    // const [tasks, loading] = useWaitingTasks();
 
-    if (loading) return <p>Loading...</p>;
+    //if (loading) return <p>Loading...</p>;
     // const filteredWaitingTask = tasks.filter(task => task.task_status === 'waiting');
 
-    //const waitingTaskCount = filteredWaitingTask.length;
+    // const waitingTaskCount = filteredWaitingTask.length;
 
     // Pass the waitingTaskCount to the parent component
-    //onCountChange(waitingTaskCount);
+    // onCountChange(waitingTaskCount);
 
     return (
         <div className='tasks-list'>
@@ -26,5 +27,9 @@ function WaitingTaskList(){
         </div>  
     );
 }
+
+WaitingTaskList.propTypes = {
+    tasks: PropTypes.array.isRequired,
+};
 
 export default WaitingTaskList;

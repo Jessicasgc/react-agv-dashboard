@@ -6,8 +6,8 @@ function useItemTypes() {
  const [loading, setLoading] = React.useState(true);
 
  React.useEffect(() => {
-    getItemTypes().then((itemtypes) => {
-      setItemTypes(itemtypes);
+    getItemTypes().then(({itemtype}) => {
+      setItemTypes(itemtype);
       setLoading(false);
     })
  }, []);

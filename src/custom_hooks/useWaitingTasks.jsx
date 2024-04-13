@@ -6,12 +6,15 @@ function useWaitingTasks() {
  const [loading, setLoading] = React.useState(true);
 
  React.useEffect(() => {
-    getWaitingTasks().then((task) => {
+    getWaitingTasks().then(({task}) => {
       setTasks(task);
       setLoading(false);
     })
+    // return () => {
+    //   setLoading(true);
+    // };
  }, []);
 
- return { tasks, loading };
+ return [tasks, loading];
 }
 export default useWaitingTasks;

@@ -5,31 +5,34 @@ import AddTask from './AddTask';
 import { addTask } from '../../utils/crud_api';
 
 function AddTaskButton() {
-    const [visible, setVisible] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
 
-    const handleClick = () => {
-        setVisible(!visible);
+    const hide = () => {
+        setOpen(false);
     };
 
-    const handleVisibleChange = (visible) => {
-        setVisible(visible);
+    // Handle popover visibility change
+    const handleOpenChange = (newOpen) => {
+        setOpen(newOpen);
     };
+    
       
     function onAddTaskHandler({ id_station_input, id_station_output, id_item}){
         addTask({ id_station_input, id_station_output, id_item});
-        setVisible(false);
+        hide();
     }
     
     return (
         <Popover
-            content={<AddTask addTask={onAddTaskHandler} />}
+            content={<a><AddTask addTask={onAddTaskHandler} /></a>}
+            title="Add Task"
             trigger="click"
-            visible={visible}
-            onVisibleChange={handleVisibleChange}
+            open={open}
+            onOpenChange={handleOpenChange}
             placement="bottom"
             overlayClassName="add-task-popover"
         >
-            <button className='icon' onClick={handleClick}>
+            <button className='icon-add-task'> 
                 <FaPlusCircle />
             </button>
         </Popover>

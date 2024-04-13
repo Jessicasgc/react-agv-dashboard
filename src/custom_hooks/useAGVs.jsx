@@ -6,7 +6,7 @@ function useAGVs() {
  const [loading, setLoading] = React.useState(true);
 
  React.useEffect(() => {
-    getAGVs().then((agv) => {
+    getAGVs().then(({agv}) => {
       setAgvs(agv);
       setLoading(false);
     })

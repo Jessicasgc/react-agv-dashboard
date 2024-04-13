@@ -237,8 +237,8 @@ async function addItems({ id_type, item_name }) {
     return { error: false, data: responseJson.data };
   }
 
-  async function getTasksByIdAGV(id_agv) {
-    const response = await fetch(`${BASE_URL}/agv/${id_agv}`);
+  async function getDoneTasks() {
+    const response = await fetch(`${BASE_URL}/done_task`);
     const responseJson = await response.json();
   
     if (responseJson.status !== 'success') {
@@ -248,9 +248,51 @@ async function addItems({ id_type, item_name }) {
     return { error: false, data: responseJson.data };
   }
 
+  async function getTasksByIdAGV(id_agv) {
+    const response = await fetch(`${BASE_URL}/task/agv/${id_agv}`);
+    const responseJson = await response.json();
   
+    if (responseJson.status !== 'success') {
+      return { error: true, data: null };
+    }
+  
+    return { error: false, data: responseJson.data };
+  }
+ 
+  async function getProcessingTasksByIdAGV(id_agv) {
+    const response = await fetch(`${BASE_URL}/task/agv/${id_agv}/processing`);
+    const responseJson = await response.json();
+  
+    if (responseJson.status !== 'success') {
+      return { error: true, data: null };
+    }
+  
+    return { error: false, data: responseJson.data };
+  }
+
+  async function getAllocatedTasksByIdAGV(id_agv) {
+    const response = await fetch(`${BASE_URL}/task/agv/${id_agv}/allocated`);
+    const responseJson = await response.json();
+  
+    if (responseJson.status !== 'success') {
+      return { error: true, data: null };
+    }
+  
+    return { error: false, data: responseJson.data };
+  }
+
+  async function getDoneTasksByIdAGV(id_agv) {
+    const response = await fetch(`${BASE_URL}/task/agv/${id_agv}/done`);
+    const responseJson = await response.json();
+  
+    if (responseJson.status !== 'success') {
+      return { error: true, data: null };
+    }
+  
+    return { error: false, data: responseJson.data };
+  }
 async function addTask({ id_station_input, id_station_output, id_item }) {
-    const response = await fetch(`${BASE_URL}/item`, {
+    const response = await fetch(`${BASE_URL}/task`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -339,7 +381,11 @@ async function addTask({ id_station_input, id_station_output, id_item }) {
     //Task
     getTasks,
     getWaitingTasks,
+    getDoneTasks,
     getTasksByIdAGV,
+    getProcessingTasksByIdAGV,
+    getAllocatedTasksByIdAGV,
+    getDoneTasksByIdAGV,
     addTask,
     editTaskById,
     deleteTaskById

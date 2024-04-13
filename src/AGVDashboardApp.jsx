@@ -10,9 +10,28 @@ import ItemsPage from './pages/ItemsPage';
 import TaskPage from './pages/TaskPage';
 import AddTaskButton from './components/Task/AddTaskButton';
 import WaitingTaskButton from './components/Task/WaitingTaskButton';
+// import { Content, Footer } from 'antd/es/layout/layout';
+
+const JustDashboardButtons = () => {
+  const location = useLocation();
+  
+  // Determine whether to show buttons based on location
+  const showButtons = location.pathname === '/';
+
+  return (
+    <div className='just-dashboard-button'>
+      {showButtons && (
+        <>
+          <AddTaskButton />
+          <WaitingTaskButton />
+        </>
+      )}
+    </div>
+  );
+};
 
 class AGVDashboardApp extends React.Component {
-  // location = useLocation();
+
 
   constructor(props){
     super(props);
@@ -63,10 +82,12 @@ class AGVDashboardApp extends React.Component {
       document.documentElement.setAttribute('data-theme', this.state.theme);
     }
   }
+  
   render() {
     if (this.state.initializing) {
       return null;
     }
+
 
     return(
       <ThemeProvider value={this.state}>
@@ -74,19 +95,8 @@ class AGVDashboardApp extends React.Component {
           <div className='app-container'>
             <header>
               <h1>{this.state.localeContext.locale === 'id' ? 'Dasbor AGV' : 'AGV Dashboard'}</h1>
-              {/* <ToggleLocale/> */}
-              <div className="container">
-                {/* <ToggleTheme /> */}
-              </div>
                 <Navigation/>
-                  <div className="container">
-                  {/* {location.pathname === '/' && ( */}
-                  <>
-                    <AddTaskButton />
-                    <WaitingTaskButton />
-                  </>
-              {/* )} */}
-                  </div>
+                <JustDashboardButtons/>
             </header>
             <main>
               <NavSlide/>
@@ -97,6 +107,9 @@ class AGVDashboardApp extends React.Component {
                 <Route path='*' element={<E404Pages />} />
               </Routes>
             </main>
+            <footer>
+              <p>AGV Dashboard ©{new Date().getFullYear()} All Rights Reserved</p>
+            </footer>
           </div>
         </LocaleProvider>
       </ThemeProvider>

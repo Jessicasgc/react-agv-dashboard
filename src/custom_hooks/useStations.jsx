@@ -6,7 +6,7 @@ function useStations() {
  const [loading, setLoading] = React.useState(true);
 
  React.useEffect(() => {
-    getStations().then((station) => {
+    getStations().then(({station}) => {
       setStations(station);
       setLoading(false);
     })

@@ -6,8 +6,8 @@ function useItems() {
  const [loading, setLoading] = React.useState(true);
 
  React.useEffect(() => {
-    getItems().then((items) => {
-      setItems(items);
+    getItems().then(({item}) => {
+      setItems(item);
       setLoading(false);
     })
  }, []);

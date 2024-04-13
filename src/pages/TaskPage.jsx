@@ -60,7 +60,7 @@ function TaskPage() {
                     <button className='action'><BiPlus/></button>
                 </div>
         </Link> */}  
-          <h1>{locale === 'id' ? 'Ini adalah Halaman Dashboard' : 'This is Dashboard Page'}</h1>
+          <h1>{locale === 'id' ? 'Ini adalah Halaman Tugas' : 'This is Task Page'}</h1>
         </section> 
         
     )
