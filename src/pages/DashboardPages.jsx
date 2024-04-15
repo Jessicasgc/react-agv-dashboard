@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useWebSocket } from 'react-use-websocket/dist/lib/use-websocket';
+import Map from '../components/Map';
 // import { useSearchParams } from 'react-router-dom';
 // import NoteList from '../components/NoteList';
 // import SearchBar from '../components/SearchBar';
@@ -9,6 +11,20 @@ import LocaleContext from '../contexts/LocaleContext';
 
 
 function DashboardPage() {
+    const { sendMessage,sendJsonMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8080/dashboard',{onOpen: () => console.log('opened'),});
+    const [agvs, setAgvs] = ([]);
+
+    useEffect(() => {
+        if (lastMessage !== null) {
+            let res = JSON.parse(lastMessage.data)
+            console.log(res, "pesan dari agv");
+            if(!res.type) return
+            
+            if(res.type == "status") setAgvs(res.data);
+            
+            sendJsonMessage({cmd:"ini dari dashboard",id:2});
+        }
+      }, [lastMessage]);
     // const [searchParams, setSearchParams] = useSearchParams();
     // const [loading, setLoading] = React.useState(true);
     // const [activeNotes, setActiveNotes] = React.useState([]);
@@ -57,6 +73,12 @@ function DashboardPage() {
                 </div>
         </Link> */}  
           <h1>{locale === 'id' ? 'Ini adalah Halaman Dashboard' : 'This is Dashboard Page'}</h1>
+          {/* {
+            agvs.map((agv) => {
+                return ( <div>AGV {agv.id} : {agv.online ? "Online" : "Offline"}</div> )
+            } )
+          } */}
+          <Map/>
         </section> 
         
     )
