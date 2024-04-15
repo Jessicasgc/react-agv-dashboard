@@ -325,7 +325,8 @@ async function addTask({ id_station_input, id_station_output, id_item }) {
   //   return { error: false, data: responseJson.data };
   // }
   
-  async function editTaskById({ id, id_station_input, id_station_output, id_item }) {
+  async function editTaskById(id, {id_station_input, id_station_output, id_item }) {
+    console.log("id",id);
     const response = await fetch(`${BASE_URL}/task/${id}`, {
       method: 'PUT',
       headers: {

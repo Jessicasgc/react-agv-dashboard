@@ -29,11 +29,11 @@ function TaskBody({id, task_name, task_code, task_status, id_agv, start_time, en
 }
 
 TaskBody.propTypes = {
-   id: propTypes.string.isRequired,
+   id: propTypes.number.isRequired,
    task_name: propTypes.string.isRequired,
    task_code: propTypes.string.isRequired,
    task_status: propTypes.string.isRequired,
-   id_agv: propTypes.string.isRequired,
+   id_agv: propTypes.number,
    start_time: propTypes.string,
    end_time: propTypes.string,
    created_at: propTypes.string.isRequired,

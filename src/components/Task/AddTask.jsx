@@ -36,9 +36,9 @@ function AddTask() {
     };
 
     return (
-        <form className='add-task_input' onSubmit={onSubmitHandler}>
+        <form className='task_input' onSubmit={onSubmitHandler}>
             <select
-                className='add-task_dropdown'
+                className='task_dropdown'
                 name='id_station_output'
                 value={formData.id_station_output}
                 onChange={onInputChange}
@@ -53,7 +53,7 @@ function AddTask() {
             </select>
 
             <select
-                className='add-task_dropdown'
+                className='task_dropdown'
                 name='id_station_input'
                 value={formData.id_station_input}
                 onChange={onInputChange}
@@ -69,7 +69,7 @@ function AddTask() {
 
             {/* Dropdown for Item */}
             <select
-                className='add-task_dropdown'
+                className='task_dropdown'
                 name='id_item'
                 value={formData.id_item}
                 onChange={onInputChange}
@@ -83,7 +83,7 @@ function AddTask() {
                 ))}
             </select>
             
-            <div className='add-task_action'>
+            <div className='task_action'>
                 <button className='action' type='submit'>
                     Add Task
                 </button>

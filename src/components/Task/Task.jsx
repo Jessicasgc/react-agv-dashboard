@@ -24,11 +24,11 @@ function Task({id, task_name, task_code, task_status, id_agv, start_time, end_ti
     );
 }
 Task.propTypes= {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     task_name: PropTypes.string.isRequired,
     task_code: PropTypes.string.isRequired,
     task_status: PropTypes.string.isRequired,
-    id_agv: PropTypes.string.isRequired,
+    id_agv: PropTypes.number,
     start_time: PropTypes.string,
     end_time: PropTypes.string,
     created_at: PropTypes.string.isRequired,
