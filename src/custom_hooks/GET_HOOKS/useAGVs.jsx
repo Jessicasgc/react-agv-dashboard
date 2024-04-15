@@ -1,13 +1,13 @@
 import React from 'react';
-import { getAGVs } from '../utils/crud_api';
+import { getAGVs } from '../../utils/crud_api';
 
 function useAGVs() {
  const [agvs, setAgvs] = React.useState([]);
  const [loading, setLoading] = React.useState(true);
 
  React.useEffect(() => {
-    getAGVs().then(({agv}) => {
-      setAgvs(agv);
+    getAGVs().then(({data}) => {
+      setAgvs(data);
       setLoading(false);
     })
  }, []);

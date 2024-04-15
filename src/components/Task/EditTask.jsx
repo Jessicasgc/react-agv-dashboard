@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useStations from '../../custom_hooks/useStations';
-import useItems from '../../custom_hooks/useItems';
+import useStations from '../../custom_hooks/GET_HOOKS/useStations';
+import useItems from '../../custom_hooks/GET_HOOKS/useItems';
 
 function EditTask({ id, editTaskById }) {
     const { stations } = useStations();

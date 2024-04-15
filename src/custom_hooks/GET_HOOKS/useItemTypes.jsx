@@ -1,5 +1,5 @@
 import React from 'react';
-import { getItemTypes } from '../utils/crud_api';
+import { getItemTypes } from '../../utils/crud_api';
 
 function useItemTypes() {
  const [itemtypes, setItemTypes] = React.useState([]);

@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Monoton:wght@200;300;400;500;600;700;800&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  border:none;
+  outline:none;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.logo {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 15px;
+}
+.logo-icon{
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  background-color: rgba(28, 17, 41, 0.88);
+}
+
+.menu-bar{
+  position: absolute;
+  /* height: 80vh; */
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 1rem;
+  position: relative;
+}
+
+.toggle-theme-btn{
+  position: relative;
+  padding-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  margin-top: auto;
+}
+
+.pause-btn{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  margin-right: 0.8rem;
+}
+
+.toggle{
+  margin-left: 15px;
+  background-color: rgba(26, 54, 114, 0.88);
+  color: rgb(255, 255, 255);
+  text-size-adjust: 30;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular'),
+       url('../Fonts/Poppins-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Poppins Bold'), local('Poppins-Bold'),
+       url('../Fonts/Poppins-Bold.ttf') format('truetype');
+}
+
+.title {
+  font-family: 'Poppins', sans-serif; /* Use Poppins for titles */
+  font-weight: 700; /* Use bold (700) for titles */
+  font-size: large;
+}
+
+.another {
+  font-family: 'Poppins', sans-serif; /* Use Poppins for other text */
+  font-weight: 400; /* Use regular (400) for other text */
+  height: 100vh;
+}
+.another .ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer-line {
+  border-bottom: 1px solid #ccc;
+  margin-top: 20px; /* Adjust this value as needed for spacing */
+}
+.report{
+  display: table-column;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: rgba(206, 206, 206, 0.88);
+  color: #000000;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  width: fit-content;
+  max-width: 25%;
+  height: 100%;
+  overflow: auto;
+}
+.search-container {
+  display: inline-block;
+}
+
+.search-input {
+  padding: 8px 30px 8px 10px; /* Adjust padding as needed */
+  border: 1px solid #0078D4; /* Border style */
+  border-radius: 5px; /* Border radius */
+  font-size: 16px; /* Input font size */
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #888; /* Icon color */
+  pointer-events: none; /* Ensure icon doesn't interfere with input */
+}
+
+/* Styles for the card */
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 0.5rem; /* Adjust margin as needed */
+}
+
+.card-header {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.card-header h3 {
+  margin: 0;
+}
+
+.card-body {
+  flex: content;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.full-height {
+  height: 100%;
+}
+
+/* Bagian jalur */
+#root {
+  /* width: 100vw; */
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+}
+

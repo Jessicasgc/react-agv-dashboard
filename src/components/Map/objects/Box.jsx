@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { map } from "../components/Experience";
+import { map } from "../Experience";
 
 const BOX_HEIGHT = 2
 

@@ -6,6 +6,7 @@ import React from 'react';
 // import { BiPlus } from 'react-icons/bi';
 // import { Link } from 'react-router-dom';
 import LocaleContext from '../contexts/LocaleContext';
+import PathApp from '../components/Map/PathApp';
 
 
 function DashboardPage() {
@@ -57,6 +58,7 @@ function DashboardPage() {
                 </div>
         </Link> */}  
           <h1>{locale === 'id' ? 'Ini adalah Halaman Dashboard' : 'This is Dashboard Page'}</h1>
+          {/* <PathApp/> */}
         </section> 
         
     )

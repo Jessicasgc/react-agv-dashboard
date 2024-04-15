@@ -12,7 +12,7 @@ function WaitingTaskList({tasks}){
 
     // Pass the waitingTaskCount to the parent component
     // onCountChange(waitingTaskCount);
-
+    console.log(tasks);
     return (
         <div className='tasks-list'>
             {

@@ -1,4 +1,4 @@
-import { map } from "../components/Experience";
+import { map } from "../Experience";
 
 export default function FloorParticle({x = 0, y = 0, w = 0, h = 0, color = "green"}){
 

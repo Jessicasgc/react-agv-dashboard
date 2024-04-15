@@ -2,7 +2,7 @@ import React from 'react';
 import { FaDatabase } from 'react-icons/fa';
 import { Badge, Popover } from 'antd';
 import WaitingTaskList from './WaitingTaskList';
-import useWaitingTasks from '../../custom_hooks/useWaitingTasks';
+import useWaitingTasks from '../../custom_hooks/GET_HOOKS/useWaitingTasks';
 
 function WaitingTaskButton() {
     const [tasks, loading] = useWaitingTasks();
@@ -18,11 +18,9 @@ function WaitingTaskButton() {
     };
     
 
-   
+   console.log(tasks);
     return (
         <React.Fragment>
-             
-            
                 <Popover
                     content={ loading ? ( // If loading is true, show loading indicator
                     <p>Loading...</p>
@@ -38,18 +36,17 @@ function WaitingTaskButton() {
                     }
                     title="Waiting Task List"
                     trigger="click"
-                    visible={open}
-                    onVisibleChange={handleOpenChange}
+                    open={open}
+                    onOpenChange={handleOpenChange}
                     placement="bottom"
                     overlayClassName="add-task-popover"
                 >
-                    {/* <Badge count={waitingTaskCount}> */}
+                    <Badge count={tasks.length}>
                     <button className='icon-waiting-task'>
                         <FaDatabase />
                     </button>
-                    {/* </Badge> */}
+                    </Badge>
                 </Popover>
-            
         </React.Fragment>
     );
 }

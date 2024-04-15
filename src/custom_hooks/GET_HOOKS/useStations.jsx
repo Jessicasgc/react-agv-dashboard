@@ -1,13 +1,13 @@
 import React from 'react';
-import { getStations } from '../utils/crud_api';
+import { getStations } from '../../utils/crud_api';
 
 function useStations() {
  const [stations, setStations] = React.useState([]);
  const [loading, setLoading] = React.useState(true);
 
  React.useEffect(() => {
-    getStations().then(({station}) => {
-      setStations(station);
+    getStations().then(({data}) => {
+      setStations(data);
       setLoading(false);
     })
  }, []);

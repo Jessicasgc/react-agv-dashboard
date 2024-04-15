@@ -3,15 +3,15 @@ import { extend, useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import * as THREE from "three";
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline'
-import AGV from "../objects/AGV";
-import Box from "../objects/Box";
-import Floor from "../objects/Floor";
-import FloorParticle from "../objects/FloorParticle";
-import object from "../objects/Object.json"
+import AGV from "./objects/AGV";
+import Box from "./objects/Box";
+import Floor from "./objects/Floor";
+import FloorParticle from "./objects/FloorParticle";
+import object from "./objects/Object.json"
 import { isDown, isLeft, isRight, isUp } from "./Dpad";
 import { isPause } from "./PauseButton";
 import { xPos, yPos, width, height } from "./InputObstacle";
-import Grid from '../pathfinding/core/Grid';
+import Grid from "../pathfinding/core/Grid";
 import { Always } from "../pathfinding/core/DiagonalMovement";
 import RRT from "../pathfinding/finder/RRT";
 import { euclidian } from "../pathfinding/core/Heuristic";

@@ -1,13 +1,14 @@
-import ReusableTable from './ReusableTable';
-import useItems from '../custom_hooks/useItems';
+import ReusableTable from '../ReusableTable';
+import useItems from '../../custom_hooks/GET_HOOKS/useItems';
 
-function ItemTable() {
+function ItemsTable() {
     const { items, loading } = useItems();
 
     const itemColumns = [
         { key: 'id', header: 'ID' },
-        { key: 'name', header: 'Name' },
-        { key: 'description', header: 'Description' }
+        { key: 'item_code', header: 'Name' },
+        { key: 'item_type', header: 'Description' },
+        
     ];
 
     return (
@@ -22,4 +23,4 @@ function ItemTable() {
     );
 }
 
-export default ItemTable;
+export default ItemsTable;
