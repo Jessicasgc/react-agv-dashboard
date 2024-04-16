@@ -1,7 +1,6 @@
 import React from 'react';
-import propTypes from 'prop-types';
-import useAGVs from '../custom_hooks/useAGVs';
-import useAgv from '../custom_hooks/useAgv';
+import useAGVs from '../custom_hooks/GET_HOOKS/useAGVs';
+import useAgv from '../custom_hooks/GET_HOOKS/useAgv';
 import ProcessingTaskListByAGV from './Task/TaskListByAGV';
 import AllocatedTaskListByAGV from './Task/TaskListByAGV';
 import AGVData from './AGV/AGVData';
@@ -46,11 +45,6 @@ function SideDashboard(){
     );
 }
 
-SideDashboard.propTypes = {
-   id: propTypes.string.isRequired,
-   title: propTypes.string.isRequired,
-   body: propTypes.string.isRequired,
-   createdAt: propTypes.string.isRequired,
-};
+
 
 export default SideDashboard;

@@ -13,7 +13,7 @@
   
   [data-theme="light"] {
     --background: #7ee1dd;
-    --suface: #FFFFFF;
+    --surface: #FFFFFF;
     --on-background: #333333;
     --on-background-grey: #6d6d6d;
     --on-surface: #333333;
@@ -42,22 +42,37 @@
     transition: all ease-in-out 0.5s;
   }
   
+  .dash-name{
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+  }
+
   header {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 16px;
     border-bottom: 1px solid var(--on-background);
+    position: fixed; /* Change to fixed */
+    top: 0; /* Set it to the top */
+    left: 0;
+    right: 0; /* */
   }
   
   footer {
     display: flex;
     flex-direction: column;
-    position: static;
+    position: fixed; /* Mengubahnya menjadi fixed */
+    bottom: 0; /* Menetapkannya ke bawah */
+    left: 0;
+    right: 0; /* Memastikan footer menempati seluruh lebar */
     align-items: center;
     justify-content: center;
     padding: 16px;
     border-top: 1px solid var(--on-background);
+    height: 80px;
+    font-size: 15pt;
   }
   header h1 {
     flex: 1;
@@ -75,10 +90,9 @@
   
   main {
     margin: 0 auto;
-    padding: 32px 0;
-    width: 90%;
-    width: fit-content;
-    max-width: 1200px;
+  padding: 32px 0;
+  width: fit-content;
+  max-width: 1200px;
   }
 
   .error{
@@ -162,91 +176,42 @@
   border-color: var(--primary); /* Change border color on focus */
 }
 
-.slide-navigation {
+/* .slide-navigation {
   position: fixed;
   top: 0;
   left: 0;
   width: 250px;
   height: 100%;
-  background-color: var(--surface);
+  background-color: var(--on-background);
   overflow-x: hidden;
   transition: 0.5s;
-  
-   transform: translateX(-100%);
+  transform: translateX(-100%);
 }
 
 .slide-navigation.open {
   transform: translateX(0);
-}
+} */
 
 .menu-nav{
+  font-weight: bold;
+  font-size: large;
+  
+}
+
+.side-dashboard {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: fixed;
+  left: 0;
+  top: 80px; /* Sesuaikan dengan tinggi header */
   padding: 16px;
-  font-size: large;
-  
+  height: fit-content;
+  min-height: calc(100vh - 160px); /* Biar tidak menutupi footer */
+  width: 250px;
+  background-color: var(--surface);
+  transition: all ease-in-out 0.5s;
+  overflow-y: visible;
 }
 
-[data-theme="light"] .nav-drawer{
-  
-  padding: 16px;
-  font-size: large;
-  background-color: var(--primary);
-  color: var(--on-surface);
-  border-right: 1px solid var(--on-background);
-}
-
-.burger-button {
-  background-color: var(--primary);
-  color: var(--on-surface);
-  padding: 16px;
-  font-size: 17px;
-  border: none;
-  cursor: pointer;
-}
-
-.burger-button:hover {
-  background-color: var(--primary-variant);
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-li a {
-  display: block;
-  color: var(--on-surface);
-  padding: 8px 16px;
-  text-decoration: none;
-}
-
-li a:hover {
-  background-color: var(--secondary);
-  color: var(--on-surface);
-}
-
-.add-task-popover{
-  height: 100%;
-  overflow-y: auto;
-  white-space: nowrap;
-}
-
-/* Light Theme Specific Styles */
-[data-theme="light"] .slide-navigation {
-  background-color: var(--background);
-}
-
-[data-theme="light"] .toggle-button {
-  background-color: var(--secondary);
-}
-
-[data-theme="light"] .toggle-button:hover {
-  background-color: var(--primary);
-}
-
-[data-theme="light"] li a:hover {
-  background-color: var(--secondary);
-  color: var(--on-surface);
-}

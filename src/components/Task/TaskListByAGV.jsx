@@ -1,6 +1,6 @@
 import Task from './Task';
 import PropTypes from 'prop-types';
-import useAGVTasks from '../../custom_hooks/useAGVTasks';
+import useAGVTasks from '../../custom_hooks/GET_HOOKS/useAGVTasks';
 
 function ProcessingTaskListByAGV({agvId}){
     const [tasks, loading] = useAGVTasks(agvId);
@@ -50,7 +50,7 @@ AllocatedTaskListByAGV.propTypes= {
     agvId: PropTypes.string.isRequired,
 };
 
-export {
+export default{
     ProcessingTaskListByAGV,
     AllocatedTaskListByAGV
 }
