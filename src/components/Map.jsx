@@ -1,14 +1,14 @@
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Text , useCursor } from "@react-three/drei";
-import { defineHex, Grid, spiral } from "honeycomb-grid";
+import { defineHex, Grid, rectangle, spiral } from "honeycomb-grid";
 import { useSpring, animated } from "@react-spring/three";
 import { useEffect, useRef, useState } from "react";
 
 const floorPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
-const hexTile = defineHex({ dimensions: 1.1 });
+const hexTile = defineHex({ dimensions: 1.2 });
 const deg2rad = (deg) => deg * (Math.PI / 180);
-const spiralGrid = new Grid(hexTile, spiral({ radius: 2 }));
+const spiralGrid = new Grid(hexTile, rectangle({ width: 16, height: 19 }));
 let planeIntersectPoint = new THREE.Vector3();
 const spiralGridArray = spiralGrid.toArray();
 
@@ -22,10 +22,10 @@ export default function Map(){
       <HexGrid />
       <OrbitControls
         enabled={true}
-        mouseButtons={{
-          RIGHT: THREE.MOUSE.ROTATE,
-          MIDDLE: THREE.MOUSE.PAN
-        }}
+        // mouseButtons={{
+        //   RIGHT: THREE.MOUSE.ROTATE,
+        //   MIDDLE: THREE.MOUSE.PAN
+        // }}
       />
     </Canvas>
     )
@@ -51,6 +51,7 @@ const HexGrid = () => {
     const {
       hex,
     } = props;
+    
     const { x: originX, y: originY } = hex.center;
     
     console.log(hex.center);
