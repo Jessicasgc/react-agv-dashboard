@@ -8,6 +8,7 @@ import Map from '../components/Map';
 // import { BiPlus } from 'react-icons/bi';
 // import { Link } from 'react-router-dom';
 import LocaleContext from '../contexts/LocaleContext';
+import PathApp from '../components/Map/PathApp';
 
 
 function DashboardPage() {
@@ -56,7 +57,7 @@ function DashboardPage() {
     // }
         
     return (
-        <section>
+        <section style={{width: "100%", minHeight: "70vh"}}>
             {/* <h2>{locale === 'id' ? 'Catatan Aktif' : 'Active Note'}</h2>
             <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler}/>
             {activeNotes.length > 0 &&
@@ -73,11 +74,7 @@ function DashboardPage() {
                 </div>
         </Link> */}  
           <h1>{locale === 'id' ? 'Ini adalah Halaman Dashboard' : 'This is Dashboard Page'}</h1>
-          {/* {
-            agvs.map((agv) => {
-                return ( <div>AGV {agv.id} : {agv.online ? "Online" : "Offline"}</div> )
-            } )
-          } */}
+          {/* <PathApp/> */}
           <Map/>
         </section> 
         

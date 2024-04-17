@@ -34,7 +34,7 @@ async function getItemTypes() {
     const response = await fetch(`${BASE_URL}/itemtype`);
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -52,7 +52,7 @@ async function getItemTypes() {
     
       const responseJson = await response.json();
     
-      if (responseJson.status !== 'success') {
+      if (responseJson['success']) {
         return { error: true, data: null };
       }
     
@@ -70,7 +70,7 @@ async function getItemTypes() {
     
       const responseJson = await response.json();
     
-      if (responseJson.status !== 'success') {
+      if (responseJson['success']) {
         return { error: true, data: null };
       }
     
@@ -84,7 +84,7 @@ async function getItemTypes() {
     
       const responseJson = await response.json();
     
-      if (responseJson.status !== 'success') {
+      if (responseJson['success']) {
         return { error: true, data: null };
       }
     
@@ -97,7 +97,7 @@ async function getItems() {
   const response = await fetch(`${BASE_URL}/item`);
   const responseJson = await response.json();
 
-  if (responseJson.status !== 'success') {
+  if (responseJson['success']) {
     return { error: true, data: null };
   }
 
@@ -115,7 +115,7 @@ async function addItems({ id_type, item_name }) {
   
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -133,7 +133,7 @@ async function addItems({ id_type, item_name }) {
   
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -147,7 +147,7 @@ async function addItems({ id_type, item_name }) {
   
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -161,7 +161,7 @@ async function addItems({ id_type, item_name }) {
   
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -173,7 +173,7 @@ async function addItems({ id_type, item_name }) {
     const response = await fetch(`${BASE_URL}/agv`);
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -184,7 +184,7 @@ async function addItems({ id_type, item_name }) {
     const response = await fetch(`${BASE_URL}/agv/${id}`);
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -195,7 +195,7 @@ async function addItems({ id_type, item_name }) {
     const response = await fetch(`${BASE_URL}/agv/name/${agv_name}`);
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -207,7 +207,7 @@ async function addItems({ id_type, item_name }) {
     const response = await fetch(`${BASE_URL}/station`);
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -219,7 +219,7 @@ async function addItems({ id_type, item_name }) {
     const response = await fetch(`${BASE_URL}/task`);
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -229,19 +229,21 @@ async function addItems({ id_type, item_name }) {
   async function getWaitingTasks() {
     const response = await fetch(`${BASE_URL}/waiting_task`);
     const responseJson = await response.json();
-  
-    if (responseJson.status !== 'success') {
+    
+    if (!responseJson['success']) {
+      // const a = 
       return { error: true, data: null };
     }
-  
-    return { error: false, data: responseJson.data };
+    console.log(responseJson['data'],"json");
+      
+    return { error: false, data: responseJson['data'] };
   }
 
   async function getDoneTasks() {
     const response = await fetch(`${BASE_URL}/done_task`);
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -252,7 +254,7 @@ async function addItems({ id_type, item_name }) {
     const response = await fetch(`${BASE_URL}/task/agv/${id_agv}`);
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -263,7 +265,7 @@ async function addItems({ id_type, item_name }) {
     const response = await fetch(`${BASE_URL}/task/agv/${id_agv}/processing`);
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -274,7 +276,7 @@ async function addItems({ id_type, item_name }) {
     const response = await fetch(`${BASE_URL}/task/agv/${id_agv}/allocated`);
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -285,7 +287,7 @@ async function addItems({ id_type, item_name }) {
     const response = await fetch(`${BASE_URL}/task/agv/${id_agv}/done`);
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -302,7 +304,7 @@ async function addTask({ id_station_input, id_station_output, id_item }) {
   
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -329,12 +331,12 @@ async function addTask({ id_station_input, id_station_output, id_item }) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id_station_input, id_station_output, id_item }),
+      body: JSON.stringify({ id, id_station_input, id_station_output, id_item }),
     });
   
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   
@@ -348,7 +350,7 @@ async function addTask({ id_station_input, id_station_output, id_item }) {
   
     const responseJson = await response.json();
   
-    if (responseJson.status !== 'success') {
+    if (responseJson['success']) {
       return { error: true, data: null };
     }
   

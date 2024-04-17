@@ -94,12 +94,17 @@ class AGVDashboardApp extends React.Component {
         <LocaleProvider value = {this.state.localeContext}>
           <div className='app-container'>
             <header>
+            <NavSlide/>
               <h1>{this.state.localeContext.locale === 'id' ? 'Dasbor AGV' : 'AGV Dashboard'}</h1>
                 <Navigation/>
                 <JustDashboardButtons/>
+              
             </header>
             <main>
-              <NavSlide/>
+              <div >
+              
+              </div>
+            
               <Routes>
                 <Route path='/' element={<DashboardPage />} />
                 <Route path='/item' element={<ItemsPage />}/>

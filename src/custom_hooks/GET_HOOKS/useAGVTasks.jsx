@@ -1,21 +1,21 @@
 import React from 'react';
-import { getTasks } from '../utils/crud_api';
+import { getTasksByIdAGV } from '../../utils/crud_api';
 
-function useTasks() {
+function useAGVTasks(id_agv) {
   const [loading, setLoading] = React.useState(true);
   const [tasks, setTasks] = React.useState([]);
 
   React.useEffect(() => {
-    getTasks().then(({task}) => {
+    getTasksByIdAGV(id_agv).then(({task}) => {
       setTasks(task);
       setLoading(false);
     });
 
-    return () => {
-      setLoading(true);
-    };
-  }, []);
+    // return () => {
+    //   setLoading(true);
+    // };
+  }, [id_agv]);
 
   return [tasks, loading];
 }
-export default useTasks;
+export default useAGVTasks;

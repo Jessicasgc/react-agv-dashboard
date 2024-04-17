@@ -1,6 +1,5 @@
 
 import { signal } from "@preact/signals-react";
-import "../css/Dpad.css"
 import { wsURLServer } from "./Report";
 import useWebSocket from "react-use-websocket";
 

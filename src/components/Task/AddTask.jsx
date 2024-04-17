@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useStations from '../../custom_hooks/useStations';
-import useItems from '../../custom_hooks/useItems';
+import useStations from '../../custom_hooks/GET_HOOKS/useStations';
+import useItems from '../../custom_hooks/GET_HOOKS/useItems';
+import useAddTask from '../../custom_hooks/POST_HOOKS/useAddTask'; // Import the useAddTask hook
 
-function AddTask({ addTask }) {
+
+function AddTask() {
     const { stations } = useStations();
     const { items } = useItems();
+    const { addingTask, loading, error } = useAddTask();
 
     const [formData, setFormData] = React.useState({
         id_station_input: '',
@@ -19,7 +22,7 @@ function AddTask({ addTask }) {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        addTask(formData);
+        addingTask(formData);
         // Reset the form data after submission
         setFormData({
             // id_agv: '',
@@ -44,7 +47,7 @@ function AddTask({ addTask }) {
                 {/* Map over the stations array to populate the dropdown options */}
                 {stations && stations.map((station) => (
                     <option key={station.id} value={station.id}>
-                        {station.station_code}
+                        {station.station_name}
                     </option>
                 ))}
             </select>
@@ -59,7 +62,7 @@ function AddTask({ addTask }) {
                 {/* Map over the stations array to populate the dropdown options */}
                 {stations && stations.map(station => (
                     <option key={station.id} value={station.id}>
-                        {station.station_code}
+                        {station.station_name}
                     </option>
                 ))}
             </select>
@@ -75,7 +78,7 @@ function AddTask({ addTask }) {
                 {/* Map over the items array to populate the dropdown options */}
                 {items && items.map(item => (
                     <option key={item.id} value={item.id}>
-                        {item.code}
+                        {item.item_code}
                     </option>
                 ))}
             </select>

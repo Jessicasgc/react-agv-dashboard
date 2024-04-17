@@ -6,6 +6,7 @@ import React from 'react';
 // import { BiPlus } from 'react-icons/bi';
 // import { Link } from 'react-router-dom';
 import LocaleContext from '../contexts/LocaleContext';
+import ItemsTable from "../components/Item/ItemsTable";
 
 
 function ItemsPage() {
@@ -57,6 +58,7 @@ function ItemsPage() {
                 </div>
         </Link> */}  
           <h1>{locale === 'id' ? 'Ini adalah Halaman Barang' : 'This is Item Page'}</h1>
+          <ItemsTable/> 
         </section> 
         
     )

@@ -12,23 +12,21 @@ function NavSlide(){
         <LocaleConsumer>
             {() => {
                 return (
-                    // <nav 
-                    // className={'slide-navigation'}
-                    // >
-                    <div 
-                    //className="slide-navigation"
-                    >
-                        <nav >
-                                    <button className="toggle-button" onClick={toggleNav}>
+             <div>
+                 <button className="toggle-button" onClick={toggleNav}>
                             &#9776; {/* Unicode for hamburger icon */}
                         </button>
-                        <ul className={isOpen ? 'open' : ''}>
+                    <nav className={`slide-navigation ${isOpen ? 'open' : ''}`}>
+                                   
+                        <ul>
                             <li><Link to='/'>Dashboard</Link></li>
                             <li><Link to='/item'>Item</Link></li>
                             <li><Link to='/task'>Task</Link></li>
                         </ul>
                         </nav>
-                    </div>
+             </div>
+                        
+                    
                     
                 )
             }
