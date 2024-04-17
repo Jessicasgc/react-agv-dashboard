@@ -3,18 +3,21 @@ import { LocaleConsumer } from '../contexts/LocaleContext';
 import { Link } from 'react-router-dom';
 import { Drawer, Button, Menu } from 'antd';
 import { MenuOutlined, DashboardOutlined, AppstoreOutlined, ScheduleOutlined } from '@ant-design/icons';
+import PropTypes from 'prop-types';
 const { Item } = Menu;
 
-function NavSlide() {
+function NavSlide({ setDrawerOpen }) {
     const [visible, setVisible] = useState(false);
     const [selectedKey, setSelectedKey] = useState(null);
-
+    
     const showDrawer = () => {
         setVisible(true);
+        setDrawerOpen(true)
     };
 
     const onClose = () => {
         setVisible(false);
+        setDrawerOpen(false);
     };
 
     const handleMenuItemClick = (e) => {
@@ -50,5 +53,8 @@ function NavSlide() {
     </LocaleConsumer>
     )
 }
+NavSlide.propTypes = {
+    setDrawerOpen: PropTypes.func.isRequired
+};
 
 export default NavSlide;

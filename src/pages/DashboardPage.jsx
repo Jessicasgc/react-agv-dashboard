@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 // import { useSearchParams } from 'react-router-dom';
 // import NoteList from '../components/NoteList';
 // import SearchBar from '../components/SearchBar';
@@ -6,11 +7,11 @@ import React from 'react';
 // import { BiPlus } from 'react-icons/bi';
 // import { Link } from 'react-router-dom';
 import LocaleContext from '../contexts/LocaleContext';
-import PathApp from '../components/Map/PathApp';
+// import PathApp from '../components/Map/PathApp';
 import SideDashboard from '../components/SideDashboard';
 
 
-function DashboardPage() {
+function DashboardPage({isDrawerOpen}) {
     // const [searchParams, setSearchParams] = useSearchParams();
     // const [loading, setLoading] = React.useState(true);
     // const [activeNotes, setActiveNotes] = React.useState([]);
@@ -18,7 +19,7 @@ function DashboardPage() {
     //     return searchParams.get('keyword') || ''
     // })
     const {locale} = React.useContext(LocaleContext);
-
+    
     // React.useEffect(() => {
     //     getActiveNotes().then(({data}) => {
     //         setActiveNotes(data);
@@ -59,11 +60,16 @@ function DashboardPage() {
                 </div>
         </Link> */}  
           {/* <h1>{locale === 'id' ? 'Ini adalah Halaman Dashboard' : 'This is Dashboard Page'}</h1> */}
-          <SideDashboard/>
+          <SideDashboard isDrawerOpen={isDrawerOpen}/>
           {/* <PathApp/> */}
         </section> 
         
     )
         
 }
+
+DashboardPage.propTypes = {
+    isDrawerOpen: PropTypes.bool.isRequired,
+
+};
 export default DashboardPage;

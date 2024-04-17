@@ -4,8 +4,9 @@ import useAgv from '../custom_hooks/GET_HOOKS/useAgv';
 import ProcessingTaskListByAGV from './Task/TaskListByAGV';
 import AllocatedTaskListByAGV from './Task/TaskListByAGV';
 import AGVData from './AGV/AGVData';
+import PropTypes from 'prop-types';
 
-function SideDashboard(){
+function SideDashboard({ isDrawerOpen }){
    const { agvs } = useAGVs();
    const [selectedAGVId, setSelectedAGVId] = React.useState('');
    const { agv, loading: agvDataLoading } = useAgv(selectedAGVId);
@@ -15,7 +16,7 @@ function SideDashboard(){
    };
 
    return(
-      <div className='side-dashboard'>
+      <div className='side-dashboard' style={{ marginLeft: isDrawerOpen ? '250px' : '0', transition: 'margin-left 0.5s' }}>
          <div className='agv-dropdown'>
             <select id="agvSelect" value={selectedAGVId} onChange={handleAGVChange}>
                <option value="">Select AGV</option>
@@ -46,5 +47,8 @@ function SideDashboard(){
 }
 
 
+SideDashboard.propTypes = {
+   isDrawerOpen: PropTypes.bool.isRequired,
+};
 
 export default SideDashboard;
