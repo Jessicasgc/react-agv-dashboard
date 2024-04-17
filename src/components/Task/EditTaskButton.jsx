@@ -17,7 +17,8 @@ function EditTaskButton({ id }) {
     };
 
     function onEditTaskHandler({ id, id_station_input, id_station_output, id_item}){
-      editTaskById({ id, id_station_input, id_station_output, id_item});
+      editTaskById( id, {id_station_input, id_station_output, id_item});
+      
       setVisible(false);
     }
     return (
@@ -40,7 +41,7 @@ function EditTaskButton({ id }) {
   }
   
   EditTaskButton.propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
   }
   
   export default EditTaskButton;

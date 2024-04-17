@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navigation from './components/Navigation';
-import DashboardPage from './pages/DashboardPages';
+import DashboardPage from './pages/DashboardPage';
 import E404Pages from './pages/E404Pages';
 import { LocaleProvider } from './contexts/LocaleContext';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -37,6 +37,7 @@ class AGVDashboardApp extends React.Component {
     super(props);
     this.state = {
       initializing: true,
+      isDrawerOpen:false,
       theme: localStorage.getItem('theme') || 'light',
       toggleTheme: () => {
         this.setState((prevState) => {
@@ -94,19 +95,19 @@ class AGVDashboardApp extends React.Component {
         <LocaleProvider value = {this.state.localeContext}>
           <div className='app-container'>
             <header>
-            <NavSlide/>
-              <h1>{this.state.localeContext.locale === 'id' ? 'Dasbor AGV' : 'AGV Dashboard'}</h1>
+            <NavSlide isDrawerOpen={this.state.isDrawerOpen} setDrawerOpen={(isOpen) => this.setState({ isDrawerOpen: isOpen })}/>
+              <h1 className='dash-name'>{this.state.localeContext.locale === 'id' ? 'Dasbor AGV' : 'AGV Dashboard'}</h1>
                 <Navigation/>
                 <JustDashboardButtons/>
               
             </header>
             <main>
               <div >
-              
+      
               </div>
             
               <Routes>
-                <Route path='/' element={<DashboardPage />} />
+                <Route path='/' element={<DashboardPage isDrawerOpen={this.state.isDrawerOpen}/>} />
                 <Route path='/item' element={<ItemsPage />}/>
                 <Route path='/task' element={<TaskPage />} />
                 <Route path='*' element={<E404Pages />} />

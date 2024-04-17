@@ -6,7 +6,7 @@ import useItems from '../../custom_hooks/GET_HOOKS/useItems';
 function EditTask({ id, editTaskById }) {
     const { stations } = useStations();
     const { items } = useItems();
-
+    console.log(id);
     const [formData, setFormData] = React.useState({
         id_station_input: '',
         id_station_output: '',
@@ -44,7 +44,7 @@ function EditTask({ id, editTaskById }) {
                 {/* Map over the stations array to populate the dropdown options */}
                 {stations.map(station => (
                     <option key={station.id} value={station.id}>
-                        {station.station_code}
+                        {station.station_name}
                     </option>
                 ))}
             </select>
@@ -59,7 +59,7 @@ function EditTask({ id, editTaskById }) {
                 {/* Map over the stations array to populate the dropdown options */}
                 {stations.map(station => (
                     <option key={station.id} value={station.id}>
-                        {station.station_code}
+                        {station.station_name}
                     </option>
                 ))}
             </select>
@@ -75,7 +75,7 @@ function EditTask({ id, editTaskById }) {
                 {/* Map over the items array to populate the dropdown options */}
                 {items.map(item => (
                     <option key={item.id} value={item.id}>
-                        {item.code}
+                        {item.item_code}
                     </option>
                 ))}
             </select>
@@ -91,7 +91,7 @@ function EditTask({ id, editTaskById }) {
 
 EditTask.propTypes = {
     editTaskById: PropTypes.func.isRequired,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
 };
 
 export default EditTask;
