@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, } from 'react';
 import { useWebSocket } from 'react-use-websocket/dist/lib/use-websocket';
 import Map from '../components/Map';
-import React from 'react';
 import PropTypes from 'prop-types';
 // import { useSearchParams } from 'react-router-dom';
 // import NoteList from '../components/NoteList';
@@ -14,8 +13,8 @@ import LocaleContext from '../contexts/LocaleContext';
 import SideDashboard from '../components/SideDashboard';
 
 
-function DashboardPage() {
-    const { sendMessage,sendJsonMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8080/dashboard',{onOpen: () => console.log('opened'),});
+function DashboardPage({isDrawerOpen}) {
+    const { sendJsonMessage, lastMessage, } = useWebSocket('ws://localhost:8080/dashboard',{onOpen: () => console.log('opened'),});
     const [agvs, setAgvs] = ([]);
 
     useEffect(() => {
@@ -78,6 +77,11 @@ function DashboardPage() {
         </Link> */}  
           {/* <h1>{locale === 'id' ? 'Ini adalah Halaman Dashboard' : 'This is Dashboard Page'}</h1> */}
           <SideDashboard isDrawerOpen={isDrawerOpen}/>
+          {/* {
+            agvs.map((agv) => {
+                return ( <div>AGV {agv.agv_code} : {agv.agv_status ? "Online" : "Offline"}</div> )
+            } )
+          }  */}
           {/* <PathApp/> */}
           <Map/>
         </section> 
@@ -88,6 +92,7 @@ function DashboardPage() {
 
 DashboardPage.propTypes = {
     isDrawerOpen: PropTypes.bool.isRequired,
+
 
 };
 export default DashboardPage;

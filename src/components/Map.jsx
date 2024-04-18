@@ -3,7 +3,8 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Text , useCursor } from "@react-three/drei";
 import { defineHex, Grid, rectangle, spiral } from "honeycomb-grid";
 import { useSpring, animated } from "@react-spring/three";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
+import PropTypes from "prop-types";
 
 const floorPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
 const hexTile = defineHex({ dimensions: 1.2 });
@@ -16,17 +17,17 @@ console.log(spiralGridArray);
 
 export default function Map(){
     return (
-        <Canvas >
-      <directionalLight intensity={0.75} />
-      <ambientLight intensity={0.75} />
-      <HexGrid />
-      <OrbitControls
-        enabled={true}
-        // mouseButtons={{
-        //   RIGHT: THREE.MOUSE.ROTATE,
-        //   MIDDLE: THREE.MOUSE.PAN
-        // }}
-      />
+      <Canvas className="map" camera={{ position: [0, 0, 50], fox:50 }}>
+        <directionalLight intensity={0.75} />
+        <ambientLight intensity={0.75} />
+        <HexGrid/>
+        <OrbitControls
+          enabled={true}
+          // mouseButtons={{
+          //   RIGHT: THREE.MOUSE.ROTATE,
+          //   MIDDLE: THREE.MOUSE.PAN
+          // }}
+        />
     </Canvas>
     )
 }
@@ -84,5 +85,20 @@ const HexGrid = () => {
         </Text>
       </>
     );
+  };
+
+  Map.propTypes = {};
+
+  HexGrid.propTypes = {
+    offsetX: PropTypes.number.isRequired,
+  offsetY: PropTypes.number.isRequired,
+  };
+
+  HexTile.propTypes = {
+    hex: PropTypes.object.isRequired,
+  };
+
+  ValueDisplay.propTypes = {
+    hex: PropTypes.object.isRequired,
   };
   
