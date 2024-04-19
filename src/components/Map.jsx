@@ -3,7 +3,8 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, OrthographicCamera, PerspectiveCamera, Text , useCursor } from "@react-three/drei";
 import { defineHex, Grid, rectangle, spiral } from "honeycomb-grid";
 import { useSpring, animated } from "@react-spring/three";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
+import PropTypes from "prop-types";
 import { BoxGeometry, CylinderGeometry } from "three";
 import { signal } from "@preact/signals-react";
 
@@ -52,6 +53,7 @@ export default function Map(){
   })
 
     return (
+      
           <>
           <directionalLight intensity={0.75} />
           <ambientLight intensity={0.75} />
@@ -157,5 +159,20 @@ const HexGrid = ({obs}) => {
         </Text>
       </>
     );
+  };
+
+  Map.propTypes = {};
+
+  HexGrid.propTypes = {
+    offsetX: PropTypes.number.isRequired,
+  offsetY: PropTypes.number.isRequired,
+  };
+
+  HexTile.propTypes = {
+    hex: PropTypes.object.isRequired,
+  };
+
+  ValueDisplay.propTypes = {
+    hex: PropTypes.object.isRequired,
   };
   

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, } from 'react';
 import { useWebSocket } from 'react-use-websocket/dist/lib/use-websocket';
 import Map from '../components/Map';
-// import React from 'react';
 import PropTypes from 'prop-types';
 // import { useSearchParams } from 'react-router-dom';
 // import NoteList from '../components/NoteList';
@@ -16,7 +15,7 @@ import { Canvas } from '@react-three/fiber';
 
 
 function DashboardPage({isDrawerOpen}) {
-    const { sendMessage,sendJsonMessage, lastMessage, readyState } = useWebSocket('ws://localhost:8080/dashboard',{onOpen: () => console.log('opened'),});
+    const { sendJsonMessage, lastMessage, } = useWebSocket('ws://localhost:8080/dashboard',{onOpen: () => console.log('opened'),});
     const [agvs, setAgvs] = ([]);
 
     useEffect(() => {
@@ -79,6 +78,11 @@ function DashboardPage({isDrawerOpen}) {
         </Link> */}  
           {/* <h1>{locale === 'id' ? 'Ini adalah Halaman Dashboard' : 'This is Dashboard Page'}</h1> */}
           <SideDashboard isDrawerOpen={isDrawerOpen}/>
+          {/* {
+            agvs.map((agv) => {
+                return ( <div>AGV {agv.agv_code} : {agv.agv_status ? "Online" : "Offline"}</div> )
+            } )
+          }  */}
           {/* <PathApp/> */}
           <div style={{width : "1000px", height: "75vh"}}>
         <Canvas >
@@ -93,6 +97,7 @@ function DashboardPage({isDrawerOpen}) {
 
 DashboardPage.propTypes = {
     isDrawerOpen: PropTypes.bool.isRequired,
+
 
 };
 export default DashboardPage;

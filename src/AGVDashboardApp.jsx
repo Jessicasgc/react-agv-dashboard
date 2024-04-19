@@ -102,10 +102,6 @@ class AGVDashboardApp extends React.Component {
               
             </header>
             <main>
-              <div >
-      
-              </div>
-            
               <Routes>
                 <Route path='/' element={<DashboardPage isDrawerOpen={this.state.isDrawerOpen}/>} />
                 <Route path='/item' element={<ItemsPage />}/>
