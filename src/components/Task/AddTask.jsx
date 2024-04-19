@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useStations from '../../custom_hooks/GET_HOOKS/useStations';
 import useItems from '../../custom_hooks/GET_HOOKS/useItems';
 import useAddTask from '../../custom_hooks/POST_HOOKS/useAddTask'; // Import the useAddTask hook
+import { Button, Form, Input, Select } from 'antd';
+import { useWebSocket } from 'react-use-websocket/dist/lib/use-websocket';
+import { SERVICE_URL } from '../../utils/constants';
 
 
 function AddTask() {
+    const { sendJsonMessage, lastMessage, } = useWebSocket(SERVICE_URL);
+
     const { stations } = useStations();
     const { items } = useItems();
     const { addingTask, loading, error } = useAddTask();
@@ -17,12 +22,33 @@ function AddTask() {
     });
 
     const onInputChange = (e) => {
+        console.log(formData, e);
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const onSubmitHandler = (e) => {
+        sendJsonMessage({
+            type: "task",
+            data: {
+                id : formData.id_item,
+                goal: {
+                    x: formData.id_station_input,
+                    y: formData.id_station_output,
+                }
+            }
+        })
+        console.log({
+            type: "task",
+            data: {
+                id : formData.id_item,
+                goal: {
+                    x: formData.id_station_input,
+                    y: formData.id_station_output,
+                }
+            }
+        });
         e.preventDefault();
-        addingTask(formData);
+        // addingTask(formData);
         // Reset the form data after submission
         setFormData({
             // id_agv: '',
@@ -34,6 +60,29 @@ function AddTask() {
             // end_time: ''
         });
     };
+
+    useEffect(() => {
+        console.log(formData);
+    }, [formData])
+
+    return(
+        <form className='task_input' onSubmit={onSubmitHandler}>
+            <Form.Item label='AGV'>
+                <Select fieldNames='id_item' style={{ width: 200 }} options={[{ value: 1, label: 'AGV 1' },{ value: 2, label: 'AGV 2' }]} onChange={(x) => setFormData({...formData, id_item : x})}/>
+            </Form.Item>
+            {/* <Input placeholder='AGV ID' name='id_item' onChange={onInputChange}/> */}
+            <Form.Item label='X'>
+                <Input placeholder='X'  name='id_station_input' onChange={onInputChange}/>
+            </Form.Item>
+            <Form.Item label='Y'>
+                <Input placeholder='Y'  name='id_station_output' onChange={onInputChange}/>
+            </Form.Item>
+            
+            <Button className='action' type='primary' onClick={onSubmitHandler}>
+                Add Task
+            </Button>
+        </form>
+    )
 
     return (
         <form className='task_input' onSubmit={onSubmitHandler}>
