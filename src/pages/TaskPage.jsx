@@ -10,6 +10,7 @@ import React from 'react';
 // import { BiPlus } from 'react-icons/bi';
 // import { Link } from 'react-router-dom';
 import LocaleContext from '../contexts/LocaleContext';
+import TaskTable from '../components/Task/TaskTable';
 
 
 function TaskPage() {
@@ -61,6 +62,7 @@ function TaskPage() {
                 </div>
         </Link> */}  
           <h1>{locale === 'id' ? 'Ini adalah Halaman Tugas' : 'This is Task Page'}</h1>
+          <TaskTable/>
         </section> 
         
     )

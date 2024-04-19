@@ -6,8 +6,8 @@ function useAGVTasks(id_agv) {
   const [tasks, setTasks] = React.useState([]);
 
   React.useEffect(() => {
-    getTasksByIdAGV(id_agv).then(({task}) => {
-      setTasks(task);
+    getTasksByIdAGV(id_agv).then(({data}) => {
+      setTasks(data);
       setLoading(false);
     });
 
@@ -16,6 +16,6 @@ function useAGVTasks(id_agv) {
     // };
   }, [id_agv]);
 
-  return [tasks, loading];
+  return {tasks, loading};
 }
 export default useAGVTasks;

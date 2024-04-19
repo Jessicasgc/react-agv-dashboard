@@ -16,6 +16,6 @@ function useWaitingTasks() {
     // };
  }, []);
 //console.log(tasks,"hdtdhd");
- return [tasks, loading];
+ return {tasks, loading};
 }
 export default useWaitingTasks;

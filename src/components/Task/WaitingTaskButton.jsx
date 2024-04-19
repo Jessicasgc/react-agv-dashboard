@@ -5,7 +5,7 @@ import WaitingTaskList from './WaitingTaskList';
 import useWaitingTasks from '../../custom_hooks/GET_HOOKS/useWaitingTasks';
 
 function WaitingTaskButton() {
-    const [tasks, loading] = useWaitingTasks();
+    const {tasks, loading} = useWaitingTasks();
     const [open, setOpen] = React.useState(false);
 
     const hide = () => {
