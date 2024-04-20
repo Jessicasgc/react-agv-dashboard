@@ -1,86 +1,130 @@
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, OrthographicCamera, PerspectiveCamera, Text , useCursor } from "@react-three/drei";
-import { defineHex, Grid, rectangle, spiral } from "honeycomb-grid";
+import { OrbitControls, OrthographicCamera, PerspectiveCamera, Text , Text3D, useCursor } from "@react-three/drei";
+import { defineHex, Grid, rectangle, spiral,} from "honeycomb-grid";
 import { useSpring, animated } from "@react-spring/three";
 import { useEffect, useRef, useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import { BoxGeometry, CylinderGeometry } from "three";
-import { signal } from "@preact/signals-react";
+import { effect, signal,useSignal } from "@preact/signals-react";
+import { useWebSocket } from "react-use-websocket/dist/lib/use-websocket";
+import { SERVICE_URL } from "../utils/constants";
 
 const grid = signal([])
 const deg2rad = (deg) => deg * (Math.PI / 180);
-const Hex = defineHex({dimensions : 1.1});
-const map = signal({
-  width : 16,
-  height : 19,
-})
-const obs = signal([{x: 23,y: -19},{x: 10,y: -12},{x: 1,y: 1}])
-
-const agvs = signal([
-  {
-    pos: {
-      x : 0,
-      y : 0
-    },
-    rot : -30
-  }
-])
+const Hex = defineHex({dimensions : 1.01});
+const cylinder = new CylinderGeometry(1, 1, 0.1, 6, 1)
 
 export default function Map(){
-  const agvRef = useRef();
+  useSignal()
+  const { sendJsonMessage, lastMessage, } = useWebSocket(SERVICE_URL);
   const cameraRef = useRef();
 
+  const [agvs, setAgvs] = useState([
+    {
+      id: 1,
+      position: {
+        x : 13.994970525156528,
+        y : 24.745
+      },
+      coor: {
+        x : 13.994970525156528,
+        y : 24.745
+      },
+      rot : -30
+    }
+  ])
+
+  const [map, setMap] = useState({
+    width : 16,
+    height : 19,
+    obs : []
+  })
+
   useEffect(()=>{
-    const spiralGrid = new Grid(Hex, rectangle({ width: map.value.width, height: map.value.height }));
+    setTimeout(function () {
+      sendJsonMessage({type: "map"})
+    }, 500)
+    
+    // cameraRef.current.lookAt(-12.75,12.75, 0); 
+  },[])
+
+  useEffect(()=>{
+    cameraRef.current.lookAt(-12.75,12.75, 0); 
+  },[cameraRef.current])
+  
+
+  useEffect(()=>{
+    const spiralGrid = new Grid(Hex, rectangle({ width: map.width, height: map.height }));
     let g = spiralGrid.toArray();
     grid.value = g ?? []
   },[map])
 
-  useEffect(()=>{
-    agvs.value[0].pos.x = -grid.value[150].center.x
-    agvs.value[0].pos.y = -grid.value[150].center.y
+  useEffect(() => {
+    if (lastMessage !== null) {
+        let res = JSON.parse(lastMessage.data)
+        
+        if(!res.type) return
+        
+        if(res.type == "update") updateDataAgv(res.data) ;
+
+        if(res.type == "map" && JSON.stringify(res.data) != JSON.stringify(map)) setMap(res.data);
+    }
+  }, [lastMessage]);
+
+  const updateDataAgv = (data) => {
+    let old = agvs.map(a => {
+      const {coor, ...x} = a
+      return x
+    })
+    if(JSON.stringify(old) == JSON.stringify(data)) return;
     
-  },[grid])
-  
-  useEffect(()=>{},[agvs])
-  
-  useFrame(() => {
-    // console.log(cameraRef, agvRef);
-    const boxPosition = agvs.value[0].pos;
-    cameraRef.current.position.set(boxPosition.x, boxPosition.y, 10);
-    cameraRef.current.lookAt(boxPosition.x, boxPosition.y, 0); 
-  })
+    let newAgvs = data.map((agv,i) => {
+      // if(agv.coor && agv.coor == agvs[i].coor && ) return agv
+      
+      let {x,y} = agv.position
+      let currentPosition = grid.value.find((g) => -g.s == x && -g.r == y)
+
+      if(!agv.coor) agv.coor = {x:0,y:0}
+      
+      agv['coor'].x = !currentPosition ? 0 : -currentPosition.center.x
+      agv['coor'].y = !currentPosition ? 0 : -currentPosition.center.y
+
+      return agv
+    })
+    if(JSON.stringify(agvs) !== JSON.stringify(newAgvs)){
+      setAgvs(newAgvs)
+    }
+  }
 
     return (
       
           <>
           <directionalLight intensity={0.75} />
           <ambientLight intensity={0.75} />
-          <HexGrid />
-          {
-            agvs.value.map(agv => (
-              <AGV {...agv}/>
-            ))
-          }
+          <group rotation={[0,0,deg2rad(90)]}>
+            <HexGrid obs={map.obs}/>
+            {
+              agvs.map(agv => (
+                <AGV {...agv} key={agv.id}/>
+              ))
+            }
+          </group>
           <OrthographicCamera
             makeDefault
             ref={cameraRef}
-            position={[20, 20, 5]} 
-            zoom={40} // Optional: Set the initial zoom level
-            left={window.innerWidth / -2} // Optional: Set the left boundary of the frustum
-            right={window.innerWidth / 2} // Optional: Set the right boundary of the frustum
-            top={window.innerHeight / 2} // Optional: Set the top boundary of the frustum
-            bottom={window.innerHeight / -2} // Optional: Set the bottom boundary of the frustum
-            near={0.1} // Optional: Set the near plane of the frustum
-            far={1000} // Optional: Set the far plane of the frustum
+            position={[-12.75,12.75 , 10]}
+            zoom={27}
+            left={window.innerWidth / -2}
+            right={window.innerWidth / 2}
+            top={window.innerHeight / 2}
+            bottom={window.innerHeight / -2}
+            near={0.1}
+            far={1000}
           />
           <OrbitControls
-            enabled={true}
-            // minPolarAngle={deg2rad(75)}
-            // maxPolarAngle={deg2rad(100)}
-            // minAzimuthAngle={deg2rad(-10)}
-            // maxAzimuthAngle={deg2rad(10)}
+            enabled={!true}
+            // position={}
             // mouseButtons={{
             //   RIGHT: THREE.MOUSE.ROTATE,
             //   MIDDLE: THREE.MOUSE.PAN
@@ -91,24 +135,24 @@ export default function Map(){
 }
 
 const AGV = (props) => {
-  const {pos,rot} = props
+  const {coor,orientation} = props
   return (
-    <mesh geometry={new BoxGeometry(1, 1)} position={[pos.x , pos.y ,0.5]} rotation={[ 0, 0 ,deg2rad(rot)]}>
+    <mesh geometry={new BoxGeometry(1, 1)} position={[coor.x , coor.y ,0.5]} rotation={[ 0, 0 ,deg2rad(orientation)]}>
       <meshBasicMaterial attach="material" color={ "black"} />
     </mesh>
   );
 };
 
-const HexGrid = ({obs}) => {
+const HexGrid = ({obs, props}) => {
     return (
-      <group>
+      <group {...props}>
         {grid.value.map((hex) => {
           const { q, r } = hex;
           return (
             <HexTile
+              obs = {obs}
               key={`${q}-${r}`}
               hex={hex}
-              obs={obs}
             />
           );
         })}
@@ -119,17 +163,19 @@ const HexGrid = ({obs}) => {
   const HexTile = (props) => {
     const {
       hex,
+      obs
     } = props;
     
     let { x, y  } = hex.center;
+    let { s, r  } = hex;
     
     const mesh = useRef(null);
 
     x = -x;
     y = -y
-
-    let isObstacle = obs.value.find((o) =>  o.x == Math.round(x) && o.y == Math.round(-y))
-  
+    
+    let isObstacle = obs.find((o) =>  o.x == -s && o.y == -r)
+    
     return (
       <animated.mesh
         ref={mesh}
@@ -138,7 +184,7 @@ const HexGrid = ({obs}) => {
         position={[x, y,0]}
       >
         <ValueDisplay hex={hex} />
-        <mesh geometry={new CylinderGeometry(1, 1, 0.1, 6, 1)}>
+        <mesh geometry={cylinder}>
           <meshBasicMaterial attach="material" color={ !isObstacle ?  "teal" : "pink"} />
         </mesh>
       </animated.mesh>
@@ -152,27 +198,12 @@ const HexGrid = ({obs}) => {
         <Text
           color="#222831"
           fontSize={0.2}
-          rotation={[-deg2rad(90), 0, 0]}
-          position={[0, 0.051, -0.8]}
+          rotation={[-deg2rad(90), 0, -deg2rad(90)]}
+          position={[0.7, 0.051, 0]}
         >
-          {`${hex.q},${-hex.r}`}
+          {`${-hex.s},${-hex.r}`}
         </Text>
       </>
     );
   };
 
-  Map.propTypes = {};
-
-  HexGrid.propTypes = {
-    offsetX: PropTypes.number.isRequired,
-  offsetY: PropTypes.number.isRequired,
-  };
-
-  HexTile.propTypes = {
-    hex: PropTypes.object.isRequired,
-  };
-
-  ValueDisplay.propTypes = {
-    hex: PropTypes.object.isRequired,
-  };
-  

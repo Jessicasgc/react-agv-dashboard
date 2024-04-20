@@ -17,20 +17,6 @@ const { Sider } = Layout;
 
 
 function DashboardPage({isDrawerOpen}) {
-    const { sendJsonMessage, lastMessage, } = useWebSocket('ws://localhost:8080/dashboard',{onOpen: () => console.log('opened'),});
-    const [agvs, setAgvs] = ([]);
-
-    useEffect(() => {
-        if (lastMessage !== null) {
-            let res = JSON.parse(lastMessage.data)
-            console.log(res, "pesan dari agv");
-            if(!res.type) return
-            
-            if(res.type == "status") setAgvs(res.data);
-            
-            sendJsonMessage({cmd:"ini dari dashboard",id:2});
-        }
-      }, [lastMessage]);
     // const [searchParams, setSearchParams] = useSearchParams();
     // const [loading, setLoading] = React.useState(true);
     // const [activeNotes, setActiveNotes] = React.useState([]);
