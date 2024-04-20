@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, OrthographicCamera, PerspectiveCamera, Text , Text3D, useCursor } from "@react-three/drei";
+import { OrbitControls, OrthographicCamera, PerspectiveCamera, RoundedBox, Text , Text3D, useCursor } from "@react-three/drei";
 import { defineHex, Grid, rectangle, spiral,} from "honeycomb-grid";
 import { useSpring, animated } from "@react-spring/three";
 import { useEffect, useRef, useState, useMemo } from "react";
@@ -11,6 +11,7 @@ import { useWebSocket } from "react-use-websocket/dist/lib/use-websocket";
 import { SERVICE_URL } from "../utils/constants";
 
 const grid = signal([])
+export const agvDatas = signal([])
 const deg2rad = (deg) => deg * (Math.PI / 180);
 const Hex = defineHex({dimensions : 1.01});
 const cylinder = new CylinderGeometry(1, 1, 0.1, 6, 1)
@@ -42,11 +43,13 @@ export default function Map(){
   })
 
   useEffect(()=>{
+    agvDatas.value = agvs
+  },[agvs])
+
+  useEffect(()=>{
     setTimeout(function () {
       sendJsonMessage({type: "map"})
     }, 500)
-    
-    // cameraRef.current.lookAt(-12.75,12.75, 0); 
   },[])
 
   useEffect(()=>{
@@ -77,7 +80,7 @@ export default function Map(){
       const {coor, ...x} = a
       return x
     })
-    if(JSON.stringify(old) == JSON.stringify(data)) return;
+    // if(JSON.stringify(old) == JSON.stringify(data)) return;
     
     let newAgvs = data.map((agv,i) => {
       // if(agv.coor && agv.coor == agvs[i].coor && ) return agv
@@ -137,9 +140,13 @@ export default function Map(){
 const AGV = (props) => {
   const {coor,orientation} = props
   return (
-    <mesh geometry={new BoxGeometry(1, 1)} position={[coor.x , coor.y ,0.5]} rotation={[ 0, 0 ,deg2rad(orientation)]}>
-      <meshBasicMaterial attach="material" color={ "black"} />
-    </mesh>
+    <group position={[coor.x , coor.y ,0.5]} rotation={[ 0, 0 ,deg2rad(orientation)]}>
+      <RoundedBox args={[1.5, 1.5]} radius={0.4}>
+        <meshBasicMaterial attach="material" color={ "white"} />
+      </RoundedBox>
+      {/* <mesh geometry={new BoxGeometry(1.5, 1.5)} >
+      </mesh> */}
+    </group>
   );
 };
 
@@ -185,7 +192,7 @@ const HexGrid = ({obs, props}) => {
       >
         <ValueDisplay hex={hex} />
         <mesh geometry={cylinder}>
-          <meshBasicMaterial attach="material" color={ !isObstacle ?  "teal" : "pink"} />
+          <meshBasicMaterial attach="material" color={ !isObstacle ?  "teal" : "black"} />
         </mesh>
       </animated.mesh>
     );

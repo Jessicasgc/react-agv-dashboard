@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import useAGVs from '../custom_hooks/GET_HOOKS/useAGVs';
 import useAgv from '../custom_hooks/GET_HOOKS/useAgv';
@@ -8,10 +8,16 @@ import AGVData from './AGV/AGVData';
 import { Flex, Layout } from "antd";
 import useAllocatedTasks from '../custom_hooks/GET_HOOKS/useAllocatedTasks';
 import useProcessingTask from '../custom_hooks/GET_HOOKS/useProcessingTask';
+import { agvDatas } from './Map';
+import { useSignal } from '@preact/signals';
+import { useWebSocket } from 'react-use-websocket/dist/lib/use-websocket';
+import { SERVICE_URL } from '../utils/constants';
 const { Sider } = Layout;
 
 function SideDashboard({ isDrawerOpen }) {
+    const { sendJsonMessage, lastMessage, } = useWebSocket(SERVICE_URL);
     const { agvs } = useAGVs();
+    const [ datas, setDatas ] = useState([]);
     const [selectedAGVId, setSelectedAGVId] = React.useState(0);
     const { agv, loading: agvDataLoading } = useAgv(selectedAGVId);
     const {task, loading: processingTaskLoading} = useProcessingTask(selectedAGVId);
@@ -20,26 +26,39 @@ function SideDashboard({ isDrawerOpen }) {
     const handleAGVChange = (e) => {
         setSelectedAGVId(e.target.value);
     };
-    console.log(agvs, 'agv');
+    // console.log(agvs, 'agv');
     const foundAGV = agvs.find(agv => agv.id === parseInt(selectedAGVId));
     // const foundProcessingTask = task.find(ts => ts.id_agv === parseInt(selectedAGVId));
     // const foundAllocatedTasks = tasks.find(task => task.id_agv === parseInt(selectedAGVId));
-    console.log(task, 'processing');
-    console.log(tasks, 'allocated');
+    // console.log(task, 'processing');
+    // console.log(tasks, 'allocated');
+
+    useEffect(() => {
+        if (lastMessage !== null) {
+            let res = JSON.parse(lastMessage.data)
+            
+            if(!res.type) return
+            
+            if(res.type == "update") setDatas(res.data) ;
+        }
+      }, [lastMessage]);
    
     return (
         <Sider width="25%" className='siderStyle'>
             <div className='side-dashboard' style={{ marginLeft: isDrawerOpen ? '250px' : '0', transition: 'margin-left 0.5s' }}>
-                <div className='agv-dropdown'>
+                {/* <div className='agv-dropdown'>
                     <select id="agvSelect" value={selectedAGVId} onChange={handleAGVChange}>
                         <option value="">Select AGV</option>
                         {agvs.map((agv) => (
                             <option key={agv.id} value={agv.id}>{agv.agv_name}</option>
                         ))}
                     </select>
-                </div>
+                </div> */}
                 <div className='agv-data-card'>
-                    {agvDataLoading ? <p>Loading AGV data...</p> : foundAGV && <AGVData {...foundAGV} />}
+                    {
+                        datas.map(agv => <AGVData {...agv} key={agv.id} />)
+                    }
+                    {/* {agvDataLoading ? <p>Loading AGV data...</p> : foundAGV && <AGVData {...foundAGV} />} */}
                 </div>
 
 
