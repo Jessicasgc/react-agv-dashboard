@@ -90,19 +90,27 @@
   
   main {
     margin: 0 auto;
-  padding: 32px 0;
-  width:  calc(100% - 270px);
-  max-width: 1200px;
-  
+    padding: 32px 0;
+    width:  calc(100% - 270px);
+    max-width: 1200px;
+    text-align: center;
+    
+    height:fit-content;
+    width:auto;
+    padding-top: 64px;
+    padding-bottom: 64px;
   }
 
   section {
-    width: calc(100% - 250px); /* Subtract the width of the side dashboard */
-    min-height: calc(100vh - 130px); /* Adjust for header and footer heights */
-    margin-left: 250px; /* Adjust for the width of the side dashboard */
-    margin-top: 50px; /* Adjust for the height of the header */
-    margin-bottom: 50px; /* Adjust for the height of the footer */
+    width:max-content; /* Subtract the width of the side dashboard */
+    min-height: fit-content; /* Adjust for header and footer heights */
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin: 0 auto;
     padding: 16px;
+    background-color: var(--background);
     transition: all ease-in-out 0.5s;
     overflow-y: auto; /* Add scrollbar if content exceeds height */
   }
@@ -206,7 +214,7 @@
 .menu-nav{
   font-weight: bold;
   font-size: large;
-  
+  height: auto;
 }
 
 .side-dashboard {
@@ -241,13 +249,14 @@
 } */
 
 .map {
-  width: 90vw; /* Adjust width as needed */
-  height: 90vh; /* Adjust height as needed */
+  width: fit-content; /* Adjust width as needed */
+  height: fit-content; /* Adjust height as needed */
   background-color: var(--surface); /* Set a background color */
   position: relative; /* Ensure proper positioning */
   display: flex; /* Use flexbox for centering */
   justify-content: center; /* Center horizontally */
   align-items: center; /** Ensure proper positioning */
+  max-height: calc(100vh - 200px); 
 }
 
 canvas {
@@ -255,4 +264,81 @@ canvas {
   width: 100%; /* Ensure canvas fills its container */
   height: 100%; /* Ensure canvas fills its container */
   transform-origin: center;
+}
+
+.headerStyle {
+  text-align: center;
+  height: 64px;
+  padding-inline: 48px;
+  color: var(--on-background);
+  background-color: var(--background);
+}
+.contentStyle {
+  text-align: center;
+  color: var(--background);
+  background-color: var(--background);
+  height: fit-content;
+  width:fit-content;
+  padding-top: 64px;
+}
+.mainStyle {
+  text-align: center;
+  color: var(--surface);
+  height:fit-content;
+  width:auto;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+.siderStyle {
+  text-align: center;
+  color: var(--surface);
+  background-color: var(--background);
+}
+.footerStyle {
+  text-align: center;
+  color: var(--on-background);
+  background-color: var(--background);
+  font-weight: bold;
+  font-size: 12pt;
+}
+.layoutStyle {
+  border-radius: 8px;
+  overflow:auto;
+  background-color: var(--background);
+}
+.table-container {
+  display: flex;
+  justify-content: center;
+  max-height: calc(100vh - 200px); /* Adjust the value as needed to fit your layout */
+  overflow-y: auto;
+}
+.agv-data{
+  background-color: var(--background);
+  border-radius: 8px; /* Adjust as needed */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  padding: 20px;
+  width: 200px; /* Adjust width as needed */
+  margin: 20px;
+  text-align: center;
+  color: var(--on-background);
+}
+.processing-task-card{
+  background-color: var(--background);
+  border-radius: 8px; /* Adjust as needed */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  padding: 20px;
+  width: 200px; /* Adjust width as needed */
+  margin: 20px;
+  text-align: center;
+  color: var(--on-background);
+}
+.allocated-task-card{
+  background-color: var(--background);
+  border-radius: 8px; /* Adjust as needed */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  padding: 20px;
+  width: 200px; /* Adjust width as needed */
+  margin: 20px;
+  text-align: center;
+  color: var(--on-background);
 }

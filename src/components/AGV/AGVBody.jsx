@@ -13,11 +13,11 @@ function AGVBody({id, agv_code, agv_name, agv_status, is_charging}){
 }
 
 AGVBody.propTypes = {
-   id: propTypes.string.isRequired,
+   id: propTypes.number.isRequired,
    agv_code: propTypes.string.isRequired,
    agv_name: propTypes.string.isRequired,
    agv_status: propTypes.string.isRequired,
-   is_charging: propTypes.string.isRequired,
+   is_charging: propTypes.bool.isRequired,
 };
 
 export default AGVBody;

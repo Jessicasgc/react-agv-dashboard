@@ -7,7 +7,8 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 import LocaleContext from '../contexts/LocaleContext';
 import ItemsTable from "../components/Item/ItemsTable";
-
+import { Layout } from "antd";
+const { Content } = Layout;
 
 function ItemsPage() {
     // const [searchParams, setSearchParams] = useSearchParams();
@@ -57,8 +58,12 @@ function ItemsPage() {
                     <button className='action'><BiPlus/></button>
                 </div>
         </Link> */}  
+        <Content className="contentStyle">
           <h1>{locale === 'id' ? 'Ini adalah Halaman Barang' : 'This is Item Page'}</h1>
-          <ItemsTable/> 
+          <div className="table-container"> {/* Add this container */}
+            <ItemsTable/> 
+         </div>
+        </Content>
         </section> 
         
     )

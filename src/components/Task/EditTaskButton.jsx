@@ -16,8 +16,8 @@ function EditTaskButton({ id }) {
         setVisible(visible);
     };
 
-    function onEditTaskHandler({ id, id_station_input, id_station_output, id_item}){
-      editTaskById( id, {id_station_input, id_station_output, id_item});
+    function onEditTaskHandler( id, id_station_input, id_station_output, id_item){
+      editTaskById( id, id_station_input, id_station_output, id_item);
       
       setVisible(false);
     }

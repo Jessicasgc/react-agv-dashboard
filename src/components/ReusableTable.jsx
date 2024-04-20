@@ -35,7 +35,7 @@ function ReusableTable({ data, columns }) {
                     );
                 }
             })}
-            <Table.Column
+            {/* <Table.Column
                 title="Action"
                 key="action"
                 render={(_, record) => (
@@ -44,7 +44,7 @@ function ReusableTable({ data, columns }) {
                         <a>Delete</a>
                     </Space>
                 )}
-            />
+            /> */}
         </Table>
     );
 }

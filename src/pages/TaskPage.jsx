@@ -11,7 +11,8 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 import LocaleContext from '../contexts/LocaleContext';
 import TaskTable from '../components/Task/TaskTable';
-
+import { Layout } from "antd";
+const { Content } = Layout;
 
 function TaskPage() {
     // const [searchParams, setSearchParams] = useSearchParams();
@@ -61,8 +62,12 @@ function TaskPage() {
                     <button className='action'><BiPlus/></button>
                 </div>
         </Link> */}  
-          <h1>{locale === 'id' ? 'Ini adalah Halaman Tugas' : 'This is Task Page'}</h1>
-          <TaskTable/>
+          {/* <Content className="contentStyle"> */}
+            <h1>{locale === 'id' ? 'Ini adalah Halaman Tugas' : 'This is Task Page'}</h1>
+            <div className="table-container"> {/* Add this container */}
+                    <TaskTable/>
+                </div>
+          {/* </Content> */}
         </section> 
         
     )

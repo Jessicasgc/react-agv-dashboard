@@ -12,6 +12,8 @@ import LocaleContext from '../contexts/LocaleContext';
 // import PathApp from '../components/Map/PathApp';
 import SideDashboard from '../components/SideDashboard';
 import { Canvas } from '@react-three/fiber';
+import { Layout  } from 'antd';
+const { Sider } = Layout;
 
 
 function DashboardPage({isDrawerOpen}) {
@@ -60,7 +62,7 @@ function DashboardPage({isDrawerOpen}) {
     // }
         
     return (
-        <section style={{width: "100%", minHeight: "70vh"}}>
+        <section>
             {/* <h2>{locale === 'id' ? 'Catatan Aktif' : 'Active Note'}</h2>
             <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler}/>
             {activeNotes.length > 0 &&
@@ -77,7 +79,9 @@ function DashboardPage({isDrawerOpen}) {
                 </div>
         </Link> */}  
           {/* <h1>{locale === 'id' ? 'Ini adalah Halaman Dashboard' : 'This is Dashboard Page'}</h1> */}
-          <SideDashboard isDrawerOpen={isDrawerOpen}/>
+          <Sider width="25%" className='siderStyle'>
+            <SideDashboard isDrawerOpen={isDrawerOpen}/>
+          </Sider>
           {/* {
             agvs.map((agv) => {
                 return ( <div>AGV {agv.agv_code} : {agv.agv_status ? "Online" : "Offline"}</div> )

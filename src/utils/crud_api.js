@@ -261,7 +261,7 @@ async function addItems({ id_type, item_name }) {
     return { error: false, data: responseJson.data };
   }
  
-  async function getProcessingTasksByIdAGV(id_agv) {
+  async function getProcessingTaskByIdAGV(id_agv) {
     const response = await fetch(`${BASE_URL}/task/agv/${id_agv}/processing`);
     const responseJson = await response.json();
   
@@ -386,7 +386,7 @@ async function addTask({ id_station_input, id_station_output, id_item }) {
     getWaitingTasks,
     getDoneTasks,
     getTasksByIdAGV,
-    getProcessingTasksByIdAGV,
+    getProcessingTaskByIdAGV,
     getAllocatedTasksByIdAGV,
     getDoneTasksByIdAGV,
     addTask,

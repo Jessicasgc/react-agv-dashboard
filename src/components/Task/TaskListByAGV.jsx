@@ -1,19 +1,20 @@
 import Task from './Task';
 import PropTypes from 'prop-types';
-import useAGVTasks from '../../custom_hooks/GET_HOOKS/useAGVTasks';
+import useAllocatedTasks from '../../custom_hooks/GET_HOOKS/useAllocatedTasks';
+import useProcessingTask from '../../custom_hooks/GET_HOOKS/useProcessingTask';
 
-function ProcessingTaskListByAGV({agvId}){
-    const [tasks, loading] = useAGVTasks(agvId);
+function ProcessingTaskListByAGV({task}){
+    
 
-    if (loading) return <p>Loading...</p>;
-    const filteredProcessingTask = tasks.filter(task => task.task_status === 'processing');
+    // if (loading) return <p>Loading...</p>;
+   
     return (
         <div className='tasks-list'>
             {
-                filteredProcessingTask.map((task) => (
+                task.map((ts) => (
                     <Task
-                    key={task.id} 
-                    id={task.id}
+                    key={ts.id} 
+                    id={ts.id}
                     {...task}   
                     />
                 ))  
@@ -23,18 +24,17 @@ function ProcessingTaskListByAGV({agvId}){
 }
     
 ProcessingTaskListByAGV.propTypes= {
-    agvId: PropTypes.string.isRequired,
+    task: PropTypes.array.isRequired,
 }; 
 
-function AllocatedTaskListByAGV({agvId}){
-    const [tasks, loading] = useAGVTasks(agvId);
-
-    if (loading) return <p>Loading...</p>;
-    const filteredProcessingTask = tasks.filter(task => task.task_status === 'allocated');
+function AllocatedTaskListByAGV({tasks}){
+    // const [tasks, loading] = useAllocatedTasks(1);
+    // if (loading) return <p>Loading...</p>;
+    console.log(tasks);
     return (
         <div className='tasks-list'>
             {
-                filteredProcessingTask.map((task) => (
+                tasks.map((task) => (
                     <Task
                     key={task.id} 
                     id={task.id}
@@ -47,7 +47,7 @@ function AllocatedTaskListByAGV({agvId}){
 }
     
 AllocatedTaskListByAGV.propTypes= {
-    agvId: PropTypes.string.isRequired,
+    tasks: PropTypes.array.isRequired,
 };
 
 export default{
