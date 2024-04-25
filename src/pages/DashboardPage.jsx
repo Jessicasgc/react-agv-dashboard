@@ -65,7 +65,7 @@ function DashboardPage({isDrawerOpen}) {
                 </div>
         </Link> */}  
           {/* <h1>{locale === 'id' ? 'Ini adalah Halaman Dashboard' : 'This is Dashboard Page'}</h1> */}
-          <Sider width="25%" className='siderStyle'>
+          <Sider width="25%" className='siderStyle' style={{backgroundColor:"transparent"}}>
             <SideDashboard isDrawerOpen={isDrawerOpen}/>
           </Sider>
           {/* {
@@ -75,7 +75,7 @@ function DashboardPage({isDrawerOpen}) {
           }  */}
           {/* <PathApp/> */}
           <div style={{width : "1000px", height: "75vh"}}>
-        <Canvas >
+        <Canvas camera={{orthographic: true}}>
           <Map/>
             
             </Canvas></div>

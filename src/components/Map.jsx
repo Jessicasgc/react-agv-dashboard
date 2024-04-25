@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, OrthographicCamera, PerspectiveCamera, RoundedBox, Text , Text3D, useCursor } from "@react-three/drei";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Line, OrbitControls, OrthographicCamera, PerspectiveCamera, RoundedBox, Text , Text3D, useCursor } from "@react-three/drei";
 import { defineHex, Grid, rectangle, spiral,} from "honeycomb-grid";
 import { useSpring, animated } from "@react-spring/three";
 import { useEffect, useRef, useState, useMemo } from "react";
@@ -10,31 +10,18 @@ import { effect, signal,useSignal } from "@preact/signals-react";
 import { useWebSocket } from "react-use-websocket/dist/lib/use-websocket";
 import { SERVICE_URL } from "../utils/constants";
 
-const grid = signal([])
 export const agvDatas = signal([])
 const deg2rad = (deg) => deg * (Math.PI / 180);
 const Hex = defineHex({dimensions : 1.01});
 const cylinder = new CylinderGeometry(1, 1, 0.1, 6, 1)
 
 export default function Map(){
-  useSignal()
-  const { sendJsonMessage, lastMessage, } = useWebSocket(SERVICE_URL);
+  const { sendJsonMessage, lastMessage,readyState } = useWebSocket(SERVICE_URL, {shouldReconnect: (closeEvent) => true,});
   const cameraRef = useRef();
+  const { gl, camera } = useThree();
 
-  const [agvs, setAgvs] = useState([
-    {
-      id: 1,
-      position: {
-        x : 13.994970525156528,
-        y : 24.745
-      },
-      coor: {
-        x : 13.994970525156528,
-        y : 24.745
-      },
-      rot : -30
-    }
-  ])
+  const [grid, setGrid] = useState([])
+  const [agvs, setAgvs] = useState([])
 
   const [map, setMap] = useState({
     width : 16,
@@ -53,14 +40,34 @@ export default function Map(){
   },[])
 
   useEffect(()=>{
-    cameraRef.current.lookAt(-12.75,12.75, 0); 
-  },[cameraRef.current])
-  
+    camera.position.set(-12.75,12.75, 10); // Set camera position
+    camera.lookAt(-12.75,12.75, 0); // Set camera target
+
+    const updateControls = () => {
+      controlsRef.current.target.copy(camera.position);
+    };
+
+    // Listen to the camera's position changes
+    camera.addEventListener('update', updateControls);
+
+    return () => {
+      // Clean up event listener
+      camera.removeEventListener('update', updateControls);
+    };
+  },[])
+
+  useFrame(() => {
+    // console.log(cameraRef.current);
+    if(!cameraRef.current) return
+    // cameraRef.current.lookAt(-12.75,12.75, 0); 
+  })
 
   useEffect(()=>{
     const spiralGrid = new Grid(Hex, rectangle({ width: map.width, height: map.height }));
     let g = spiralGrid.toArray();
-    grid.value = g ?? []
+    setGrid(g ?? [])
+    // if(!cameraRef.current) return
+    // cameraRef.current.lookAt(-12.75,12.75, 0); 
   },[map])
 
   useEffect(() => {
@@ -86,7 +93,7 @@ export default function Map(){
       // if(agv.coor && agv.coor == agvs[i].coor && ) return agv
       
       let {x,y} = agv.position
-      let currentPosition = grid.value.find((g) => -g.s == x && -g.r == y)
+      let currentPosition = grid.find((g) => -g.s == x && -g.r == y)
 
       if(!agv.coor) agv.coor = {x:0,y:0}
       
@@ -99,24 +106,26 @@ export default function Map(){
       setAgvs(newAgvs)
     }
   }
-
+    if(readyState !== WebSocket.OPEN) return 
+    
     return (
       
           <>
           <directionalLight intensity={0.75} />
           <ambientLight intensity={0.75} />
           <group rotation={[0,0,deg2rad(90)]}>
-            <HexGrid obs={map.obs}/>
+            <HexGrid obs={map.obs} grid={grid}/>
             {
               agvs.map(agv => (
-                <AGV {...agv} key={agv.id}/>
+                <AGV grid={grid} {...agv} key={agv.id}/>
               ))
             }
           </group>
-          <OrthographicCamera
+          {/* <OrthographicCamera
             makeDefault
             ref={cameraRef}
-            position={[-12.75,12.75 , 10]}
+            rotation={[1.77, -3.55, 6.31]}
+            position={[-12.75, 12.75, 10]}
             zoom={27}
             left={window.innerWidth / -2}
             right={window.innerWidth / 2}
@@ -124,36 +133,63 @@ export default function Map(){
             bottom={window.innerHeight / -2}
             near={0.1}
             far={1000}
-          />
+            loo
+          /> */}
           <OrbitControls
-            enabled={!true}
-            // position={}
-            // mouseButtons={{
-            //   RIGHT: THREE.MOUSE.ROTATE,
-            //   MIDDLE: THREE.MOUSE.PAN
-            // }}
+            enabled={true}
+            enableRotate={!false}
+            args={[cameraRef, gl.domElement]}
+            enablePan={!false}
+            mouseButtons={{
+              LEFT: THREE.MOUSE.PAN,
+              RIGHT: THREE.MOUSE.ROTATE,
+              MIDDLE: THREE.MOUSE.PAN
+            }}
           />
         </>
     )
 }
 
-const AGV = (props) => {
-  const {coor,orientation} = props
+const AGV = ({coor,orientation, grid,isOnline,id,container,paths, ...props}) => {
+  let allPath = []
+  paths = paths.map(arr => allPath.push(...arr))
+
+  let pathCoor = allPath.map(([x,y],i) => {
+    let tile = grid.find((o) =>  x == -o.s && y == -o.r)
+    if(!tile) return [0,0,0]
+    return [-tile.center.x, -tile.center.y , 0.5 ]
+  })
+
+  // if(!isOnline) return
+  
   return (
-    <group position={[coor.x , coor.y ,0.5]} rotation={[ 0, 0 ,deg2rad(orientation)]}>
-      <RoundedBox args={[1.5, 1.5]} radius={0.4}>
-        <meshBasicMaterial attach="material" color={ "white"} />
-      </RoundedBox>
-      {/* <mesh geometry={new BoxGeometry(1.5, 1.5)} >
-      </mesh> */}
-    </group>
+    <>
+      <group position={[coor.x , coor.y ,0.5]} rotation={[ 0, 0 ,deg2rad(orientation)]}>
+        <RoundedBox args={[1.5, 1.5]} radius={0.4}>
+          <meshBasicMaterial attach="material" color={ "white"} />
+        </RoundedBox>
+        {
+          container &&
+          <RoundedBox args={[1.5, 1.8, .5]} radius={0.1} position={[.3,0,0]}>
+            <meshBasicMaterial attach="material" color={ "grey"} />
+          </RoundedBox>
+        }
+      </group>
+      <Text 
+        position={[coor.x  + -0., coor.y,1]}
+        rotation={[ 0, 0 ,-deg2rad(90)]}
+        color={"black"}
+        fontSize={"0.4"}
+      >AGV {id}</Text>
+        <Line points={[[coor.x ,  coor.y, 0.5 ], ...pathCoor ]} />
+    </>
   );
 };
 
-const HexGrid = ({obs, props}) => {
+const HexGrid = ({obs, props, grid}) => {
     return (
       <group {...props}>
-        {grid.value.map((hex) => {
+        {grid.map((hex) => {
           const { q, r } = hex;
           return (
             <HexTile
