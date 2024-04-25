@@ -58,12 +58,12 @@ function ItemsPage() {
                     <button className='action'><BiPlus/></button>
                 </div>
         </Link> */}  
-        <Content className="contentStyle">
-          <h1>{locale === 'id' ? 'Ini adalah Halaman Barang' : 'This is Item Page'}</h1>
+        {/* <Content className="contentStyle"> */}
+          {/* <h1>{locale === 'id' ? 'Ini adalah Halaman Barang' : 'This is Item Page'}</h1> */}
           <div className="table-container"> {/* Add this container */}
-            <ItemsTable/> 
+            <ItemsTable /> 
          </div>
-        </Content>
+        {/* </Content> */}
         </section> 
         
     )

@@ -87,7 +87,6 @@ function DashboardPage({isDrawerOpen}) {
 
 DashboardPage.propTypes = {
     isDrawerOpen: PropTypes.bool.isRequired,
-
-
 };
+
 export default DashboardPage;

@@ -1,1 +1,1 @@
-export const SERVICE_URL = 'ws://localhost:8080/dashboard';
+export const SERVICE_URL = 'ws://localhost:800/dashboard';

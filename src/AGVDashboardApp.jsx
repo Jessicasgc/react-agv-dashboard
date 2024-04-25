@@ -102,7 +102,7 @@ class AGVDashboardApp extends React.Component {
           </Layout>
           <Footer className='footerStyle'>Footer</Footer>
         </Layout> */}
-         <Flex gap="middle" wrap="wrap">
+         <Flex >
             <Layout className="layoutStyle">
               <Header className="headerStyle">
                 <NavSlide
@@ -111,7 +111,8 @@ class AGVDashboardApp extends React.Component {
                     this.setState({ isDrawerOpen: isOpen })
                   }
                 />
-                <h1 className="dash-name">
+                
+                <h1 className="dash-name" >
                   {this.state.localeContext.locale === "id"
                     ? "Dasbor AGV"
                     : "AGV Dashboard"}
@@ -119,8 +120,8 @@ class AGVDashboardApp extends React.Component {
                 <Navigation />
                 <JustDashboardButtons />
               </Header>
-              <main>
-                {/* <Content className="contentStyle"> */}
+              
+                <Content className="mainStyle">
                   <Routes>
                     <Route path="/" element={
                         <DashboardPage isDrawerOpen={this.state.isDrawerOpen} />}
@@ -129,8 +130,8 @@ class AGVDashboardApp extends React.Component {
                     <Route path="/task" element={<TaskPage />} />
                     <Route path="*" element={<E404Pages />} />
                   </Routes>
-                {/* </Content> */}
-              </main>
+                </Content>
+              
               <Footer className="footerStyle">
                 <p>
                   AGV Dashboard ©{new Date().getFullYear()} All Rights Reserved

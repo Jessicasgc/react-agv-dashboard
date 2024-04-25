@@ -47,7 +47,7 @@ function AddTask() {
                 }
             }
         });
-        e.preventDefault();
+        
         // addingTask(formData);
         // Reset the form data after submission
         // setFormData({
@@ -59,6 +59,7 @@ function AddTask() {
             // start_time: '',
             // end_time: ''
         // });
+        e.preventDefault();
     };
 
     useEffect(() => {
@@ -78,7 +79,7 @@ function AddTask() {
                 <Input placeholder='Y'  name='id_station_output' onChange={onInputChange}/>
             </Form.Item>
             
-            <Button className='action' type='primary' onClick={onSubmitHandler} disabled={readyState != WebSocket.OPEN}>
+            <Button className='action' type='primary' onClick={onSubmitHandler}>
                 Add Task
             </Button>
         </form>

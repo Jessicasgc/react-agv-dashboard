@@ -227,9 +227,9 @@ const HexGrid = ({obs, props, grid}) => {
         position={[x, y,0]}
       >
         <ValueDisplay hex={hex} />
-        <mesh geometry={cylinder}>
-          <meshBasicMaterial attach="material" color={ !isObstacle ?  "teal" : "black"} />
-        </mesh>
+          <mesh geometry={cylinder}>
+            <meshBasicMaterial attach="material" color={ !isObstacle ?  "teal" : "black"} />
+          </mesh>
       </animated.mesh>
     );
   };
