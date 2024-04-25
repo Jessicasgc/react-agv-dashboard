@@ -65,20 +65,23 @@ function DashboardPage({isDrawerOpen}) {
                 </div>
         </Link> */}  
           {/* <h1>{locale === 'id' ? 'Ini adalah Halaman Dashboard' : 'This is Dashboard Page'}</h1> */}
-          <Sider width="25%" className='siderStyle'>
-            <SideDashboard isDrawerOpen={isDrawerOpen}/>
-          </Sider>
+          <div className='siderStyle'>
+            <Sider width="25%">
+                <SideDashboard isDrawerOpen={isDrawerOpen}/>
+            </Sider>
+          </div>
+          
           {/* {
             agvs.map((agv) => {
                 return ( <div>AGV {agv.agv_code} : {agv.agv_status ? "Online" : "Offline"}</div> )
             } )
           }  */}
           {/* <PathApp/> */}
-          <div style={{width : "1000px", height: "75vh"}}>
-        <Canvas >
-          <Map/>
-            
-            </Canvas></div>
+          <div className='contents'>
+            <Canvas >
+                <Map/>
+            </Canvas>
+          </div>
         </section> 
         
     )
@@ -87,7 +90,6 @@ function DashboardPage({isDrawerOpen}) {
 
 DashboardPage.propTypes = {
     isDrawerOpen: PropTypes.bool.isRequired,
-
-
 };
+
 export default DashboardPage;

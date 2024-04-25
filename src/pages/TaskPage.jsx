@@ -63,7 +63,7 @@ function TaskPage() {
                 </div>
         </Link> */}  
           {/* <Content className="contentStyle"> */}
-            <h1>{locale === 'id' ? 'Ini adalah Halaman Tugas' : 'This is Task Page'}</h1>
+            {/* <h1>{locale === 'id' ? 'Ini adalah Halaman Tugas' : 'This is Task Page'}</h1> */}
             <div className="table-container"> {/* Add this container */}
                     <TaskTable/>
                 </div>

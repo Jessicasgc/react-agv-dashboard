@@ -5,7 +5,8 @@ import { Card } from 'antd';
 function AGVData({id, agv_code, agv_name, agv_status, is_charging, ...props}){
     console.log(props);
     return(
-        <Card title={`AGV ${id}`} bordered={false} style={{ width: 220, marginBottom:15, textAlign: 'left' }}>
+        <Card title={`AGV ${id}`} bordered={false} style={{ backgroundColor: 'var(--background)', color: 'var(--on-background)', width: 220, marginBottom:15, textAlign: 'left' }}
+        headStyle={{ color: 'var(--on-background)' }}>
             <p>Power : {props.power}%</p>
             <p>Position : {`(${props.position.x}, ${props.position.y})`}</p>
             <p>Status : {props.isOnline ? 'Online' : 'Offline'}</p>

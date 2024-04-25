@@ -102,43 +102,43 @@ export default function Map(){
 
     return (
       
-          <>
-          <directionalLight intensity={0.75} />
-          <ambientLight intensity={0.75} />
-          <group rotation={[0,0,deg2rad(90)]}>
-            <HexGrid obs={map.obs}/>
-            {
-              agvs.map(agv => (
-                <AGV {...agv} key={agv.id}/>
-              ))
-            }
-          </group>
-          <OrthographicCamera
-            makeDefault
-            ref={cameraRef}
-            position={[-12.75,12.75 , 10]}
-            zoom={27}
-            left={window.innerWidth / -2}
-            right={window.innerWidth / 2}
-            top={window.innerHeight / 2}
-            bottom={window.innerHeight / -2}
-            near={0.1}
-            far={1000}
-          />
-          <OrbitControls
-            enabled={!true}
-            // position={}
-            // mouseButtons={{
-            //   RIGHT: THREE.MOUSE.ROTATE,
-            //   MIDDLE: THREE.MOUSE.PAN
-            // }}
-          />
-        </>
+      <>
+        <directionalLight intensity={0.75} />
+        <ambientLight intensity={0.75} />
+        <group rotation={[0,0,deg2rad(90)]}>
+          <HexGrid obs={map.obs}/>
+          {
+            agvs.map(agv => (
+              <AGV {...agv} key={agv.id}/>
+            ))
+          }
+        </group>
+        <OrthographicCamera
+          makeDefault
+          ref={cameraRef}
+          position={[-12.75,12.75 , 10]}
+          zoom={27}
+          left={window.innerWidth / -2}
+          right={window.innerWidth / 2}
+          top={window.innerHeight / 2}
+          bottom={window.innerHeight / -2}
+          near={0.1}
+          far={1000}
+        />
+        <OrbitControls
+          enabled={!true}
+          // position={}
+          // mouseButtons={{
+          //   RIGHT: THREE.MOUSE.ROTATE,
+          //   MIDDLE: THREE.MOUSE.PAN
+          // }}
+        />
+      </>
     )
 }
 
 const AGV = (props) => {
-  const {coor,orientation} = props
+  const {coor, orientation} = props
   return (
     <group position={[coor.x , coor.y ,0.5]} rotation={[ 0, 0 ,deg2rad(orientation)]}>
       <RoundedBox args={[1.5, 1.5]} radius={0.4}>
@@ -191,9 +191,9 @@ const HexGrid = ({obs, props}) => {
         position={[x, y,0]}
       >
         <ValueDisplay hex={hex} />
-        <mesh geometry={cylinder}>
-          <meshBasicMaterial attach="material" color={ !isObstacle ?  "teal" : "black"} />
-        </mesh>
+          <mesh geometry={cylinder}>
+            <meshBasicMaterial attach="material" color={ !isObstacle ?  "teal" : "black"} />
+          </mesh>
       </animated.mesh>
     );
   };

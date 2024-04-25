@@ -46,7 +46,7 @@ function TaskTable() {
 
     return (
         <div>
-            <h2>Tasks</h2>
+            {/* <h2>Tasks</h2> */}
             {loading ? (
                 <p>Loading...</p>
             ) : (

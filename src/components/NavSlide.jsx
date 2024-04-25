@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LocaleConsumer } from '../contexts/LocaleContext';
 import { Link } from 'react-router-dom';
 import { Drawer, Button, Menu } from 'antd';
@@ -19,6 +19,14 @@ function NavSlide({ setDrawerOpen }) {
         setVisible(false);
         setDrawerOpen(false);
     };
+    useEffect(() => {
+        // Update burger button margin when visibility changes
+        const burgerButton = document.querySelector('.burger-button');
+        if (burgerButton) {
+            burgerButton.style.marginLeft = visible ? '250px' : '10px';
+        }
+    }, [visible]);
+
 
     const handleMenuItemClick = (e) => {
         setSelectedKey(e.key);
@@ -27,8 +35,8 @@ function NavSlide({ setDrawerOpen }) {
         <LocaleConsumer>
         {({ theme }) => {
             return (
-                <div className='nav-drawer' style={{ backgroundColor: theme === 'light' ? 'var(--background-light)' : 'var(--background-dark)' }}>
-                    <Button className="burger-button" type="primary" onClick={showDrawer} style={{ backgroundColor: 'var(--on-primary)' }}>
+                <div className='slide-navigation' style={{ backgroundColor: theme === 'light' ? 'var(--background-light)' : 'var(--background-dark)' }}>
+                    <Button className="burger-button" type="primary" onClick={showDrawer} >
                         <MenuOutlined />
                     </Button>
                     <Drawer

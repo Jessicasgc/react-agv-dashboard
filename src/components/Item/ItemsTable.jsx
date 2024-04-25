@@ -52,7 +52,7 @@ function ItemsTable() {
 
     return (
         <div>
-            <h2>Items</h2>
+            {/* <h2>Items</h2> */}
             {loading ? (
                 <p>Loading...</p>
             ) : (
