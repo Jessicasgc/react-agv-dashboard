@@ -105,12 +105,12 @@ class AGVDashboardApp extends React.Component {
          <Flex >
             <Layout className="layoutStyle">
               <Header className="headerStyle">
-                <NavSlide
+                {/* <NavSlide
                   isDrawerOpen={this.state.isDrawerOpen}
                   setDrawerOpen={(isOpen) =>
                     this.setState({ isDrawerOpen: isOpen })
                   }
-                />
+                /> */}
                 
                 <h1 className="dash-name" >
                   {this.state.localeContext.locale === "id"
