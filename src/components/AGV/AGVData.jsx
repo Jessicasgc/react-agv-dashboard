@@ -1,11 +1,12 @@
 import AGVBody from './AGVBody';
 import PropTypes from 'prop-types';
-import { Card } from 'antd';
+import { Card, Flex, Space } from 'antd';
+import { FaTruckRampBox } from "react-icons/fa6";
 
-function AGVData({id, agv_code, agv_name, agv_status, is_charging, ...props}){
-    console.log(props);
+function AGVData({id, agv_code, agv_name, agv_status, is_charging,container, ...props}){
+    
     return(
-        <Card title={`AGV ${id}`} bordered={false} style={{ backgroundColor: 'var(--background)', color: 'var(--on-background)', width: 220, marginBottom:15, textAlign: 'left' }}
+        <Card title={<Flex justify={"space-between"}>AGV {id} { container && <FaTruckRampBox/> } </Flex>} bordered={false} style={{ backgroundColor: 'var(--background)', color: 'var(--on-background)', width: 220, marginBottom:15, textAlign: 'left' }}
         headStyle={{ color: 'var(--on-background)' }}>
             <p>Power : {props.power}%</p>
             <p>Position : {`(${props.position.x}, ${props.position.y})`}</p>

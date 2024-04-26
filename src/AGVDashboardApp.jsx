@@ -121,7 +121,7 @@ class AGVDashboardApp extends React.Component {
                 <JustDashboardButtons />
               </Header>
               
-                <Content className="mainStyle">
+                <Content className="mainStyle" >
                   <Routes>
                     <Route path="/" element={
                         <DashboardPage isDrawerOpen={this.state.isDrawerOpen} />}

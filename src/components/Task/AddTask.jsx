@@ -9,7 +9,7 @@ import { SERVICE_URL } from '../../utils/constants';
 
 
 function AddTask() {
-    const { sendJsonMessage, lastMessage, } = useWebSocket(SERVICE_URL);
+    const { sendJsonMessage, lastMessage, readyState} = useWebSocket(SERVICE_URL, {shouldReconnect: (closeEvent) => true,});
 
     const { stations } = useStations();
     const { items } = useItems();
@@ -37,7 +37,7 @@ function AddTask() {
                 }
             }
         })
-        console.log({
+        console.log("awdaw",{
             type: "task",
             data: {
                 id : formData.id_item,
@@ -50,15 +50,15 @@ function AddTask() {
         
         // addingTask(formData);
         // Reset the form data after submission
-        setFormData({
+        // setFormData({
             // id_agv: '',
-            id_station_input: '',
-            id_station_output: '',
-            id_item: '',
+            // id_station_input: '',
+            // id_station_output: '',
+            // id_item: '',
             // task_status: '',
             // start_time: '',
             // end_time: ''
-        });
+        // });
         e.preventDefault();
     };
 
@@ -79,7 +79,7 @@ function AddTask() {
                 <Input placeholder='Y'  name='id_station_output' onChange={onInputChange}/>
             </Form.Item>
             
-            <Button className='action' type='primary'>
+            <Button className='action' type='primary' onClick={onSubmitHandler}>
                 Add Task
             </Button>
         </form>

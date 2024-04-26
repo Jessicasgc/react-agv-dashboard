@@ -5,7 +5,7 @@ import useAgv from '../custom_hooks/GET_HOOKS/useAgv';
 import ProcessingTaskListByAGV from './Task/TaskListByAGV';
 import AllocatedTaskListByAGV from './Task/TaskListByAGV';
 import AGVData from './AGV/AGVData';
-import { Flex, Layout } from "antd";
+import { Alert, Card, Flex, Layout } from "antd";
 import useAllocatedTasks from '../custom_hooks/GET_HOOKS/useAllocatedTasks';
 import useProcessingTask from '../custom_hooks/GET_HOOKS/useProcessingTask';
 import { agvDatas } from './Map';
@@ -15,7 +15,7 @@ import { SERVICE_URL } from '../utils/constants';
 const { Sider } = Layout;
 
 function SideDashboard({ isDrawerOpen }) {
-    const { sendJsonMessage, lastMessage, } = useWebSocket(SERVICE_URL);
+    const { sendJsonMessage, lastMessage, readyState} = useWebSocket(SERVICE_URL, {shouldReconnect: (closeEvent) => true,});
     const { agvs } = useAGVs();
     const [ datas, setDatas ] = useState([]);
     const [selectedAGVId, setSelectedAGVId] = React.useState(0);
@@ -44,7 +44,7 @@ function SideDashboard({ isDrawerOpen }) {
       }, [lastMessage]);
    
     return (
-        <Sider width="25%" className='siderStyle'>
+        <Sider width="19.8%" className='siderStyle'>
             <div className='side-dashboard' style={{ marginLeft: isDrawerOpen ? '250px' : '0', transition: 'margin-left 0.5s' }}>
                 {/* <div className='agv-dropdown'>
                     <select id="agvSelect" value={selectedAGVId} onChange={handleAGVChange}>
@@ -55,19 +55,20 @@ function SideDashboard({ isDrawerOpen }) {
                     </select>
                 </div> */}
                 <div className='agv-data-card'>
+                    <Alert style={{width: 220, marginBottom:10,}} message={readyState ==  WebSocket.OPEN ? "Service Connected" : "Service Disconnected"} type={readyState ==  WebSocket.OPEN ? "success" : "error"} showIcon></Alert>
                     {
-                        datas.map(agv => <AGVData {...agv} key={agv.id} />)
+                        readyState ==  WebSocket.OPEN && datas.map(agv => <AGVData {...agv} key={agv.id} />)
                     }
                     {/* {agvDataLoading ? <p>Loading AGV data...</p> : foundAGV && <AGVData {...foundAGV} />} */}
                 </div>
 
 
-                {console.log(selectedAGVId)}
-                {console.log(foundAGV)}
+                {/* {console.log(selected/AGVId)} */}
+                {/* {console.log(foundAGV)} */}
                 {/* {console.log(foundAllocatedTasks, 'processing task')}
                 {console.log(foundProcessingTask, 'allocated task')} */}
-                {console.log(task, 'processing')}
-                {console.log(tasks, 'allocated')}
+                {/* {console.log(task, 'processing')} */}
+                {/* {console.log(tasks, 'allocated')} */}
                 {foundAGV && (
                     <>
                         {/* <h2>Processing Tasks</h2>
