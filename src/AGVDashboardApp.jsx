@@ -27,7 +27,7 @@ const JustDashboardButtons = () => {
       {showButtons && (
         <>
           <AddTaskButton />
-          <WaitingTaskButton />
+          {/* <WaitingTaskButton /> */}
         </>
       )}
     </div>
