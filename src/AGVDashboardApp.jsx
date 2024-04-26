@@ -105,7 +105,7 @@ class AGVDashboardApp extends React.Component {
         </Layout> */}
             <Layout style={{minHeight:"100%"}}>
               <Header className="headerStyle">
-                <h1 className="dash-name" style={{paddingLeft: 130}} >
+                <h1 className="dash-name" style={{paddingLeft: 150}} >
                   {this.state.localeContext.locale === "id"
                     ? "Dasbor AGV"
                     : "AGV Dashboard"}
