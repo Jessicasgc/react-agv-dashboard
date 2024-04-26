@@ -18,7 +18,6 @@ const cylinder = new CylinderGeometry(1, 1, 0.1, 6, 1)
 export default function Map(){
   const { sendJsonMessage, lastMessage,readyState } = useWebSocket(SERVICE_URL, {shouldReconnect: (closeEvent) => true,});
   const cameraRef = useRef();
-  const { gl, camera } = useThree();
 
   const [grid, setGrid] = useState([])
   const [agvs, setAgvs] = useState([])
@@ -30,44 +29,16 @@ export default function Map(){
   })
 
   useEffect(()=>{
-    agvDatas.value = agvs
-  },[agvs])
-
-  useEffect(()=>{
     setTimeout(function () {
       sendJsonMessage({type: "map"})
     }, 500)
   },[])
 
-  useEffect(()=>{
-    camera.position.set(-12.75,12.75, 10); // Set camera position
-    camera.lookAt(-12.75,12.75, 0); // Set camera target
-
-    const updateControls = () => {
-      controlsRef.current.target.copy(camera.position);
-    };
-
-    // Listen to the camera's position changes
-    camera.addEventListener('update', updateControls);
-
-    return () => {
-      // Clean up event listener
-      camera.removeEventListener('update', updateControls);
-    };
-  },[])
-
-  useFrame(() => {
-    // console.log(cameraRef.current);
-    if(!cameraRef.current) return
-    // cameraRef.current.lookAt(-12.75,12.75, 0); 
-  })
 
   useEffect(()=>{
     const spiralGrid = new Grid(Hex, rectangle({ width: map.width, height: map.height }));
     let g = spiralGrid.toArray();
     setGrid(g ?? [])
-    // if(!cameraRef.current) return
-    // cameraRef.current.lookAt(-12.75,12.75, 0); 
   },[map])
 
   useEffect(() => {
@@ -112,8 +83,8 @@ export default function Map(){
       
           <>
           <directionalLight intensity={0.75} />
-          <ambientLight intensity={0.75} />
-          <group rotation={[0,0,deg2rad(90)]}>
+          <ambientLight intensity={10.75} />
+          <group rotation={[0,0,deg2rad(90)]} position={[(map.width / 2) + 4,-(map.height / 2) - 3.5,0]}>
             <HexGrid obs={map.obs} grid={grid}/>
             {
               agvs.map(agv => (
@@ -121,11 +92,10 @@ export default function Map(){
               ))
             }
           </group>
-          {/* <OrthographicCamera
+          <OrthographicCamera
             makeDefault
             ref={cameraRef}
-            rotation={[1.77, -3.55, 6.31]}
-            position={[-12.75, 12.75, 10]}
+            position={[0, 0, 10]}
             zoom={27}
             left={window.innerWidth / -2}
             right={window.innerWidth / 2}
@@ -133,12 +103,11 @@ export default function Map(){
             bottom={window.innerHeight / -2}
             near={0.1}
             far={1000}
-            loo
-          /> */}
+          />
           <OrbitControls
             enabled={true}
-            enableRotate={!false}
-            args={[cameraRef, gl.domElement]}
+            enableRotate={false}
+            // args={[camera, gl.domElement]}
             enablePan={!false}
             mouseButtons={{
               LEFT: THREE.MOUSE.PAN,
@@ -239,7 +208,7 @@ const HexGrid = ({obs, props, grid}) => {
     return (
       <>
         <Text
-          color="#222831"
+          color="white"
           fontSize={0.2}
           rotation={[-deg2rad(90), 0, -deg2rad(90)]}
           position={[0.7, 0.051, 0]}

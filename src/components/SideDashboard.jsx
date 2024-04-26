@@ -44,7 +44,7 @@ function SideDashboard({ isDrawerOpen }) {
       }, [lastMessage]);
    
     return (
-        <Sider width="25%" className='siderStyle'>
+        <Sider width="19.8%" className='siderStyle'>
             <div className='side-dashboard' style={{ marginLeft: isDrawerOpen ? '250px' : '0', transition: 'margin-left 0.5s' }}>
                 {/* <div className='agv-dropdown'>
                     <select id="agvSelect" value={selectedAGVId} onChange={handleAGVChange}>

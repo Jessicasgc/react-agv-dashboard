@@ -13,6 +13,7 @@ import LocaleContext from '../contexts/LocaleContext';
 import SideDashboard from '../components/SideDashboard';
 import { Canvas } from '@react-three/fiber';
 import { Layout  } from 'antd';
+import { Content } from 'antd/es/layout/layout';
 const { Sider } = Layout;
 
 
@@ -48,7 +49,7 @@ function DashboardPage({isDrawerOpen}) {
     // }
         
     return (
-        <section>
+        <Layout>
             {/* <h2>{locale === 'id' ? 'Catatan Aktif' : 'Active Note'}</h2>
             <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler}/>
             {activeNotes.length > 0 &&
@@ -65,21 +66,21 @@ function DashboardPage({isDrawerOpen}) {
                 </div>
         </Link> */}  
           {/* <h1>{locale === 'id' ? 'Ini adalah Halaman Dashboard' : 'This is Dashboard Page'}</h1> */}
-          <Sider width="25%" className='siderStyle' style={{backgroundColor:"transparent"}}>
+          {/* <Sider width="25%" style={{backgroundColor:"blue"}}> */}
             <SideDashboard isDrawerOpen={isDrawerOpen}/>
-          </Sider>
+          {/* </Sider> */}
           {/* {
             agvs.map((agv) => {
                 return ( <div>AGV {agv.agv_code} : {agv.agv_status ? "Online" : "Offline"}</div> )
             } )
           }  */}
           {/* <PathApp/> */}
-          <div style={{width : "1000px", height: "75vh"}}>
-        <Canvas camera={{orthographic: true}}>
-          <Map/>
-            
-            </Canvas></div>
-        </section> 
+            <Content style={{width : "75%", height: "75vh"}}>
+                <Canvas camera={{orthographic: true}} style={{backgroundColor: "#abcaf3"}}>
+                    <Map/>
+                </Canvas>
+            </Content>
+        </Layout> 
         
     )
         

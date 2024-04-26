@@ -292,7 +292,7 @@ canvas {
   width: 100%; /* Ensure canvas fills its container */
   height: 100%; /* Ensure canvas fills its container */
   transform-origin: center;
-
+  background-color: var(--body);
 }
 
 .headerStyle {
