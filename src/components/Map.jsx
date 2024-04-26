@@ -129,7 +129,7 @@ const AGV = ({coor,orientation, grid,isOnline,id,container,paths, ...props}) => 
     return [-tile.center.x, -tile.center.y , 0.5 ]
   })
 
-  // if(!isOnline) return
+  if(!isOnline) return
   
   return (
     <>
