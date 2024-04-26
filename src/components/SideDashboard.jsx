@@ -44,8 +44,8 @@ function SideDashboard({ isDrawerOpen }) {
       }, [lastMessage]);
    
     return (
-        <Sider width="19.8%" className='siderStyle'>
-            <div className='side-dashboard' style={{ marginLeft: isDrawerOpen ? '250px' : '0', transition: 'margin-left 0.5s' }}>
+        <Sider width="20%" className='siderStyle'>
+            {/* <div style={{ marginLeft: isDrawerOpen ? '250px' : '0', transition: 'margin-left 0.5s' }}> */}
                 {/* <div className='agv-dropdown'>
                     <select id="agvSelect" value={selectedAGVId} onChange={handleAGVChange}>
                         <option value="">Select AGV</option>
@@ -54,13 +54,13 @@ function SideDashboard({ isDrawerOpen }) {
                         ))}
                     </select>
                 </div> */}
-                <div className='agv-data-card'>
-                    <Alert style={{width: 220, marginBottom:10,}} message={readyState ==  WebSocket.OPEN ? "Service Connected" : "Service Disconnected"} type={readyState ==  WebSocket.OPEN ? "success" : "error"} showIcon></Alert>
+                <Flex vertical align={'center'} style={{marginTop: "15px"}}>
+                    <Alert style={{width: '87%', marginBottom:10,}} message={readyState ==  WebSocket.OPEN ? "Service Connected" : "Service Disconnected"} type={readyState ==  WebSocket.OPEN ? "success" : "error"} showIcon></Alert>
                     {
                         readyState ==  WebSocket.OPEN && datas.map(agv => <AGVData {...agv} key={agv.id} />)
                     }
                     {/* {agvDataLoading ? <p>Loading AGV data...</p> : foundAGV && <AGVData {...foundAGV} />} */}
-                </div>
+                </Flex>
 
 
                 {/* {console.log(selected/AGVId)} */}
@@ -82,7 +82,7 @@ function SideDashboard({ isDrawerOpen }) {
                             </div> */}
                     </>
                 )}
-            </div>
+            {/* </div> */}
         </Sider>
     );
     

@@ -49,7 +49,7 @@ function DashboardPage({isDrawerOpen}) {
     // }
         
     return (
-        <Layout>
+        <Layout style={{minHeight: "100%"}}>
             {/* <h2>{locale === 'id' ? 'Catatan Aktif' : 'Active Note'}</h2>
             <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler}/>
             {activeNotes.length > 0 &&
@@ -75,8 +75,8 @@ function DashboardPage({isDrawerOpen}) {
             } )
           }  */}
           {/* <PathApp/> */}
-            <Content style={{width : "75%", height: "75vh"}}>
-                <Canvas camera={{orthographic: true}} style={{backgroundColor: "#abcaf3"}}>
+            <Content style={{width : "80%", minHeight: "100%"}}>
+                <Canvas camera={{orthographic: true}} style={{ maxWidth:"100%"}}>
                     <Map/>
                 </Canvas>
             </Content>

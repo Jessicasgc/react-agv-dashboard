@@ -257,7 +257,7 @@
   padding: 16px;
   height: fit-content;
   min-height: calc(100vh - 100px);
-  width: 250px;
+  max-width: 100%;
   background-color: var(--surface);
   transition: all ease-in-out 0.5s;
   overflow-y: visible;
@@ -297,18 +297,18 @@ canvas {
 
 .headerStyle {
   display: flex;
-  position:fixed;
+  /* position:fixed; */
   align-items: center;
   justify-content: center;
   text-align: center;
-  height: 64px;
-  padding-inline: 48px;
+  /* height: 64px; */
+  /* padding-inline: 48px; */
   color: var(--on-background);
   background-color: var(--background);
-  border-bottom: 1px solid var(--on-background);
-  top: 0;
-  left: 0; 
-  right: 0;
+  /* border-bottom: 1px solid var(--on-background); */
+  /* top: 0; */
+  /* left: 0;  */
+  /* right: 0; */
 }
 .contentStyle {
   text-align: center;
@@ -325,26 +325,25 @@ canvas {
   padding-bottom: 64px;
 }
 .siderStyle {
-  text-align: center;
-  color: var(--surface);
-  background-color: var(--background);
+  /* text-align: center; */
+  color: var(--background) !important;
+  background-color: var(--surface) !important;
 }
-.footerStyle {
+footer {
   text-align: center;
-  color: var(--on-background);
-  background-color: var(--background);
+  color: var(--on-background) !important;
+  background-color: var(--background) !important;
   font-weight: bold;
   font-size: 12pt;
-  bottom: 0;
+  /* bottom: 0;
   right: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  position: fixed; 
+  left: 0; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* position: fixed;  */
   padding: 16px;
-  border-top: 1px solid var(--on-background);
+  /* border-top: 1px solid var(--on-background); */
   height: 50px;
-   
 }
 .layoutStyle {
   border-radius: 8px;

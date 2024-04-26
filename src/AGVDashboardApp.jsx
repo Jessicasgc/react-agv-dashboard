@@ -11,6 +11,8 @@ import TaskPage from "./pages/TaskPage";
 import AddTaskButton from "./components/Task/AddTaskButton";
 import WaitingTaskButton from "./components/Task/WaitingTaskButton";
 import { Flex, Layout } from "antd";
+import LocaleToggle from './components/ToggleLocale';
+import ThemeToggle from './components/ToggleTheme';
 const { Header, Footer, Content } = Layout;
 // import { Content, Footer } from 'antd/es/layout/layout';
 
@@ -91,7 +93,6 @@ class AGVDashboardApp extends React.Component {
     return (
       <ThemeProvider value={this.state}>
         <LocaleProvider value={this.state.localeContext}>
-          <div className="app-container">
             {/* <Layout className='layoutStyle'>
           <Header className='headerStyle'>Header</Header>
           <Layout>
@@ -102,16 +103,8 @@ class AGVDashboardApp extends React.Component {
           </Layout>
           <Footer className='footerStyle'>Footer</Footer>
         </Layout> */}
-         <Flex >
-            <Layout className="layoutStyle">
+            <Layout style={{minHeight:"100%"}}>
               <Header className="headerStyle">
-                <NavSlide
-                  isDrawerOpen={this.state.isDrawerOpen}
-                  setDrawerOpen={(isOpen) =>
-                    this.setState({ isDrawerOpen: isOpen })
-                  }
-                />
-                
                 <h1 className="dash-name" >
                   {this.state.localeContext.locale === "id"
                     ? "Dasbor AGV"
@@ -120,8 +113,7 @@ class AGVDashboardApp extends React.Component {
                 <Navigation />
                 <JustDashboardButtons />
               </Header>
-              
-                <Content className="mainStyle" >
+                <Layout  style={{backgroundColor: "blue", }}>
                   <Routes>
                     <Route path="/" element={
                         <DashboardPage isDrawerOpen={this.state.isDrawerOpen} />}
@@ -130,16 +122,14 @@ class AGVDashboardApp extends React.Component {
                     <Route path="/task" element={<TaskPage />} />
                     <Route path="*" element={<E404Pages />} />
                   </Routes>
-                </Content>
+                </Layout>
               
-              <Footer className="footerStyle">
-                <p>
+              <Footer>
+                {/* <p> */}
                   AGV Dashboard ©{new Date().getFullYear()} All Rights Reserved
-                </p>
+                {/* </p> */}
               </Footer>
             </Layout>
-            </Flex>
-          </div>
         </LocaleProvider>
       </ThemeProvider>
     );
