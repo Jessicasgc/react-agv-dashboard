@@ -3,22 +3,28 @@
     --primary-variant: #1b005b;
     --secondary: #03DAC6;
     --background: #143363;
-    --surface: #121212;
+    --surface: #051030;
     --error: #CF6679;
     --warning: #F39C12;
     --on-background: #FFFFFF;
     --on-background-grey: #c7c7c7;
     --on-surface: #FFFFFF;
     --body: #6da4e3;
+    --agv: #0e2362;
+    --map: #274363;
+    --obstacle: #3b3b3c;
   }
   
   [data-theme="light"] {
     --background: #73b8ea;
-    --surface: #FFFFFF;
+    --surface: #CADCF7;
     --on-background: #333333;
     --on-background-grey: #6d6d6d;
     --on-surface: #333333;
     --body: #abcaf3;
+    --agv: #819ff8;
+    --map: #326481;
+    --obstacle: #313332;
   }
   
   * {
@@ -51,12 +57,7 @@
     
   }
 
-  .dash-name{
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    margin: 0 auto;
-  }
+ 
 
   /* header {
     display: flex;
@@ -86,7 +87,6 @@
   } */
   header h1 {
     flex: 1;
-    
   }
   .header-navigation, .just-dashboard-button{
     display: flex;
@@ -295,21 +295,14 @@ canvas {
   background-color: var(--body);
 }
 
-.headerStyle {
+/* .headerStyle {
   display: flex;
-  /* position:fixed; */
   align-items: center;
   justify-content: center;
   text-align: center;
-  /* height: 64px; */
-  /* padding-inline: 48px; */
   color: var(--on-background);
   background-color: var(--background);
-  /* border-bottom: 1px solid var(--on-background); */
-  /* top: 0; */
-  /* left: 0;  */
-  /* right: 0; */
-}
+} */
 .contentStyle {
   text-align: center;
   color: var(--background);
@@ -358,8 +351,58 @@ footer {
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   /* max-height: calc(100vh - 200px); */
-  overflow-y: auto;
-  height: calc(100vh - 164px);
+  /* padding: 2%; */
+  height: fit-content;
+}
+.table-container {
+  width: 100%;
+}
+
+.table-container.dark-theme .ant-table {
+  color: var(--body);
+  background-color: var(--surface); 
+}
+
+.reusable-table {
+  width: 100%;
+  border-collapse: collapse;
+  /* background-color: var(--surface); 
+}
+
+.reusable-table th,
+.reusable-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--on-surface); 
+}
+
+.reusable-table th {
+  background-color: var(--background); 
+}
+
+.reusable-table tr:nth-child(even) {
+  background-color: var(--background); Ensure this matches your theme
+}
+
+.reusable-table tr:hover {
+  background-color: var(--on-background-grey); /* Ensure this matches your theme */
+}
+
+.set-icon {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+button.action {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+button.action:hover {
+  color: var(--primary); /* Ensure this matches your theme */
 }
 .agv-data{
   border-radius: 8px; 
@@ -372,23 +415,324 @@ footer {
   margin-bottom:15; 
   text-align: left;
 } */
-.processing-task-card{
+/* .processing-task-card{
   background-color: var(--background);
-  border-radius: 8px; /* Adjust as needed */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   padding: 20px;
-  width: 200px; /* Adjust width as needed */
+  width: 200px; 
   margin: 20px;
   text-align: center;
   color: var(--on-background);
 }
 .allocated-task-card{
   background-color: var(--background);
-  border-radius: 8px; /* Adjust as needed */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   padding: 20px;
-  width: 200px; /* Adjust width as needed */
+  width: 200px; 
   margin: 20px;
   text-align: center;
   color: var(--on-background);
+} */
+.action{
+  display: inline-block;
+  width: 50px;
+  height: fit-content;
+  font-size: 24px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: transparent;
+  padding: 8px 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+.light-theme .action {
+  color: var(--body);
+}
+
+/* Define icon color for dark theme */
+.dark-theme .action {
+  color: var(--body);
+}
+
+.set-icon{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  font-size: 24px;
+  
+}
+
+
+.dash-name{
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding-left: 150px;
+  /* margin: 0 auto; */
+} 
+
+.page-name{
+  font-size: 30px;
+  font-weight: bold;
+  justify-content: center;
+  padding-left: 350px;
+  padding-top: 1%;
+} 
+
+.add-input {
+  background-color: var(--background);
+  color: var(--on-background)!important;
+  border: 1px solid var(--on-background-grey);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.add-input label {
+  color: var(--on-background)!important;
+  font-weight: bold;
+}
+
+.add-input input,
+.add-input select {
+  background-color: #FFFFFF;
+  color: var(--primary-variant)!important;
+  border: 1px solid var(--on-background-grey);
+  border-radius: 4px;
+  padding: 8px;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.add-input button {
+  background-color: var(--body);
+  color: var(--on-background);
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10%;
+  width: fit-content;
+}
+
+.add-input button:hover {
+  width: fit-content;
+  background-color: var(--primary-variant);
+}
+
+.add-input .ant-form-item-label {
+  color: var(--on-background);
+}
+
+.add-input .ant-select-selector {
+  background-color: var(--surface);
+  color: var(--surface);
+  border: 1px solid var(--on-background);
+  border-radius: 4px;
+}
+
+.add-input .ant-select-selector:hover, 
+.add-input .ant-select-focused .ant-select-selector {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(139, 134, 252, 0.2);
+}
+.waiting-popover .ant-popover-inner-content {
+  background-color: var(--background); /* Background color */
+  padding: 12px; /* Padding inside popover content */
+  border: 1px solid #d9d9d9; /* Border */
+  border-radius: 4px; /* Border radius */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Box shadow */
+  overflow-y: auto !important; /* Ensure overflow is enforced */
+  max-height: 500px; /* Limit max height to avoid excessive scrolling */
+  max-width: 500px; /* Limit max width for popover content */
+}
+
+.waiting-popover .ant-popover-inner {
+  max-height: 5; /* Example: Limit max height for popover itself */
+  width: fit-content;
+  max-width: 500px;
+}
+
+.task-body{
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); 
+  border-radius: 4px; /* Border radius */
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  height: fit-content;
+  max-height: 80%;
+  width: 100%;
+  color: var(--on-background);
+  background-color: var(--body);
+  transition: all ease-in-out 0.5s;
+  overflow-y: auto;
+  font-size:x-small;
+}
+
+/* For side dashboard */
+/* Sidebar styles */
+.siderStyle {
+  background-color: var(--surface) !important;
+  color: var(--on-background) !important;
+  padding: 20px;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid var(--on-background-grey);
+}
+
+.siderStyle .ant-alert {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.siderStyle .ant-select {
+  width: 100%;
+}
+
+.siderStyle .ant-select-selector {
+  background-color: var(--surface);
+  color: var(--on-background);
+  border: 1px solid var(--on-background-grey);
+}
+
+.siderStyle .ant-select-selection-item {
+  color: var(--on-background);
+}
+
+/* Card styles */
+.processing-task-card,
+.allocated-task-card {
+  background-color: var(--background);
+  border-radius: 8px; /* Adjust as needed */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  padding: 10px; /* Reduced padding */
+  width: 150px; /* Adjust width as needed */
+  margin: 10px; /* Reduced margin */
+  text-align: center;
+  color: var(--on-background);
+  font-size: small; /* Adjust font size */
+}
+
+.agv-data-card:hover, .processing-task-card:hover, .allocated-task-card:hover {
+  transform: scale(1.05);
+}
+
+/* Typography */
+.siderStyle h2 {
+  font-size: 20px;
+  color: var(--on-background);
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Scrollbar styles */
+.siderStyle::-webkit-scrollbar {
+  width: 8px;
+}
+
+.siderStyle::-webkit-scrollbar-thumb {
+  background-color: var(--on-background-grey);
+  border-radius: 10px;
+}
+
+.siderStyle::-webkit-scrollbar-thumb:hover {
+  background-color: var(--on-background);
+}
+
+/* Form item */
+.siderStyle .ant-form-item {
+  margin-bottom: 20px;
+}
+
+.siderStyle .ant-form-item-label > label {
+  color: var(--on-background);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .siderStyle {
+    width: 100%;
+    position: relative;
+  }
+}
+
+/* AGV Dropdown */
+.agv-select {
+  width: fit-content;
+  align-items: center;
+  /* padding-left: 20px;
+  padding-right: 0px; */
+  /* background-color: var(--background); */
+  color: var(--on-background);
+  border: 1px solid var(--on-background-grey);
+  border-radius: 4px;
+}
+
+.agv-select .ant-select-selector {
+  background-color: var(--background);
+  color: var(--on-background);
+  border: 1px solid var(--on-background-grey);
+  border-radius: 4px;
+  box-shadow: none; /* Menghapus shadow bawaan dari Ant Design */
+}
+
+.agv-select .ant-select-selector:focus {
+  outline: none;
+  border-color: var(--primary); 
+  box-shadow: 0 0 0 2px rgba(139, 134, 252, 0.2); /* Efek shadow saat focus */
+}
+
+.agv-select .ant-select-arrow {
+  color: var(--on-background);
+}
+
+.agv-select .ant-select-item {
+  background-color: var(--background);
+  color: var(--on-background);
+}
+
+.agv-select .ant-select-item:hover {
+  background-color: var(--primary-variant);
+  color: var(--on-background);
+}
+
+.agv-select .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: var(--primary); 
+  color: var(--on-background);
+}
+
+/* Header App */
+.headerStyle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px; /* Adjust padding as needed */
+  background-color: var(--background); /* Example background color */
+  color: var(--on-background); /* Example text color */
+}
+
+.dash-name {
+  margin: 0;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+}
+
+.header-icons > * {
+  margin-left: 10px; /* Adjust spacing between icons */
+}
+
+.header-icons > *:first-child {
+  margin-left: 0; /* Remove margin for the first child */
 }

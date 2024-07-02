@@ -2,16 +2,21 @@ import React from 'react';
 import { getItems } from '../../utils/crud_api';
 
 function useItems() {
- const [items, setItems] = React.useState([]);
- const [loading, setLoading] = React.useState(true);
+  const [items, setItems] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
 
- React.useEffect(() => {
-    getItems().then(({data}) => {
-      setItems(data);
-      setLoading(false);
-    })
- }, []);
+  const fetchItems = async () => {
+    setLoading(true);
+    const { data } = await getItems();
+    setItems(data);
+    setLoading(false);
+  };
 
- return { items, loading };
+  React.useEffect(() => {
+    fetchItems();
+  }, []);
+
+  return { items, loading, fetchItems };
 }
+
 export default useItems;

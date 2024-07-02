@@ -1,9 +1,9 @@
 import Task from './Task';
 import PropTypes from 'prop-types';
-import useAllocatedTasks from '../../custom_hooks/GET_HOOKS/useAllocatedTasks';
-import useProcessingTask from '../../custom_hooks/GET_HOOKS/useProcessingTask';
+import useAllocatedTasks from '../../custom_hooks/GET_HOOKS/Tasks/useAllocatedTasks';
+import useProcessingTask from '../../custom_hooks/GET_HOOKS/Tasks/useProcessingTask';
 
-function ProcessingTaskListByAGV({task}){
+export function ProcessingTaskListByAGV({task}){
     
 
     // if (loading) return <p>Loading...</p>;
@@ -15,7 +15,7 @@ function ProcessingTaskListByAGV({task}){
                     <Task
                     key={ts.id} 
                     id={ts.id}
-                    {...task}   
+                    {...ts}   
                     />
                 ))  
             }
@@ -27,10 +27,10 @@ ProcessingTaskListByAGV.propTypes= {
     task: PropTypes.array.isRequired,
 }; 
 
-function AllocatedTaskListByAGV({tasks}){
+export function AllocatedTaskListByAGV({tasks}){
     // const [tasks, loading] = useAllocatedTasks(1);
     // if (loading) return <p>Loading...</p>;
-    console.log(tasks);
+    // console.log(tasks);
     return (
         <div className='tasks-list'>
             {
@@ -50,7 +50,3 @@ AllocatedTaskListByAGV.propTypes= {
     tasks: PropTypes.array.isRequired,
 };
 
-export default{
-    ProcessingTaskListByAGV,
-    AllocatedTaskListByAGV
-}

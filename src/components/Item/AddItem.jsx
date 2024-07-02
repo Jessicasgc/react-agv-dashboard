@@ -1,66 +1,58 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-//import useAGVs from '../custom_hooks/useAGVs';
-import useItemTypes from '../custom_hooks/useItemTypes';
+import { Form, Select, Input, Button, message } from 'antd';
+import useItemTypes from '../../custom_hooks/GET_HOOKS/useItemTypes';
 
-function AddItem({ addItem }) {
-    const { itemtypes } = useItemTypes();
+const { Option } = Select;
 
-    const [formData, setFormData] = React.useState({
-        id_type: '',
-        type_name: ''
-    });
-
-    const onInputChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const onSubmitHandler = (e) => {
-        e.preventDefault();
-        addItem(formData);
-        // Reset the form data after submission
-        setFormData({
-            id_type: '',
-            type_name: ''
-            
-        });
-    };
-
+const AddItem = ({onItemAdded}) => {
+    const { itemtypes, loading:loadingItemTypes } = useItemTypes();
+    const [form] = Form.useForm();
+    const onFinish = async (values) => {
+        await onItemAdded(values);
+        form.resetFields();
+    }
     return (
-        <form className='add-item_input' onSubmit={onSubmitHandler}>
-             <label className='add-item_label'>Item Type</label>
-            <select
-                className='add-item_dropdown'
+        <Form
+            form={form}
+            className='add-input'
+            layout="vertical"
+            onFinish={onFinish}
+        >
+            <Form.Item
                 name='id_type'
-                value={formData.id_type}
-                onChange={onInputChange}
+                label='Item Type'
+                rules={[{ required: true, message: 'Please select the item type!' }]}
             >
-                <option value=''>Select Type of Item</option>
-                {/* Map over the stations array to populate the dropdown options */}
-                {itemtypes.map(itemtype => (
-                    <option key={itemtype.id} value={itemtype.id}>
-                        {itemtype.station_code}
-                    </option>
-                ))}
-            </select>
+                <Select placeholder='Select Type of Item' loading={loadingItemTypes}>
+                    {itemtypes.map(itemtype => (
+                        <Option key={itemtype.id} value={itemtype.id}>
+                            {itemtype.type_name}
+                        </Option>
+                    ))}
+                </Select>
+            </Form.Item>
 
-            <label className='add-item_label'>Item Name</label>
-            <input className='add-item_input'
-                       type='text' 
-                       placeholder='Item Name' 
-                       value={this.state.title} 
-                       onChange={this.onTitleChangeEventHandler}/>
-            <div className='add-task_action'>
-                <button className='action' type='submit'>
+            <Form.Item
+                name='item_name'
+                label='Item Name'
+                rules={[{ required: true, message: 'Please input the item name!' }]}
+            >
+                <Input placeholder='Item Name' />
+            </Form.Item>
+
+            <Form.Item className='add-task_action'>
+                <Button className='action' type='primary' htmlType='submit'>
                     Add Item
-                </button>
-            </div>
-        </form>
+                </Button>
+            </Form.Item>
+            
+        </Form>
     );
-}
-
-AddItem.propTypes = {
-    addItem: PropTypes.func.isRequired,
 };
+AddItem.propTypes = {
+    onItemAdded: PropTypes.func.isRequired,
+};
+
 
 export default AddItem;

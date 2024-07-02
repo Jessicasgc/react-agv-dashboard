@@ -6,144 +6,82 @@ import useAddTask from '../../custom_hooks/POST_HOOKS/useAddTask'; // Import the
 import { Button, Form, Input, Select } from 'antd';
 import { useWebSocket } from 'react-use-websocket/dist/lib/use-websocket';
 import { SERVICE_URL } from '../../utils/constants';
+import useTasks from '../../custom_hooks/GET_HOOKS/Tasks/useTasks';
 
+const { Option } = Select;
 
 function AddTask() {
-    const { sendJsonMessage, lastMessage, readyState} = useWebSocket(SERVICE_URL, {shouldReconnect: (closeEvent) => true,});
-
+    const { sendJsonMessage } = useWebSocket(SERVICE_URL, { shouldReconnect: (closeEvent) => true });
     const { stations } = useStations();
     const { items } = useItems();
-    const { addingTask, loading, error } = useAddTask();
+    const { addingTask } = useAddTask();
+    const { tasks } = useTasks();
 
-    const [formData, setFormData] = React.useState({
-        id_station_input: '',
-        id_station_output: '',
-        id_item: '',
-    });
+    const [form] = Form.useForm();
 
-    const onInputChange = (e) => {
-        console.log(formData, e);
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    const onFinish = (values) => {
+        // const selectedStation = stations.find(station => station.id === values.id_destination_station);
+        // if (selectedStation) {
+        //     sendJsonMessage({
+        //         type: 'task',
+        //         data: {
+        //             id: values.id_item,
+        //             goal: {
+        //                 x: selectedStation.x,
+        //                 y: selectedStation.y,
+        //             },
+        //         },
+        //     });
+        // }
+        addingTask(values);
+        form.resetFields();
     };
-
-    const onSubmitHandler = (e) => {
-        sendJsonMessage({
-            type: "task",
-            data: {
-                id : formData.id_item,
-                goal: {
-                    x: formData.id_station_input,
-                    y: formData.id_station_output,
-                }
-            }
-        })
-        console.log("awdaw",{
-            type: "task",
-            data: {
-                id : formData.id_item,
-                goal: {
-                    x: formData.id_station_input,
-                    y: formData.id_station_output,
-                }
-            }
+    const filteredStations = (itemTypeId) => {
+        return stations.filter(station => {
+            return station.id_type === itemTypeId || station.id === 4;
         });
-        
-        // addingTask(formData);
-        // Reset the form data after submission
-        // setFormData({
-            // id_agv: '',
-            // id_station_input: '',
-            // id_station_output: '',
-            // id_item: '',
-            // task_status: '',
-            // start_time: '',
-            // end_time: ''
-        // });
-        e.preventDefault();
+    };
+    const filteredItems = () => {
+        // Get all item IDs from tasks where task status is 'done'
+        const doneItemIds = tasks.filter(task => task.task_status === 'done').map(task => task.id_item);
+        // Get all unique item IDs from tasks
+        const allTaskItemIds = tasks.map(task => task.id_item);
+
+        // Filter items to get items that meet either condition:
+        const filtered = items.filter(item => {
+            // Check if item ID is not in any task data or all tasks are 'done'
+            return !allTaskItemIds.includes(item.id) || doneItemIds.includes(item.id) ;
+        });
+        // console.log("Filtered Items:", filtered); // Log the filtered items array
+    return filtered;
     };
 
-    useEffect(() => {
-        console.log(formData);
-    }, [formData])
-
-    return(
-        <form className='task_input' onSubmit={onSubmitHandler}>
-            <Form.Item label='AGV'>
-                <Select fieldNames='id_item' style={{ width: 200 }} options={[{ value: 1, label: 'AGV 1' },{ value: 2, label: 'AGV 2' }]} onChange={(x) => setFormData({...formData, id_item : x})}/>
-            </Form.Item>
-            {/* <Input placeholder='AGV ID' name='id_item' onChange={onInputChange}/> */}
-            <Form.Item label='X'>
-                <Input placeholder='X'  name='id_station_input' onChange={onInputChange}/>
-            </Form.Item>
-            <Form.Item label='Y'>
-                <Input placeholder='Y'  name='id_station_output' onChange={onInputChange}/>
-            </Form.Item>
-            
-            <Button className='action' type='primary' onClick={onSubmitHandler}>
-                Add Task
-            </Button>
-        </form>
-    )
 
     return (
-        <form className='task_input' onSubmit={onSubmitHandler}>
-            <select
-                className='task_dropdown'
-                name='id_station_output'
-                value={formData.id_station_output}
-                onChange={onInputChange}
-            >
-                <option value=''>Select Taking Out Station</option>
-                {/* Map over the stations array to populate the dropdown options */}
-                {stations && stations.map((station) => (
-                    <option key={station.id} value={station.id}>
-                        {station.station_name}
-                    </option>
-                ))}
-            </select>
+        <Form form={form} className='add-input' onFinish={onFinish} layout="vertical">
+            <Form.Item label='Item' name='id_item' rules={[{ required: true, message: 'Please select an item!' }]}>
+                <Select placeholder='Select Item' style={{ width: 200 }} onChange={(value) => form.setFieldsValue({ id_item: value })}>
+                    {filteredItems().map(item => (
+                        <Option key={item.id} value={item.id}>{item.item_code}</Option>
+                    ))}
+                </Select>
+            </Form.Item>
 
-            <select
-                className='task_dropdown'
-                name='id_station_input'
-                value={formData.id_station_input}
-                onChange={onInputChange}
-            >
-                <option value=''>Select Turning In Station</option>
-                {/* Map over the stations array to populate the dropdown options */}
-                {stations && stations.map(station => (
-                    <option key={station.id} value={station.id}>
-                        {station.station_name}
-                    </option>
-                ))}
-            </select>
+            <Form.Item label='Destination Station' name='id_destination_station' rules={[{ required: true, message: 'Please select a destination station!' }]}>
+                <Select placeholder='Select Destination Station' style={{ width: 200 }} onChange={(value) => form.setFieldsValue({ id_destination_station: value })}>
+                    {form.getFieldValue('id_item') && filteredStations(items.find(item => item.id === form.getFieldValue('id_item')).id_type).map(station => (
+                        <Option key={station.id} value={station.id}>{station.station_name}</Option>
+                    ))}
+                </Select>
+            </Form.Item>
 
-            {/* Dropdown for Item */}
-            <select
-                className='task_dropdown'
-                name='id_item'
-                value={formData.id_item}
-                onChange={onInputChange}
-            >
-                <option value=''>Select Item</option>
-                {/* Map over the items array to populate the dropdown options */}
-                {items && items.map(item => (
-                    <option key={item.id} value={item.id}>
-                        {item.item_code}
-                    </option>
-                ))}
-            </select>
-            
-            <div className='task_action'>
-                <button className='action' type='submit'>
+            <Form.Item>
+                <Button className='action' type='primary' htmlType='submit'>
                     Add Task
-                </button>
-            </div>
-        </form>
+                </Button>
+            </Form.Item>
+        </Form>
     );
 }
-
-AddTask.propTypes = {
-    addTask: PropTypes.func.isRequired,
-};
 
 export default AddTask;

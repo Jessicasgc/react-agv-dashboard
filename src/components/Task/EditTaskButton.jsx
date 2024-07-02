@@ -16,8 +16,8 @@ function EditTaskButton({ id }) {
         setVisible(visible);
     };
 
-    function onEditTaskHandler( id, id_station_input, id_station_output, id_item){
-      editTaskById( id, id_station_input, id_station_output, id_item);
+    async function onEditTaskHandler( id, id_destination_station, id_start_station, id_item){
+      await editTaskById( id, id_destination_station, id_start_station, id_item);
       
       setVisible(false);
     }
@@ -31,7 +31,7 @@ function EditTaskButton({ id }) {
             overlayClassName="edit-task-popover"
         >
           <button
-            className='icon'
+            className='action'
             onClick={handleClick}>
             <BiPencil/>
           </button>

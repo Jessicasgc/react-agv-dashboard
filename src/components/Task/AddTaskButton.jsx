@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FaPlusCircle } from 'react-icons/fa';
 import { Popover } from 'antd';
 import AddTask from './AddTask';
-import { addTask } from '../../utils/crud_api';
+import useAddTask from '../../custom_hooks/POST_HOOKS/useAddTask';
 
 function AddTaskButton() {
     const [open, setOpen] = React.useState(false);
-
+    const { addingTask } = useAddTask();
     const hide = () => {
         setOpen(false);
     };
@@ -17,14 +18,16 @@ function AddTaskButton() {
     };
     
       
-    function onAddTaskHandler({ id_station_input, id_station_output, id_item}){
-        addTask({ id_station_input, id_station_output, id_item});
+    async function onAddTaskHandler({ id_destination_station, id_start_station, id_item}){
+        // const response = 
+        await addingTask({ id_destination_station, id_start_station, id_item});
+        // onAddTask(response.data.data);
         hide();
     }
     
     return (
         <Popover
-            content={<a><AddTask addTask={onAddTaskHandler} /></a>}
+            content={<a><AddTask onAddTask={onAddTaskHandler} /></a>}
             title="Add Task"
             trigger="click"
             open={open}
@@ -38,5 +41,7 @@ function AddTaskButton() {
         </Popover>
     );
 }
-
+// AddTaskButton.propTypes = { 
+//     onAddTask: PropTypes.func.isRequired, 
+// };
 export default AddTaskButton;

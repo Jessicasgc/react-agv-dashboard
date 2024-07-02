@@ -1,7 +1,7 @@
 import React from 'react';
 import { addItem } from '../../utils/crud_api';
 
-function useAddItem() {
+function useAddItem(fetchItems) {
  const [error, setError] = React.useState(null);
  const [loading, setLoading] = React.useState(true);
 
@@ -9,7 +9,7 @@ function useAddItem() {
     try {
       setLoading(true);
       const response = await addItem({  id_type, item_name });
-      // Do something with the response if needed
+      fetchItems();
       console.log(response);
     } catch (error) {
       setError(error);

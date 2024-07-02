@@ -53,6 +53,8 @@ function NavSlide({ setDrawerOpen }) {
                             <Item key="1" icon={<DashboardOutlined style={{ fontSize: '24px' }}/>} style={{ color: selectedKey === '1' ? (theme === 'light' ? 'var(--on-background-light)' : 'var(--on-background-dark)') : 'var(--on-background)' }}><Link to='/'>Dashboard</Link></Item>
                             <Item key="2" icon={<AppstoreOutlined style={{ fontSize: '24px' }}/>} style={{ color: selectedKey === '2' ? (theme === 'light' ? 'var(--on-background-light)' : 'var(--on-background-dark)') : 'var(--on-background)'}}><Link to='/item'>Item</Link></Item>
                             <Item key="3" icon={<ScheduleOutlined style={{ fontSize: '24px' }}/>} style={{ color: selectedKey === '3' ? (theme === 'light' ? 'var(--on-background-light)' : 'var(--on-background-dark)') : 'var(--on-background)' }}><Link to='/task'>Task</Link></Item>
+                            <Item key="4" icon={<ScheduleOutlined style={{ fontSize: '24px' }}/>} style={{ color: selectedKey === '4' ? (theme === 'light' ? 'var(--on-background-light)' : 'var(--on-background-dark)') : 'var(--on-background)' }}><Link to='/station'>Station</Link></Item>
+                            <Item key="5" icon={<ScheduleOutlined style={{ fontSize: '24px' }}/>} style={{ color: selectedKey === '5' ? (theme === 'light' ? 'var(--on-background-light)' : 'var(--on-background-dark)') : 'var(--on-background)' }}><Link to='/user'>User</Link></Item>
                         </Menu>
                     </Drawer>
                 </div>

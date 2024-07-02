@@ -5,13 +5,17 @@ function useStations() {
  const [stations, setStations] = React.useState([]);
  const [loading, setLoading] = React.useState(true);
 
- React.useEffect(() => {
-    getStations().then(({data}) => {
-      setStations(data);
-      setLoading(false);
-    })
- }, []);
+  const fetchStations = async () => {
+        setLoading(true);
+        const { data } = await getStations();
+        setStations(data);
+        setLoading(false);
+    };
 
- return { stations, loading };
+    React.useEffect(() => {
+        fetchStations();
+    }, []);
+
+    return { stations, loading, fetchStations };
 }
 export default useStations;

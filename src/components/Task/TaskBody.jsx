@@ -1,8 +1,8 @@
 import propTypes from 'prop-types';
-
+import { Typography, Tag } from 'antd'; 
 
 function TaskBody({id, task_name, task_code, task_status, id_agv, start_time, end_time, created_at, updated_at}){
-   console.log("ini id di body", id);
+   // console.log("ini id di body", id);
   //  const { agvs, loading } = useAGVs();
   //  const [agvCode, setAgvCode] = React.useState('');
  
@@ -17,13 +17,13 @@ function TaskBody({id, task_name, task_code, task_status, id_agv, start_time, en
  
    return(
       <div>
-         <h3 className='task_name'>{task_name}</h3>
-         <h5 className='task_code'>{task_code}</h5>
-         <p className='agv_code'>{id_agv}</p>
-         <p className='task_status'>{task_status}</p>
-         <p className='task_time'>{start_time} --- {end_time}</p>
-         <p className='created_at'>{created_at}</p>
-         <p className='updated_at'>{updated_at}</p>
+        <Typography.Title level={3} className='task_name'>{task_name}</Typography.Title>
+            <Typography.Text className='task_code'>{task_code}</Typography.Text>
+            <Typography.Paragraph className='agv_code'>{id_agv}</Typography.Paragraph>
+            <Tag className='task_status' color={task_status === 'waiting' ? 'orange' : task_status === 'processing' ? 'yellow': task_status === 'allocated'? 'blue' : 'green'}>{task_status}</Tag>
+            <Typography.Paragraph className='task_time'>{start_time} --- {end_time}</Typography.Paragraph>
+            <Typography.Paragraph className='created_at'>{created_at}</Typography.Paragraph>
+            <Typography.Paragraph className='updated_at'>{updated_at}</Typography.Paragraph>
       </div>
     );
 }

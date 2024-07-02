@@ -2,7 +2,7 @@
 import Task from './Task';
 import PropTypes from 'prop-types';
 
-function WaitingTaskList({tasks}){
+function WaitingTaskList({tasks, onDelete}){
     // const [tasks, loading] = useWaitingTasks();
 
     //if (loading) return <p>Loading...</p>;
@@ -20,7 +20,8 @@ function WaitingTaskList({tasks}){
                     <Task
                     key={task.id} 
                     id={task.id}
-                    {...task}   
+                    {...task} 
+                    onDelete={onDelete}  
                     />
                 ))  
             }
@@ -30,6 +31,7 @@ function WaitingTaskList({tasks}){
 
 WaitingTaskList.propTypes = {
     tasks: PropTypes.array.isRequired,
+    onDelete: PropTypes.func.isRequired,
 };
 
 export default WaitingTaskList;

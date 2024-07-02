@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { BiTrashAlt } from 'react-icons/bi';
 
-function DeleteItemButton({ id, onDelete }) {
+function DeleteButton({ id, onDelete }) {
   return (
     <button
       className='action'
@@ -11,9 +11,9 @@ function DeleteItemButton({ id, onDelete }) {
   );
 }
 
-DeleteItemButton.propTypes = {
-  id: PropTypes.string.isRequired,
+DeleteButton.propTypes = {
+  id: PropTypes.number.isRequired,
   onDelete: PropTypes.func.isRequired,
 }
 
-export default DeleteItemButton;
+export default DeleteButton;

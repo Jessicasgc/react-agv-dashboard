@@ -1,7 +1,7 @@
 import React from 'react';
 import { addItemType } from '../../utils/crud_api';
 
-function useAddItemType() {
+function useAddItemType(fetchItemType) {
  const [error, setError] = React.useState(null);
  const [loading, setLoading] = React.useState(true);
 
@@ -9,7 +9,7 @@ function useAddItemType() {
     try {
       setLoading(true);
       const response = await addItemType({  type_name });
-      // Do something with the response if needed
+      fetchItemType();
       console.log(response);
     } catch (error) {
       setError(error);
