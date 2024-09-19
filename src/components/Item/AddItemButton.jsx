@@ -15,7 +15,6 @@ function AddItemButton({onItemAdded}) {
         setOpen(false);
     };
 
-    // Handle popover visibility change
     const handleOpenChange = (newOpen) => {
         setOpen(newOpen);
     };

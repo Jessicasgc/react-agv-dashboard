@@ -8,14 +8,11 @@ function UsersPage() {
     const {locale} = React.useContext(LocaleContext);
     return (
         <Content>
-        <h2 className='page-name'>{locale === 'id' ? 'Halaman Data Pengguna' : 'Users Data Page'}</h2>
-        <div className="table-container"> 
-            <UsersTable /> 
-        </div>
-      
+            <h2 className='page-name'>{locale === 'id' ? 'Halaman Data Pengguna' : 'Users Data Page'}</h2>
+            <div className="table-container"> 
+                <UsersTable /> 
+            </div>
         </Content> 
-        
     )
-        
 }
 export default UsersPage;

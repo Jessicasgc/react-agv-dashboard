@@ -16,7 +16,7 @@ function useTasks() {
     fetchTasks();
   }, []);
 
-  return { tasks, loading, fetchTasks };
+  return { tasks, loading, fetchTasks, setTasks };
 }
 
 export default useTasks;

@@ -8,19 +8,12 @@ function Navigation(){
         <LocaleConsumer>
             {() => {
                 return (
-                    // <nav className='header-navigation'>
-                        // <ul>
                     <div className='header-navigation'>
                         <>
                             <LocaleToggle/>
                             <ThemeToggle/>
                         </>
                     </div>
-                        
-                            // <li><LocaleToggle/></li>
-                            // <li><ThemeToggle/></li>
-                        // </ul>
-                    // </nav>
                 )
             }
         }

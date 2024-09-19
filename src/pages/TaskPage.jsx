@@ -1,10 +1,4 @@
 import React from 'react';
-// import { useSearchParams } from 'react-router-dom';
-// import NoteList from '../components/NoteList';
-// import SearchBar from '../components/SearchBar';
-// import {  getActiveNotes } from '../utils/network-data';
-// import { BiPlus } from 'react-icons/bi';
-// import { Link } from 'react-router-dom';
 import LocaleContext from '../contexts/LocaleContext';
 import TaskTable from '../components/Task/TaskTable';
 import { Layout } from "antd";
@@ -20,8 +14,6 @@ function TaskPage() {
                 <TaskTable/>
             </div>
         </Content> 
-        
-    )
-        
+    )   
 }
 export default TaskPage;

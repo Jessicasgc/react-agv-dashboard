@@ -42,6 +42,7 @@ function EditStation({ id, onStationEdited }) {
     return (
         <Form
             form={form}
+            className="add-input"
             layout="vertical"
             initialValues={initialValues}
             onFinish={onFinish}

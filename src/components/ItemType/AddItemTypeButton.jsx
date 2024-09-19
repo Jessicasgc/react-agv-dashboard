@@ -5,7 +5,6 @@ import { Popover } from 'antd';
 import AddItemType from './AddItemType';
 import useAddItemType from '../../custom_hooks/POST_HOOKS/useAddItemType';
 import useItemTypes from '../../custom_hooks/GET_HOOKS/useItemTypes';
-// import { addItemType } from '../../utils/crud_api';
 
 function AddItemTypeButton({onItemTypeAdded}) {
     const [open, setOpen] = React.useState(false);

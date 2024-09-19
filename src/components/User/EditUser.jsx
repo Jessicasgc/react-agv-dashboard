@@ -35,6 +35,7 @@ function EditUser({ id, editUserById }) {
     return (
         <Form
             form={form}
+            className='add-input'
             layout='vertical'
             onFinish={onFinish}
             initialValues={initialValues}

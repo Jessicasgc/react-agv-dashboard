@@ -18,6 +18,6 @@ function useProcessingTask(id_agv) {
     }
     }, [id_agv]);
 
- return { task, loading, fetchProcessingTask };
+ return { task, loading, fetchProcessingTask, setTasks };
 }
 export default useProcessingTask;

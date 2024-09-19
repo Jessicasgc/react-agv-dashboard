@@ -9,7 +9,7 @@ function ReusableTable({ data, columns, theme }) {
                 {columns.map(column => {
                     if (column.children) {
                         return (
-                            <Table.ColumnGroup key={column.title} title={column.title}>
+                            <Table.ColumnGroup key={column.title} title={column.title} className={`reusable-table ${theme}`}>
                                 {column.children.map((child) => (
                                     <Table.Column
                                         key={child.dataIndex}

@@ -16,6 +16,6 @@ function useStations() {
         fetchStations();
     }, []);
 
-    return { stations, loading, fetchStations };
+    return { stations, loading, fetchStations, setStations };
 }
 export default useStations;

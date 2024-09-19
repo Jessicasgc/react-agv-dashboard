@@ -2,18 +2,6 @@ import propTypes from 'prop-types';
 import { Typography, Tag } from 'antd'; 
 
 function TaskBody({id, task_name, task_code, task_status, id_agv, start_time, end_time, created_at, updated_at}){
-   // console.log("ini id di body", id);
-  //  const { agvs, loading } = useAGVs();
-  //  const [agvCode, setAgvCode] = React.useState('');
- 
-  //  React.useEffect(() => {
-  //    if (!loading) {
-  //      const foundAgv = agvs.find(agv => agv.id === id_agv);
-  //      if (foundAgv) {
-  //        setAgvCode(foundAgv.agv_code);
-  //      }
-  //    }
-  //  }, [agvs, loading, id_agv]);
  
    return(
       <div>

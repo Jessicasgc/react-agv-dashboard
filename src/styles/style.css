@@ -44,7 +44,6 @@
   
   .app-container {
     color: var(--on-background);
-    /* background-color: var(--body); */
     min-height: 100vh;
     transition: all ease-in-out 0.5s;
   }
@@ -57,34 +56,6 @@
     
   }
 
- 
-
-  /* header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-   
-    position: fixed; /* Change to fixed */
-    /* top: 0; /* Set it to the top */
-    /* left: 0; */
-    /* right: 0; /* */
-  /* }  */
-  
-  /* footer {
-    display: flex;
-    flex-direction: column;
-    position: fixed; 
-    bottom: 0; 
-    left: 0;
-    right: 0; 
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    border-top: 1px solid var(--on-background);
-    height: 50px;
-    font-size: 15pt;
-  } */
   header h1 {
     flex: 1;
   }
@@ -100,28 +71,9 @@
     flex: 1;
   }
 
-  /* header .header-navigation ul li {
-    display: inline-block;
-    font-size: 24px;
-    margin: 8px;
-  } */
-  
-  /* main {
-    margin: auto;
-    justify-content: center;
-    padding: 32px 0;
-    
-    max-width: 1200px;
-    text-align: center;
-    height:fit-content;
-    width:auto;
-    padding-top: 64px;
-    padding-bottom: 64px;
-  } */
-
   section {
-    width:max-content; /* Subtract the width of the side dashboard */
-    min-height: fit-content; /* Adjust for header and footer heights */
+    width:max-content; 
+    min-height: fit-content; 
     top: auto;
     left: auto;
     right: auto;
@@ -129,7 +81,7 @@
     margin: 0 auto;
     padding: 16px;
     transition: all ease-in-out 0.5s;
-    overflow-y: auto; /* Add scrollbar if content exceeds height */
+    overflow-y: auto; 
   }
   .error{
     color: var(--error);
@@ -157,17 +109,16 @@
   }
 
   .container {
-    /* background-color: transparent; */
     border: none;
-    color: rgb(0, 0, 0); /* White text */
-    padding: 15px 32px; /* Padding */
-    text-align: center; /* Center text */
+    color: rgb(0, 0, 0); 
+    padding: 15px 32px; 
+    text-align: center; 
     text-decoration: none;
     display: inline-block;
-    font-size: 16px; /* Font size */
-    margin: 4px 2px; /* Margin */
-    cursor: pointer; /* Cursor style */
-    border-radius: 10px; /* Rounded corners */
+    font-size: 16px; 
+    margin: 4px 2px; 
+    cursor: pointer; 
+    border-radius: 10px; 
   }
   
   .task_input{
@@ -184,50 +135,47 @@
     -webkit-overflow: hidden;
   }
 
-  /* Custom dropdown styles */
 .task_dropdown {
   width: 100%;
   padding: 5px;
   margin-bottom: 10px;
   font-size: 16px;
-  border: 1px solid var(--on-background-grey); /* Use theme color for border */
+  border: 1px solid var(--on-background-grey); 
   border-radius: 5px;
-  background-color: var(--background); /* Use theme color for background */
-  color: var(--on-surface); /* Use theme color for text color */
+  background-color: var(--background); 
+  color: var(--on-surface); 
   position: relative;
-  appearance: none; /* Remove default arrow */
-  -webkit-appearance: none; /* Remove default arrow for webkit browsers */
-  -moz-appearance: none; /* Remove default arrow for Mozilla Firefox */
+  appearance: none; 
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
 }
 
-/* Custom dropdown arrow */
+
 .task_dropdown::after {
-  content: '\25BC'; /* Downward arrow */
+  content: '\25BC'; 
   position: absolute;
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
   pointer-events: none;
-  color: var(--on-background); /* Use theme color for arrow color */
+  color: var(--on-background); 
 }
 
-/* Custom dropdown option styles */
 .task_dropdown option {
   background-color: var(--background);
   margin: 10px;
   color: var(--on-surface);
 }
 
-/* Custom dropdown focus styles */
 .task_dropdown:focus {
   outline: none;
-  border-color: var(--primary); /* Change border color on focus */
+  border-color: var(--primary); 
 }
 
 .burger-button {
   position: absolute;
   left: 0;
-  top: 20px; /* Adjust top position as needed */
+  top: 20px; 
   background-color: transparent;
   padding: 10px;
   cursor: pointer;
@@ -263,46 +211,14 @@
   overflow-y: visible;
 }
 
-/* .map{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  height: 100pc;
-  width: 100%;
-  color: var(--background);
-  background-color: var(--surface);
-  transition: all ease-in-out 0.5s;
-  overflow-y: auto;
-} */
-
-/* .map {
-  width: fit-content; 
-  height: fit-content; 
-  position: relative; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  max-height: calc(100vh - 200px); 
-} */
-
 canvas {
-  display: block; /* Make the canvas a block element */
-  width: 100%; /* Ensure canvas fills its container */
-  height: 100%; /* Ensure canvas fills its container */
+  display: block;
+  width: 100%; 
+  height: 100%; 
   transform-origin: center;
   background-color: var(--body);
 }
 
-/* .headerStyle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: var(--on-background);
-  background-color: var(--background);
-} */
 .contentStyle {
   text-align: center;
   color: var(--background);
@@ -328,14 +244,7 @@ footer {
   background-color: var(--background) !important;
   font-weight: bold;
   font-size: 12pt;
-  /* bottom: 0;
-  right: 0;
-  left: 0; */
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* position: fixed;  */
   padding: 16px;
-  /* border-top: 1px solid var(--on-background); */
   height: 50px;
 }
 .layoutStyle {
@@ -348,15 +257,12 @@ footer {
 }
 .table-container {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  /* max-height: calc(100vh - 200px); */
-  /* padding: 2%; */
+  justify-content: center; 
+  align-items: center; 
   height: fit-content;
-}
-.table-container {
   width: 100%;
 }
+
 
 .table-container.dark-theme .ant-table {
   color: var(--body);
@@ -366,75 +272,12 @@ footer {
 .reusable-table {
   width: 100%;
   border-collapse: collapse;
-  /* background-color: var(--surface); 
-}
-
-.reusable-table th,
-.reusable-table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid var(--on-surface); 
-}
-
-.reusable-table th {
-  background-color: var(--background); 
-}
-
-.reusable-table tr:nth-child(even) {
-  background-color: var(--background); Ensure this matches your theme
-}
-
-.reusable-table tr:hover {
-  background-color: var(--on-background-grey); /* Ensure this matches your theme */
-}
-
-.set-icon {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-}
-
-button.action {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-button.action:hover {
-  color: var(--primary); /* Ensure this matches your theme */
 }
 .agv-data{
   border-radius: 8px; 
   text-align: center;
 }
-/* .agv-data-card{
-  background-color: var(--background);
-  color: var(--on-background);
-  width: 220;
-  margin-bottom:15; 
-  text-align: left;
-} */
-/* .processing-task-card{
-  background-color: var(--background);
-  border-radius: 8px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  padding: 20px;
-  width: 200px; 
-  margin: 20px;
-  text-align: center;
-  color: var(--on-background);
-}
-.allocated-task-card{
-  background-color: var(--background);
-  border-radius: 8px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  padding: 20px;
-  width: 200px; 
-  margin: 20px;
-  text-align: center;
-  color: var(--on-background);
-} */
+
 .action{
   display: inline-block;
   width: 50px;
@@ -452,7 +295,6 @@ button.action:hover {
   color: var(--body);
 }
 
-/* Define icon color for dark theme */
 .dark-theme .action {
   color: var(--body);
 }
@@ -466,13 +308,11 @@ button.action:hover {
   
 }
 
-
 .dash-name{
   font-size: 24px;
   font-weight: bold;
   text-align: center;
   padding-left: 150px;
-  /* margin: 0 auto; */
 } 
 
 .page-name{
@@ -542,25 +382,25 @@ button.action:hover {
   box-shadow: 0 0 0 2px rgba(139, 134, 252, 0.2);
 }
 .waiting-popover .ant-popover-inner-content {
-  background-color: var(--background); /* Background color */
-  padding: 12px; /* Padding inside popover content */
-  border: 1px solid #d9d9d9; /* Border */
-  border-radius: 4px; /* Border radius */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Box shadow */
-  overflow-y: auto !important; /* Ensure overflow is enforced */
-  max-height: 500px; /* Limit max height to avoid excessive scrolling */
-  max-width: 500px; /* Limit max width for popover content */
+  background-color: var(--background); 
+  padding: 12px; 
+  border: 1px solid #d9d9d9; 
+  border-radius: 4px; 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); 
+  overflow-y: auto !important; 
+  max-height: 500px; 
+  max-width: 500px; 
 }
 
 .waiting-popover .ant-popover-inner {
-  max-height: 5; /* Example: Limit max height for popover itself */
+  max-height: 5;
   width: fit-content;
   max-width: 500px;
 }
 
 .task-body{
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); 
-  border-radius: 4px; /* Border radius */
+  border-radius: 4px; 
   margin: 5px;
   display: flex;
   flex-direction: column;
@@ -577,8 +417,7 @@ button.action:hover {
   font-size:x-small;
 }
 
-/* For side dashboard */
-/* Sidebar styles */
+
 .siderStyle {
   background-color: var(--surface) !important;
   color: var(--on-background) !important;
@@ -611,21 +450,21 @@ button.action:hover {
 .processing-task-card,
 .allocated-task-card {
   background-color: var(--background);
-  border-radius: 8px; /* Adjust as needed */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
-  padding: 10px; /* Reduced padding */
-  width: 150px; /* Adjust width as needed */
-  margin: 10px; /* Reduced margin */
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  padding: 10px; 
+  width: 150px;
+  margin: 10px; 
   text-align: center;
   color: var(--on-background);
-  font-size: small; /* Adjust font size */
+  font-size: small; 
 }
 
 .agv-data-card:hover, .processing-task-card:hover, .allocated-task-card:hover {
   transform: scale(1.05);
 }
 
-/* Typography */
+
 .siderStyle h2 {
   font-size: 20px;
   color: var(--on-background);
@@ -648,7 +487,6 @@ button.action:hover {
   background-color: var(--on-background);
 }
 
-/* Form item */
 .siderStyle .ant-form-item {
   margin-bottom: 20px;
 }
@@ -657,7 +495,7 @@ button.action:hover {
   color: var(--on-background);
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .siderStyle {
     width: 100%;
@@ -665,59 +503,13 @@ button.action:hover {
   }
 }
 
-/* AGV Dropdown */
-.agv-select {
-  width: fit-content;
-  align-items: center;
-  /* padding-left: 20px;
-  padding-right: 0px; */
-  /* background-color: var(--background); */
-  color: var(--on-background);
-  border: 1px solid var(--on-background-grey);
-  border-radius: 4px;
-}
-
-.agv-select .ant-select-selector {
-  background-color: var(--background);
-  color: var(--on-background);
-  border: 1px solid var(--on-background-grey);
-  border-radius: 4px;
-  box-shadow: none; /* Menghapus shadow bawaan dari Ant Design */
-}
-
-.agv-select .ant-select-selector:focus {
-  outline: none;
-  border-color: var(--primary); 
-  box-shadow: 0 0 0 2px rgba(139, 134, 252, 0.2); /* Efek shadow saat focus */
-}
-
-.agv-select .ant-select-arrow {
-  color: var(--on-background);
-}
-
-.agv-select .ant-select-item {
-  background-color: var(--background);
-  color: var(--on-background);
-}
-
-.agv-select .ant-select-item:hover {
-  background-color: var(--primary-variant);
-  color: var(--on-background);
-}
-
-.agv-select .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-  background-color: var(--primary); 
-  color: var(--on-background);
-}
-
-/* Header App */
 .headerStyle {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px; /* Adjust padding as needed */
-  background-color: var(--background); /* Example background color */
-  color: var(--on-background); /* Example text color */
+  padding: 0 20px; 
+  background-color: var(--background);
+  color: var(--on-background);
 }
 
 .dash-name {
@@ -727,12 +519,161 @@ button.action:hover {
 .header-icons {
   display: flex;
   align-items: center;
+  font-size: 30px;
+  padding-top: 5px;
 }
 
-.header-icons > * {
-  margin-left: 10px; /* Adjust spacing between icons */
+/* For Login */
+.login-page {
+  height: 100vh;
 }
 
-.header-icons > *:first-child {
-  margin-left: 0; /* Remove margin for the first child */
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 250px;
+}
+
+.login-title {
+  color: var(--primary);
+}
+
+.login-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.login-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.forgot-password {
+  margin-top: 16px;
+  color: var(--secondary);
+}
+
+@media (max-width: 768px) {
+  .login-page {
+    height: auto;
+  }
+
+  .login-image-container {
+    height: 50vh; 
+  }
+
+  .login-image {
+    height: 50vh;
+  }
+
+  .login-form-container {
+    padding: 20px;
+  }
+
+  .login-image-container {
+    display: none;
+  }
+}
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: var(--body);
+  color: var(--on-background)
+}
+
+.profile-card, .log-card {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  padding: 20px;
+  background-color: var(--background);
+  color: var(--on-background);
+  margin-bottom: 2%;
+}
+
+.profile-card p, .log-card p {
+  margin-bottom: 16px;
+  font-size: x-large;
+}
+
+.date-picker-container {
+  margin-bottom: 20px;
+}
+.date-picker-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px; 
+}
+
+.select-date-message {
+  margin-left: 10px; 
+  color: #ff0000; 
+  font-style: italic; 
+}
+
+.form-item-container {
+  margin-bottom: 20px;
+}
+
+.form-item-container label {
+  color: var(--background);
+  font-weight: bold;
+}
+
+/* Select AGV dropdown */
+.agv-select {
+  width: 100%;
+  align-items: center;
+  color: var(--on-background);
+  border: 1px solid var(--on-background-grey);
+  border-radius: 4px;
+}
+
+.agv-select .ant-select-selector {
+  background-color: var(--surface);
+  color: var(--on-background);
+  border: 1px solid var(--on-background-grey);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.agv-select .ant-select-selector:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(139, 134, 252, 0.2);
+}
+
+.agv-select .ant-select-arrow {
+  color: var(--background);
+}
+
+.agv-select .ant-select-item {
+  background-color: var(--surface);
+  color: var(--on-background);
+}
+
+.agv-select .ant-select-item:hover {
+  background-color: var(--primary-variant);
+  color: var(--on-background);
+}
+
+.agv-select .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: var(--surface);
+  color: var(--on-background);
+}
+
+/* Style for the selected AGV item displayed in the select box */
+.agv-select .ant-select-selection-item {
+  color: var(--background); /* Set the selected AGV item color in the select box to black */
+  font-weight: bold; /* Optional: make the selected item bold */
 }

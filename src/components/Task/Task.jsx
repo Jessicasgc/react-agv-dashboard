@@ -2,7 +2,6 @@ import TaskBody from './TaskBody';
 import { showFormattedDate } from '../../utils/formattedDate';
 import PropTypes from 'prop-types';
 import DeleteButton from '../DeleteButton';
-import EditTaskButton from './EditTaskButton';
 
 function Task({id, task_name, task_code, task_status, id_agv, start_time, end_time, created_at, updated_at, onDelete}){
     return (
@@ -18,7 +17,6 @@ function Task({id, task_name, task_code, task_status, id_agv, start_time, end_ti
                 created_at={showFormattedDate(created_at)}
                 updated_at={showFormattedDate(updated_at)}
             />
-            {/* <EditTaskButton id = {id} /> */}
             <DeleteButton id = {id} onDelete={onDelete} />
         </div>
     );

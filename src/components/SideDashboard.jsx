@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import useAGVs from '../custom_hooks/GET_HOOKS/useAGVs';
 // import useAgv from '../custom_hooks/GET_HOOKS/useAgv';
@@ -14,6 +14,8 @@ import { useWebSocket } from 'react-use-websocket/dist/lib/use-websocket';
 import { SERVICE_URL } from '../utils/constants';
 const { Sider } = Layout;
 const { Option } = Select;
+import { deleteTaskById } from '../utils/crud_api';
+import useTasks from '../custom_hooks/GET_HOOKS/Tasks/useTasks';
 function SideDashboard({ isDrawerOpen }) {
     const { sendJsonMessage, lastMessage, readyState} = useWebSocket(SERVICE_URL, {shouldReconnect: (closeEvent) => true,});
     const { agvs } = useAGVs();
@@ -22,6 +24,7 @@ function SideDashboard({ isDrawerOpen }) {
     // const { agv, loading: agvDataLoading } = useAgv(selectedAGVId);
     const {task, loading: processingTaskLoading, fetchProcessingTask} = useProcessingTask(selectedAGVId);
     const {tasks, loading: allocatedTasksLoading, fetchAllocatedTasks} = useAllocatedTasks(selectedAGVId);
+    const {setTasks, fetchTasks} = useTasks();
     
     const handleAGVChange = (value) => {
         setSelectedAGVId(value);
@@ -42,9 +45,18 @@ function SideDashboard({ isDrawerOpen }) {
               fetchAllocatedTasks(selectedAGVId);
           }
       }, [selectedAGVId]);
-      const filteredProcessingTasks = task.filter(t => t.id_agv === parseInt(selectedAGVId));
-      const filteredAllocatedTasks = tasks.filter(t => t.id_agv === parseInt(selectedAGVId));
-      
+      const filteredProcessingTasks = useMemo(() => {
+        return task.filter(t => t.id_agv === parseInt(selectedAGVId));
+    }, [task, selectedAGVId, setTasks]);
+
+    const filteredAllocatedTasks = useMemo(() => {
+        return tasks.filter(t => t.id_agv === parseInt(selectedAGVId));
+    }, [tasks, selectedAGVId, setTasks]);
+      const handleDeleteTask = async (id) => {
+        await deleteTaskById(id);
+        fetchTasks();
+        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    };
     return (
         <Sider width="20%" className='siderStyle'>
             {/* <div style={{ marginLeft: isDrawerOpen ? '250px' : '0', transition: 'margin-left 0.5s' }}> */}
@@ -66,7 +78,8 @@ function SideDashboard({ isDrawerOpen }) {
                             className="agv-select"
                             onChange={handleAGVChange}
                             value={selectedAGVId}
-                        >
+                        
+                            >
                             {agvs.map((agv) => (
                             <Option key={agv.id} value={agv.id}>
                                 {agv.agv_name}
@@ -78,13 +91,25 @@ function SideDashboard({ isDrawerOpen }) {
                 {selectedAGVId && (
                     <>
                         <h2>Processing Tasks</h2>
-                        {processingTaskLoading ? <p>Loading Processing Task data...</p> : (
-                            <ProcessingTaskListByAGV task={filteredProcessingTasks} />
+                        {processingTaskLoading ? (
+                            <p>Loading Processing Task data...</p>
+                        ) : (
+                            filteredProcessingTasks.length > 0 ? (
+                                <ProcessingTaskListByAGV task={filteredProcessingTasks} onDelete={handleDeleteTask} />
+                            ) : (
+                                <p>No processing task data from this AGV</p>
+                            )
                         )}
 
                         <h2>Allocated Tasks</h2>
-                        {allocatedTasksLoading ? <p>Loading Allocated Task data...</p> : (
-                            <AllocatedTaskListByAGV tasks={filteredAllocatedTasks} />
+                        {allocatedTasksLoading ? (
+                            <p>Loading Allocated Task data...</p>
+                        ) : (
+                            filteredAllocatedTasks.length > 0 ? (
+                                <AllocatedTaskListByAGV tasks={filteredAllocatedTasks} onDelete={handleDeleteTask} />
+                            ) : (
+                                <p>No allocated tasks data from this AGV</p>
+                            )
                         )}
                     </>
                 )}

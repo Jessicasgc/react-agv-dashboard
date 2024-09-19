@@ -34,9 +34,8 @@ function RegisterInput({ onRegister }) {
                 name="role"
                 label="Role"
                 rules={[{ required: true, message: 'Please select a role!' }]}
-                initialValue="operator"
             >
-                <Select>
+                <Select placeholder="Select Role">
                     <Option value="operator">Operator</Option>
                     <Option value="admin">Admin</Option>
                 </Select>

@@ -109,11 +109,13 @@ async function getUserLogged() {
     return { error: false, data: data.data };
   } catch (error) {
     console.error('Error retrieving user data:', error);
-    toast.error('Failed to retrieve user data');
+    // toast.error('Failed to retrieve user data');
     return { error: true, data: null };
   }
   
 }
+
+
 
 // async function getProfile() {
 //   const response = await fetchWithToken(`${BASE_URL}/profile`);
@@ -164,6 +166,53 @@ async function getUserLogged() {
 //   toast.success(responseJson.message);
 //   return { error: false, data: responseJson.data, message: responseJson.status };
 // }
+async function get5LogAuth() {
+  const response = await fetchWithToken(`${BASE_URL}/user/logauth5`);
+  const responseJson = await response.json();
+
+  if (responseJson['status']!=='success') {
+    toast.error(responseJson.message);
+    return { error: true, data: null };
+  }
+  // toast.success('Users data retrieved successfully!');
+  return { error: false, data: responseJson.data };
+}
+
+async function getLogActionAuthedUser() {
+  const response = await fetchWithToken(`${BASE_URL}/user/authedLogAction`);
+  const responseJson = await response.json();
+
+  if (responseJson['status']!=='success') {
+    toast.error(responseJson.message);
+    return { error: true, data: null };
+  }
+  // toast.success('Users data retrieved successfully!');
+  return { error: false, data: responseJson.data };
+}
+
+async function getAllAuthLog() {
+  const response = await fetchWithToken(`${BASE_URL}/user/logauth`);
+  const responseJson = await response.json();
+
+  if (responseJson['status']!=='success') {
+    toast.error(responseJson.message);
+    return { error: true, data: null };
+  }
+  // toast.success('Users data retrieved successfully!');
+  return { error: false, data: responseJson.data };
+}
+
+async function getAllActionLog() {
+  const response = await fetchWithToken(`${BASE_URL}/user/logaction`);
+  const responseJson = await response.json();
+
+  if (responseJson['status']!=='success') {
+    toast.error(responseJson.message);
+    return { error: true, data: null };
+  }
+  // toast.success('Users data retrieved successfully!');
+  return { error: false, data: responseJson.data };
+}
 
 async function getUsers() {
   const response = await fetchWithToken(`${BASE_URL}/user`);
@@ -232,35 +281,6 @@ async function deleteUserById(id) {
   toast.success(`User with ${id} deleted successfully!`);
   return { error: false, data: responseJson.data };
 }
-
-// async function addNote({ title, body }) {
-//   const response = await fetchWithTokenWithToken(`${BASE_URL}/notes`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ title, body }),
-//   });
-
-//   const responseJson = await response.json();
-
-//   if (responseJson.status !== 'success') {
-//     return { error: true, data: null };
-//   }
-
-//   return { error: false, data: responseJson.data };
-// }
-
-// async function getActiveNotes() {
-//   const response = await fetchWithTokenWithToken(`${BASE_URL}/notes`);
-//   const responseJson = await response.json();
-
-//   if (responseJson.status !== 'success') {
-//     return { error: true, data: null };
-//   }
-
-//   return { error: false, data: responseJson.data };
-// }
 
 //ItemTypes
 async function getItemTypes() {
@@ -521,7 +541,8 @@ async function addItem({ id_type, item_name }) {
     const responseJson = await response.json();
   
     if (responseJson['status']!=='success') {
-      toast.error(responseJson.message);
+      // toast.error(responseJson.message);
+      console.log(responseJson.message);
       return { error: true, data: null };
     }
     // toast.success(responseJson.message);
@@ -614,23 +635,11 @@ async function addItem({ id_type, item_name }) {
       toast.error(responseJson.message);
       return { error: true, data: null };
     }
-    toast.success(responseJson.message);
+    toast.success(responseJson.message, `assigned agv: ${responseJson.assigned_agv_id}`);
     return { error: false, data: responseJson.data };
   }
 
-  // async function doneConfirmTask(id) {
-  //   const response = await fetchWithToken(`${BASE_URL}/task/done/${id}`, {
-  //     method: 'POST',
-  //   });
-  
-  //   const responseJson = await response.json();
-  
-  //   if (responseJson.status !== 'success') {
-  //     return { error: true, data: null };
-  //   }
-  
-  //   return { error: false, data: responseJson.data };
-  // }
+
   
   async function editTaskById(id, {id_destination_station, id_start_station, id_item }) {
     console.log("id",id);
@@ -684,6 +693,10 @@ async function addItem({ id_type, item_name }) {
     // getProfile,
     updateUserStatusById,
     logout,
+    get5LogAuth,
+    getLogActionAuthedUser,
+    getAllAuthLog,
+    getAllActionLog,
 
     //Item Type
     getItemTypes,
@@ -720,11 +733,4 @@ async function addItem({ id_type, item_name }) {
     addTask,
     editTaskById,
     deleteTaskById
-//   addNote,
-//   getActiveNotes,
-//   getArchivedNotes,
-//   getNote,
-//   archiveNote,
-//   unarchiveNote,
-//   deleteNote,
  };

@@ -8,17 +8,15 @@ import LocaleContext from "../contexts/LocaleContext";
 function StationsPage() {
     const { stations, loading} = useStations();
     const {locale} = React.useContext(LocaleContext);
+
     return (
-        
         <Content>
           <h1 className="page-name">{locale=='id'? 'Halaman Stasiun':'Stations Page'}</h1>
           <div className="table-container"> 
-            <StationsTable stations={stations} loading={loading}/> 
+            <StationsTable stations={stations}/> 
          </div>
       
         </Content> 
-        
-    )
-        
+    ) 
 }
 export default StationsPage;

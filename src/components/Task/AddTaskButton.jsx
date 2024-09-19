@@ -1,47 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FaPlusCircle } from 'react-icons/fa';
-import { Popover } from 'antd';
+import { Popover, Button } from 'antd';
 import AddTask from './AddTask';
-import useAddTask from '../../custom_hooks/POST_HOOKS/useAddTask';
 
-function AddTaskButton() {
-    const [open, setOpen] = React.useState(false);
-    const { addingTask } = useAddTask();
+function AddTaskButton({ onAddTask }) {
+    const [open, setOpen] = useState(false);
+
+    const handleOpenChange = (newOpen) => {
+        setOpen(newOpen);
+    };
+
+    const onAddTaskHandler = (values) => {
+        try {
+            onAddTask(values); // Assuming values contain id_destination_station, id_start_station, id_item
+            hide();
+        } catch (error) {
+            console.error('Error adding task:', error);
+            // Handle error (e.g., show error message to user)
+        }
+    };
+
     const hide = () => {
         setOpen(false);
     };
 
-    // Handle popover visibility change
-    const handleOpenChange = (newOpen) => {
-        setOpen(newOpen);
-    };
-    
-      
-    async function onAddTaskHandler({ id_destination_station, id_start_station, id_item}){
-        // const response = 
-        await addingTask({ id_destination_station, id_start_station, id_item});
-        // onAddTask(response.data.data);
-        hide();
-    }
-    
     return (
         <Popover
-            content={<a><AddTask onAddTask={onAddTaskHandler} /></a>}
+            content={<AddTask onAddTask={onAddTaskHandler} />}
             title="Add Task"
             trigger="click"
-            open={open}
-            onOpenChange={handleOpenChange}
+            visible={open}
+            onVisibleChange={handleOpenChange}
             placement="bottom"
             overlayClassName="add-task-popover"
         >
-            <button className='icon-add-task'> 
-                <FaPlusCircle />
-            </button>
+            <Button className='icon-add-task' icon={<FaPlusCircle />} />
         </Popover>
     );
 }
-// AddTaskButton.propTypes = { 
-//     onAddTask: PropTypes.func.isRequired, 
-// };
+
+AddTaskButton.propTypes = {
+    onAddTask: PropTypes.func.isRequired,
+};
+
 export default AddTaskButton;

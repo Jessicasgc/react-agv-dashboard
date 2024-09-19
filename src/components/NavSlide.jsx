@@ -2,25 +2,26 @@ import { useState, useEffect } from 'react';
 import { LocaleConsumer } from '../contexts/LocaleContext';
 import { Link } from 'react-router-dom';
 import { Drawer, Button, Menu } from 'antd';
-import { MenuOutlined, DashboardOutlined, AppstoreOutlined, ScheduleOutlined } from '@ant-design/icons';
+import { MenuOutlined, DashboardOutlined, AppstoreOutlined, ScheduleOutlined, UserOutlined, InboxOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 const { Item } = Menu;
 
-function NavSlide({ setDrawerOpen }) {
+function NavSlide(
+    // { setDrawerOpen }
+) {
     const [visible, setVisible] = useState(false);
     const [selectedKey, setSelectedKey] = useState(null);
     
     const showDrawer = () => {
         setVisible(true);
-        setDrawerOpen(true)
+        // setDrawerOpen(true)
     };
 
     const onClose = () => {
         setVisible(false);
-        setDrawerOpen(false);
+        // setDrawerOpen(false);
     };
     useEffect(() => {
-        // Update burger button margin when visibility changes
         const burgerButton = document.querySelector('.burger-button');
         if (burgerButton) {
             burgerButton.style.marginLeft = visible ? '250px' : '10px';
@@ -53,8 +54,8 @@ function NavSlide({ setDrawerOpen }) {
                             <Item key="1" icon={<DashboardOutlined style={{ fontSize: '24px' }}/>} style={{ color: selectedKey === '1' ? (theme === 'light' ? 'var(--on-background-light)' : 'var(--on-background-dark)') : 'var(--on-background)' }}><Link to='/'>Dashboard</Link></Item>
                             <Item key="2" icon={<AppstoreOutlined style={{ fontSize: '24px' }}/>} style={{ color: selectedKey === '2' ? (theme === 'light' ? 'var(--on-background-light)' : 'var(--on-background-dark)') : 'var(--on-background)'}}><Link to='/item'>Item</Link></Item>
                             <Item key="3" icon={<ScheduleOutlined style={{ fontSize: '24px' }}/>} style={{ color: selectedKey === '3' ? (theme === 'light' ? 'var(--on-background-light)' : 'var(--on-background-dark)') : 'var(--on-background)' }}><Link to='/task'>Task</Link></Item>
-                            <Item key="4" icon={<ScheduleOutlined style={{ fontSize: '24px' }}/>} style={{ color: selectedKey === '4' ? (theme === 'light' ? 'var(--on-background-light)' : 'var(--on-background-dark)') : 'var(--on-background)' }}><Link to='/station'>Station</Link></Item>
-                            <Item key="5" icon={<ScheduleOutlined style={{ fontSize: '24px' }}/>} style={{ color: selectedKey === '5' ? (theme === 'light' ? 'var(--on-background-light)' : 'var(--on-background-dark)') : 'var(--on-background)' }}><Link to='/user'>User</Link></Item>
+                            <Item key="4" icon={<InboxOutlined style={{ fontSize: '24px' }}/>} style={{ color: selectedKey === '4' ? (theme === 'light' ? 'var(--on-background-light)' : 'var(--on-background-dark)') : 'var(--on-background)' }}><Link to='/station'>Station</Link></Item>
+                            <Item key="5" icon={<UserOutlined style={{ fontSize: '24px' }}/>} style={{ color: selectedKey === '5' ? (theme === 'light' ? 'var(--on-background-light)' : 'var(--on-background-dark)') : 'var(--on-background)' }}><Link to='/user'>User</Link></Item>
                         </Menu>
                     </Drawer>
                 </div>

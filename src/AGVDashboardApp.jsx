@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useLocation, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation, Link } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import DashboardPage from "./pages/DashboardPage";
 import E404Pages from "./pages/E404Pages";
@@ -10,39 +10,40 @@ import ItemsPage from "./pages/ItemsPage";
 import TaskPage from "./pages/TaskPage";
 import AddTaskButton from "./components/Task/AddTaskButton";
 import WaitingTaskButton from "./components/Task/WaitingTaskButton";
-import { Flex, Layout } from "antd";
-import LocaleToggle from './components/ToggleLocale';
-import ThemeToggle from './components/ToggleTheme';
+import { Layout } from "antd";
 import { getUserLogged, putAccessToken, logout} from '../src/utils/crud_api';
 import LoginPage from '../src/pages/LoginPage';
-import ForgetPasswordPage from '../src/pages/ForgetPasswordPage'; 
-import UsersTable from "./components/User/UsersTable";
 import { FaUser } from "react-icons/fa";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 import LogoutButton from "./components/User/LogoutButton";
-import ProfilePage from "./pages/ProfilePage";
 import NavSlideOperator from "./components/NavSlideOperator";
 import StationsPage from "./pages/StationsPage";
 import UsersPage from "./pages/UsersPage";
+import useWaitingTasks from "./custom_hooks/GET_HOOKS/Tasks/useWaitingTasks";
+import AdminProfilePage from "./pages/AdminProfilePage";
+import OperatorProfilePage from "./pages/OperatorProfilePage";
 
 const { Header, Footer} = Layout;
 // import { Content, Footer } from 'antd/es/layout/layout';
 
 const JustDashboardButtons = () => {
+  const { tasks, setTasks, fetchWaitingTasks } = useWaitingTasks();
   const location = useLocation();
 
   // Determine whether to show buttons based on location
   const showButtons = location.pathname === "/";
-
+//   const handleAddTask = (newTask) => {
+//     setTasks((prevTasks) => [...prevTasks, newTask]);
+// };
   return (
     <div className="just-dashboard-button">
       {showButtons && (
         <>
-          <AddTaskButton />
-          <WaitingTaskButton />
+            <AddTaskButton onAddTask={fetchWaitingTasks} />
+            <WaitingTaskButton tasks={tasks} setTasks={setTasks} />
         </>
       )}
     </div>
@@ -113,7 +114,6 @@ class AGVDashboardApp extends React.Component {
         authedUser: data,
       };
     });
-   // console.log(data)
   }
 
   async onLogout(){
@@ -131,7 +131,6 @@ class AGVDashboardApp extends React.Component {
     if (this.state.initializing) {
       return null;
     }
-    // {console.log(this.state.authedUser)}
     
     if(this.state.authedUser === null){
     return (
@@ -139,7 +138,6 @@ class AGVDashboardApp extends React.Component {
         <LocaleProvider value={this.state.localeContext}>
           <Layout style={{minHeight:"100%"}}>
             <Header className="headerStyle">
-              {/* <NavSlide/> */}
               <h1 className="dash-name" style={{paddingLeft: 150}} >
                 {this.state.localeContext.locale === "id"
                   ? "Dasbor AGV"
@@ -148,21 +146,10 @@ class AGVDashboardApp extends React.Component {
               <Navigation />
             </Header>
               <Layout  style={{backgroundColor: 'var(--body)', minHeight: "100%"}}>
-                {/* <Routes> */}
                 <ToastContainer />
                 <Routes>
                   <Route path='/*' element={<LoginPage loginSuccess={this.onLoginSuccess}/>} />
-                  <Route path='/forgetPass' element={<ForgetPasswordPage/>} />
-                  {/* <Route path="*" element={<E404Pages />} /> */}
-                  {/* <Route path="/register" element={<RegisterPage/>} /> */}
                 </Routes>
-                  {/* <Route path="/" element={
-                      <DashboardPage isDrawerOpen={this.state.isDrawerOpen} />}
-                  />
-                  <Route path="/item" element={<ItemsPage />} />
-                  <Route path="/task" element={<TaskPage />} /> */}
-                
-                {/* </Routes> */}
               </Layout>
             
             <Footer>
@@ -183,19 +170,18 @@ class AGVDashboardApp extends React.Component {
           <Layout style={{minHeight:"100%"}}>
             <Header className="headerStyle">
               <NavSlideOperator/>
+
+            <h1 className="dash-name">
+              {this.state.localeContext.locale === "id"
+                ? "Dasbor AGV"
+                : "AGV Dashboard"}
+            </h1>
             <div className="header-icons">
-    <Link to='/profile'><FaUser/></Link>
-    <LogoutButton logout={this.onLogout} name={this.state.authedUser.name}/>
-  </div>
-  <h1 className="dash-name">
-    {this.state.localeContext.locale === "id"
-      ? "Dasbor AGV"
-      : "AGV Dashboard"}
-  </h1>
-  <div className="header-icons">
-    <Navigation />
-    <JustDashboardButtons />
-  </div>
+                <Link to='/profile'><FaUser/></Link>
+            </div>
+                <LogoutButton logout={this.onLogout} name={this.state.authedUser.name}/>
+                <Navigation />
+                <JustDashboardButtons />
             </Header>
               <Layout  style={{backgroundColor: 'var(--body)', minHeight: "100%"}}>
               <ToastContainer />
@@ -205,9 +191,7 @@ class AGVDashboardApp extends React.Component {
                   />
                   <Route path='/item' element={<ItemsPage />} />
                   <Route path='/task' element={<TaskPage />} />
-                  {/* <Route path='/station' element={<StationsTable/>}/>
-                  <Route path='/user' element={<UsersTable/>}/> */}
-                  <Route path='/profile' element={<ProfilePage/>} />
+                  <Route path='/profile' element={<OperatorProfilePage/>} />
                   <Route path='*' element={<E404Pages />} />
 
                 </Routes>
@@ -226,26 +210,19 @@ class AGVDashboardApp extends React.Component {
     return (
       <ThemeProvider value={this.state}>
         <LocaleProvider value={this.state.localeContext}>
-            {/* <Layout className='layoutStyle'>
-          <Header className='headerStyle'>Header</Header>
-          <Layout>
-            <Sider width="25%" className='siderStyle'>
-              Sider
-            </Sider>
-            <Content className='contentStyle'>Content</Content>
-          </Layout>
-          <Footer className='footerStyle'>Footer</Footer>
-        </Layout> */}
             <Layout style={{minHeight:"100%"}}>
               <Header className="headerStyle">
               <NavSlide/>
-              <Link to='/profile'><FaUser/></Link>
+            
               <h1 className="dash-name" style={{paddingLeft: 150}} >
                 {this.state.localeContext.locale === "id"
                   ? "Dasbor AGV"
                   : "AGV Dashboard"}
               </h1>
-              <LogoutButton logout={this.onLogout} name={this.state.authedUser.name}/>
+              <div className="header-icons">
+                <Link to='/profile'><FaUser/></Link>
+              </div>
+                <LogoutButton logout={this.onLogout} name={this.state.authedUser.name}/>
                 <Navigation />
                 <JustDashboardButtons />
               </Header>
@@ -259,7 +236,7 @@ class AGVDashboardApp extends React.Component {
                     <Route path="/task" element={<TaskPage />} />
                     <Route path="/station" element={<StationsPage/>}/>
                     <Route path="/user" element={<UsersPage/>}/>
-                    <Route path="/login" element={<ForgetPasswordPage/>} />
+                    <Route path='/profile' element={<AdminProfilePage/>} />
                     <Route path="*" element={<E404Pages />} />
                   </Routes>
                 </Layout>

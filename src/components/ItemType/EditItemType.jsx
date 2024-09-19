@@ -1,51 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Form, Input, Button } from 'antd';
 import useItemTypes from '../../custom_hooks/GET_HOOKS/useItemTypes';
 
+const { Item: FormItem } = Form;
 
 function EditItemType({ id, editItemTypeById }) {
-    const { itemtypes, loading:itemTypesLoading } = useItemTypes();
-    console.log(id);
-    const [formData, setFormData] = React.useState({
-        // type_code: "",
+    const { itemtypes, loading: itemTypesLoading } = useItemTypes();
+    
+    const [form] = Form.useForm();
+    
+    const [formData, setFormData] = useState({
         type_name: "",
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (itemtypes.length > 0 && !itemTypesLoading) {
-          const itemtype = itemtypes.find(itemtype => itemtype.id === id);
-          if (itemtype) {
-            setFormData({
-             type_name: itemtype.type_name || "",
-            });
-          }
+            const itemtype = itemtypes.find(itemtype => itemtype.id === id);
+            if (itemtype) {
+                setFormData({
+                    type_name: itemtype.type_name || "",
+                });
+                form.setFieldsValue({
+                    type_name: itemtype.type_name || "",
+                });
+            }
         }
-      }, [id, itemtypes, itemTypesLoading]);
+    }, [id, itemtypes, itemTypesLoading, form]);
 
-    const onInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const onSubmitHandler = (e) => {
-        e.preventDefault();
-        editItemTypeById(id, formData);
+    const onSubmitHandler = async (values) => {
+        await editItemTypeById(id, values);
     };
 
     return (
-        <form className='task_input' onSubmit={onSubmitHandler}>
-
-            <input type="text" 
-                name="type_name" 
-                value={formData.type_name}
-                onChange={onInputChange}/>
+        <Form
+            form={form}
+            className='add-input'
+            onFinish={onSubmitHandler}
+            layout="vertical"
+        >
+            <FormItem
+                name="type_name"
+                label="Item Type Name"
+                rules={[{ required: true, message: 'Please enter item type name' }]}
+            >
+                <Input type="text" />
+            </FormItem>
             
-            <div className='task_action'>
-                <button type='submit'>
-                    Edit Item
-                </button>
-            </div>
-        </form>
+            <FormItem>
+                <div className='task_action'>
+                    <Button type='primary' htmlType='submit'>
+                        Edit Item Type
+                    </Button>
+                </div>
+            </FormItem>
+        </Form>
     );
 }
 

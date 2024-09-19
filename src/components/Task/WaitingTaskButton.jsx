@@ -1,14 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FaDatabase } from 'react-icons/fa';
 import { Badge, Popover } from 'antd';
 import WaitingTaskList from './WaitingTaskList';
 import useWaitingTasks from '../../custom_hooks/GET_HOOKS/Tasks/useWaitingTasks';
 import { deleteTaskById } from '../../utils/crud_api';
 
-function WaitingTaskButton() {
-    const {tasks, loading} = useWaitingTasks();
+function WaitingTaskButton({tasks, setTasks}) {
+    const {loading} = useWaitingTasks();
     const [open, setOpen] = React.useState(false);
-
     // const hide = () => {
     //     setOpen(false);
     // };
@@ -17,8 +17,9 @@ function WaitingTaskButton() {
     const handleOpenChange = (newOpen) => {
         setOpen(newOpen);
     };
-    const handleDeleteTask = (id) => {
-        deleteTaskById(id)
+    const handleDeleteTask = async(id) => {
+        await deleteTaskById(id)
+        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     };
 
 //    console.log(tasks);
@@ -33,7 +34,7 @@ function WaitingTaskButton() {
                                     <WaitingTaskList tasks={tasks} onDelete={handleDeleteTask} />
                                 </a>
                             ) : (
-                                <p>No tasks to display</p>
+                                <p style={{color: 'var(--on-background)'}}>No tasks to display</p>
                             )
                         )
                     }
@@ -52,6 +53,9 @@ function WaitingTaskButton() {
                 </Popover>
         </React.Fragment>
     );
+}
+
+WaitingTaskButton.propTypes = { tasks: PropTypes.array.isRequired, setTasks: PropTypes.func.isRequired 
 }
 
 export default WaitingTaskButton;

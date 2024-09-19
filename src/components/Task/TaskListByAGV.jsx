@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import useAllocatedTasks from '../../custom_hooks/GET_HOOKS/Tasks/useAllocatedTasks';
 import useProcessingTask from '../../custom_hooks/GET_HOOKS/Tasks/useProcessingTask';
 
-export function ProcessingTaskListByAGV({task}){
-    
-
-    // if (loading) return <p>Loading...</p>;
-   
+export function ProcessingTaskListByAGV({task, onDelete}){
     return (
         <div className='tasks-list'>
             {
@@ -16,6 +12,7 @@ export function ProcessingTaskListByAGV({task}){
                     key={ts.id} 
                     id={ts.id}
                     {...ts}   
+                    onDelete={onDelete}
                     />
                 ))  
             }
@@ -25,12 +22,10 @@ export function ProcessingTaskListByAGV({task}){
     
 ProcessingTaskListByAGV.propTypes= {
     task: PropTypes.array.isRequired,
+    onDelete: PropTypes.func.isRequired,
 }; 
 
-export function AllocatedTaskListByAGV({tasks}){
-    // const [tasks, loading] = useAllocatedTasks(1);
-    // if (loading) return <p>Loading...</p>;
-    // console.log(tasks);
+export function AllocatedTaskListByAGV({tasks, onDelete}){
     return (
         <div className='tasks-list'>
             {
@@ -38,7 +33,8 @@ export function AllocatedTaskListByAGV({tasks}){
                     <Task
                     key={task.id} 
                     id={task.id}
-                    {...task}   
+                    {...task}
+                    onDelete={onDelete}   
                     />
                 ))  
             }
@@ -48,5 +44,6 @@ export function AllocatedTaskListByAGV({tasks}){
     
 AllocatedTaskListByAGV.propTypes= {
     tasks: PropTypes.array.isRequired,
+    onDelete: PropTypes.func.isRequired,
 };
 

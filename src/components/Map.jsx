@@ -258,12 +258,12 @@ const HexGrid = ({obs, props, grid, stations}) => {
     
     
     let isObstacle = obs.find((o) =>  o.x == -s && o.y == -r);
-    let isStation = stations.find((station) => station.x === -s && station.y === -r);
+    let station = stations.find((station) => station.x === -s && station.y === -r);
 
     const hexMapColor = getComputedStyle(document.documentElement).getPropertyValue("--map");
     const obstacleColor = getComputedStyle(document.documentElement).getPropertyValue("--obstacle");
     const stationColor = "yellow";
-
+   
     return (
       <animated.mesh
         ref={mesh}
@@ -271,16 +271,19 @@ const HexGrid = ({obs, props, grid, stations}) => {
         castShadow
         position={[x, y,0]}
       >
-        <ValueDisplay hex={hex} />
-          <mesh geometry={cylinder}>
-            <meshBasicMaterial attach="material" color={ isStation
-      ? stationColor
-      : isObstacle
-      ? obstacleColor
-      : hexMapColor} />
-            {/* <meshBasicMaterial attach="material" color={isStation ? stationColor : (isObstacle ? obstacleColor : hexMapColor)} /> */}
-          </mesh>
-      </animated.mesh>
+         <ValueDisplay hex={hex} />
+      <mesh geometry={cylinder}>
+        <meshBasicMaterial attach="material" color={station ? stationColor : hexMapColor} />
+     
+      {station && (
+        <Html position={[-0.4, 1, 0.7]} center>
+          <div style={{ color: 'black', fontSize: '1em', transform: 'translate(-50%, -50%)' }}>
+            {station.station_name}
+          </div>
+        </Html>
+      )}
+       </mesh>
+    </animated.mesh>
     );
   };
   
@@ -295,6 +298,7 @@ const HexGrid = ({obs, props, grid, stations}) => {
           position={[0.7, 0.051, 0]}
         >
           {`${-hex.s},${-hex.r}`}
+          
         </Text>
       </>
     );
